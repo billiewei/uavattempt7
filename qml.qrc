@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>checkgreen.png</file>
+        <file>checkgrey.png</file>
+        <file>checkred.png</file>
+        <file>visa.png</file>
+        <file>discover.png</file>
+        <file>amx.png</file>
+        <file>map.png</file>
+        <file>logo.png</file>
+        <file>logo.jpg</file>
+    </qresource>
+</RCC>
