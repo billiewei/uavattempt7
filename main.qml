@@ -57,8 +57,8 @@ Item {
     // Pending Orders Window (vendor side)
     Window {
         id: pendingorderswindow
-        width: 500
-        height: 800
+        width: page.width
+        height: page.height
         Image {
             visible: true
             x: 430
@@ -402,8 +402,8 @@ Item {
     // Battery Status Window 2 [ORDERS] (vendor side)
     Window {
         id: batterystatuswindow
-        width: 500
-        height: 800
+        width: page.width
+        height: page.height
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -552,8 +552,8 @@ Item {
     // Vendor Track Order (vendor side)
     Window {
         id: trackorderswindow
-        width: 500
-        height: 800
+        width: page.width
+        height: page.height
         Image {
             visible: true
             x: 430
@@ -946,9 +946,8 @@ Item {
     // Drone Malfunction Error Page (vendor side)
     Window {
         id: malfunctioningwindow
-        width: 500
-        height: 800
-        visible: true
+        width: page.width
+        height: page.height
         Image {
             visible: true
             x: 430
@@ -996,8 +995,8 @@ Item {
     // Drone Location Page (vendor side)
     Window {
         id: dronelocationwindow
-        width: 500
-        height: 800
+        width: page.width
+        height: page.height
         Image {
             visible: true
             x: 430
@@ -1807,7 +1806,7 @@ Item {
     // Order Confirmation Window (user side)
     Window {
         id: orderconfirmationwindow
-        title: "Payment Window"
+        title: "Order Confirmation Window"
         width: page.width
         height: page.height
 
@@ -2049,6 +2048,7 @@ Item {
             y: 100
             width: 400
             height: 400
+
             signal resetState()
 
             center {
@@ -2101,6 +2101,18 @@ Item {
                 }
             }
 
+            Text {
+                id: customerlat
+                text: ""
+                visible: false
+            }
+
+            Text {
+                id: customerlong
+                text: ""
+                visible: false
+            }
+
             GeocodeModel {
                 id: geocodeModel
                 plugin: osmplugin
@@ -2110,7 +2122,10 @@ Item {
                 {
                     map.center.latitude = get(0).coordinate.latitude
                     map.center.longitude = get(0).coordinate.longitude
+                    customerlat.text = get(0).coordinate.latitude
+                    customerlong.text = get(0).coordinate.longitude
                 }
+
             }
 
             Component {
@@ -2118,36 +2133,10 @@ Item {
                 MapCircle {
                     radius: 5000/map.zoomLevel
                     color: "#F666FF"
-                    opacity: 0.7
-                    center: locationData.coordinate
-
-                    MouseArea {
-                        anchors.fill:parent
-                        id: circleMouseArea
-                        hoverEnabled: false
-
-                        onPressed : {
-                            map.resetState();
-                            map.state = ""
-                            map.lastX = mouse.x + parent.x
-                            map.lastY = mouse.y + parent.y
-                            map.pressX = mouse.x + parent.x
-                            map.pressY = mouse.y + parent.y
-                        }
-
-                        onPositionChanged: {
-                            if (map.state != "PointPopupMenu" ||
-                                Math.abs(map.pressX - parent.x- mouse.x ) > map.jitterThreshold ||
-                                Math.abs(map.pressY - parent.y -mouse.y ) > map.jitterThreshold) {
-                                map.state = ""
-                                if (pressed) parent.radius = parent.center.distanceTo(
-                                                 map.toCoordinate(Qt.point(mouse.x, mouse.y)))
-                            }
-                            if ((mouse.button == Qt.LeftButton) & (map.state == "")) {
-                                map.lastX = mouse.x + parent.x
-                                map.lastY = mouse.y + parent.y
-                            }
-                        }
+                    opacity: 0.5
+                    center {
+                        latitude: customerlat.text
+                        longitude: customerlong.text
                     }
                 }
             }
