@@ -153,8 +153,14 @@ Item {
             MouseArea{
                 id: order1_area
                 anchors.fill: parent
-                onClicked: if (order1_click.text == "0") {order1_click.text = "1"}
-                           else if (order1_click.text == "1") {order1_click.text = "0"}
+                onClicked: if (order1_click.text == "0") {
+                               order1_click.text = "1"
+                               order2_click.text = "0"
+                           }
+                           else if (order1_click.text == "1") {
+                               order1_click.text = "0"
+                               order2_click.text = "0"
+                           }
             }
 
             Button {
@@ -291,8 +297,14 @@ Item {
             MouseArea{
                 id: order2_area
                 anchors.fill: parent
-                onClicked: if (order2_click.text == "0") {order2_click.text = "1"}
-                           else if (order2_click.text == "1") {order2_click.text = "0"}
+                onClicked: if (order2_click.text == "0") {
+                               order2_click.text = "1"
+                               order1_click.text = "0"
+                           }
+                           else if (order2_click.text == "1") {
+                               order2_click.text = "0"
+                               order1_click.text = "0"
+                           }
             }
         }
         Rectangle {
