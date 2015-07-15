@@ -2043,7 +2043,7 @@ Item {
         Map {
             id: map
             plugin: osmplugin
-            zoomLevel: maximumZoomLevel/2
+            zoomLevel: maximumZoomLevel
             anchors.horizontalCenter: parent.horizontalCenter
             y: 100
             width: 400
@@ -2067,7 +2067,9 @@ Item {
                     longitude: 114.265466
                 }
 
-                radius: 5000/map.zoomLevel
+                radius: if (map.zoomLevel < 13) {200}
+                        else {20}
+
                 color: "#FF4747"
                 border.width: 1
                 border.color: "#242424"
@@ -2077,8 +2079,8 @@ Item {
             Slider {
                 id: zoomSlider;
                 opacity: 1
-                maximumValue: map.maximumZoomLevel;
-                minimumValue: 20;
+                maximumValue: 20;
+                minimumValue: 10;
                 visible: parent.visible
                 z: map.z + 3
                 anchors {
@@ -2091,7 +2093,7 @@ Item {
                 value: map.zoomLevel
 
                 Binding {
-                    target: zoomSlider; property: "value"; value: map.zoomLevel
+                    target: zoomSlider; property: "value"; value: 12
                 }
 
                 onValueChanged: {
