@@ -59,8 +59,10 @@ Item {
         height: page.height
         Image {
             visible: true
-            x: 430
-            y: 730
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
             width: 50
             height: 50
             source: "qrc:/logo.png"
@@ -549,7 +551,8 @@ Item {
         Button {
             id: backButton4
             anchors.horizontalCenter: parent.horizontalCenter
-            y: 700
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 100
             width: 150
             text: "Return to homepage"
             onClicked:
@@ -557,7 +560,8 @@ Item {
         }
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
-            y: 730
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 70
             width: 150
             text: "View Battery Status"
             onClicked:
