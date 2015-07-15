@@ -9,7 +9,7 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 400
+    width: parent ? parent.width : 450
     height: parent ? parent.height : 800
 
     /********************************************************/
@@ -47,6 +47,86 @@ Item {
             text: "Place an Order"
             onClicked: {
                page.state = "availableitemsstate"
+            }
+        }
+        Button {
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: true
+            y: userloginButton.y + userloginButton.height + 30
+            width: 150
+            id: aboutButton
+            text: "About"
+            onClicked: {
+               page.state = "aboutwindowstate"
+            }
+        }
+    }
+
+    /********************************************************/
+    // About Page
+    Window {
+        id: aboutwindow
+        width: page.width
+        height: page.height
+        Image {
+            id: aboutlogo
+            visible: true
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 100
+            width: 100
+            height: 100
+            source: "qrc:/logo.png"
+            asynchronous : true
+        }
+        Text {
+            id: about
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: aboutlogo.y + aboutlogo.height + 50
+            text: "ABOUT"
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        Text {
+            id: aboutinfo
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+            y: about.y + about.height + 20
+            width: page.width - 100
+            wrapMode: Text.WordWrap
+            text: "This delivery system application was developed by the Harvard-HKUST Design Team 2015. To place an order, please click the buttons and follow the instructions given."
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        Text {
+            id: terms
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+            y: aboutinfo.y + aboutinfo.height + 30
+            width: page.width - 200
+            wrapMode: Text.WordWrap
+            text: "TERMS OF USE"
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        Text {
+            id: termsinfo
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+            y: terms.y + terms.height + 20
+            width: page.width - 100
+            wrapMode: Text.WordWrap
+            text: "By using this service you are bound to the terms of use outlined below. This app is currently under development and we reserve the right to make any changes or deny service for any reason. Also, your credit card information is definitely not at all secure, and we apologize for that."
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        Button {
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: termsinfo.y + termsinfo.height + 40
+            width: 150
+            id: backhomeButton
+            text: "Return to homepage"
+            onClicked: {
+               page.state = ""
             }
         }
     }
@@ -196,22 +276,17 @@ Item {
                 text: "Deliver Order"
                 onClicked: {
                      if (order1_click.text == "1") {
-                         console.debug("Deliver Order 1")
                          deliver.text = "1"
                          page.state = "batterystatuswindowstate"
                      }
                      else if (order2_click.text == "1") {
-                         console.debug("Deliver Order 2")
                          deliver.text = "2"
                          page.state = "batterystatuswindowstate"
-
                      }
                      else if (order3_click.text == "1"){
-                         console.debug("Deliver Order 3")
                          deliver.text = "3"
                          page.state = "batterystatuswindowstate"
                      }
-
                      else {console.debug("Please select order.")}
                 }
             }
@@ -342,7 +417,7 @@ Item {
             font.pixelSize: 12
             font.family: "Avenir"
             font.letterSpacing: 2
-            MouseArea{
+            MouseArea {
                 id: order2_area
                 anchors.fill: parent
                 onClicked: if (order2_click.text == "0") {
@@ -564,13 +639,17 @@ Item {
             anchors.bottomMargin: 70
             width: 150
             text: "View Battery Status"
-            onClicked:
+            onClicked: {
                 page.state = "batterystatuswindowstate"
+                proceed_button.visible = false
+                cancel_button.visible = false
+                backButton5.visible = true
+            }
         }
     }
 
     /********************************************************/
-    // Battery Status Window 2 [ORDERS] (vendor side)
+    // Battery Status Window (vendor side)
     Window {
         id: batterystatuswindow
         width: page.width
@@ -685,11 +764,15 @@ Item {
             id: proceed_button
             anchors.horizontalCenter: parent.horizontalCenter
             y: rectangle1.y + rectangle1.height + 150
-            width: 150
             visible: if (battery_green.visible == true) {true} else {false}
+            width: 150
             text: "Proceed"
-            onClicked:
+            onClicked: {
+                order1_click.text = "0"
+                order2_click.text = "0"
+                order3_click.text = "0"
                 page.state = "trackorderswindowstate"
+            }
         }
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -708,11 +791,23 @@ Item {
             }
         }
         Button {
+            id: backButton5
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: rectangle1.y + rectangle1.height + 150
+            width: 150
+            text: "Go Back"
+            onClicked: {
+                page.state = "pendingorderswindowstate"
+                backButton5.visible = false
+                proceed_button.visible = true
+                cancel_button.visible = true
+            }
+        }
+        Button {
             id: cancel_button
             anchors.horizontalCenter: parent.horizontalCenter
             y: proceed_button.y + proceed_button.height + 30
             width: 150
-            visible: true
             text: "Cancel"
             onClicked:
                 page.state = "pendingorderswindowstate"
@@ -727,8 +822,10 @@ Item {
         height: page.height
         Image {
             visible: true
-            x: 430
-            y: 730
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
             width: 50
             height: 50
             source: "qrc:/logo.png"
@@ -2261,7 +2358,6 @@ Item {
         title: "Track Your Order"
         width: page.width
         height: page.height
-        visible: true
         Image {
             visible: true
             anchors.right: parent.right
@@ -2638,6 +2734,17 @@ Item {
         State {
             name: "customertrackorderwindowstate"
             PropertyChanges {target: customertrackorderwindow; visible: true}
+            PropertyChanges {target: openingwindow; visible: false}
+            PropertyChanges {target: orderconfirmationwindow; visible: false}
+            PropertyChanges {target: paymentwindow; visible: false}
+            PropertyChanges {target: availableitemswindow; visible: false}
+            PropertyChanges {target: addressentrywindow; visible: false}
+            PropertyChanges {target: pendingorderswindow; visible: false}
+        },
+        // About Window State
+        State {
+            name: "aboutwindowstate"
+            PropertyChanges {target: aboutwindow; visible: true}
             PropertyChanges {target: openingwindow; visible: false}
             PropertyChanges {target: orderconfirmationwindow; visible: false}
             PropertyChanges {target: paymentwindow; visible: false}
