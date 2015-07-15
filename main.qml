@@ -9,7 +9,7 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 500
+    width: parent ? parent.width : 400
     height: parent ? parent.height : 800
 
     /********************************************************/
@@ -1688,7 +1688,7 @@ Item {
         }
         TextField {
             id: currentcustomerstreet
-            maximumLength: 30
+            maximumLength: 100
             anchors.horizontalCenter: parent.horizontalCenter
             y: 230
             width: page.width - 100
@@ -1742,13 +1742,12 @@ Item {
         TextField {
             id: currentcustomerphone
             anchors.horizontalCenter: parent.horizontalCenter
-            maximumLength: 11
+            maximumLength: 14
             y: 580
             width: page.width - 100
             height: 40
-            placeholderText: qsTr("Phone Number")
+            placeholderText: "X-XXX-XXX-XXXX (Phone Number)"
         }
-
         Button {
             id: submitaddressButton
             anchors.horizontalCenter: parent.horizontalCenter
@@ -1757,7 +1756,7 @@ Item {
             width: 100
             text: "Submit"
             visible:
-                if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomeremail.text == "") {false}
+                if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomeremail.text == "" || currentcustomername.text == "") {false}
                 else {true}
             onClicked:
                 page.state = "paymentwindowstate",
@@ -1781,7 +1780,8 @@ Item {
                 text: "Address incomplete."
             }
             visible:
-                if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "") {true}
+                if (namedenialrectangle.visible == true || emailrectangle.visible == true) {false}
+                else if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomercountry.text == "") {true}
                 else {false}
         }
         Rectangle {
@@ -1801,6 +1801,27 @@ Item {
             }
             visible:
                 if (currentcustomeremail.text != "") {false}
+                else if (addressdenialrectangle.visible == true || namedenialrectangle.visible == true) {false}
+                else {true}
+        }
+        Rectangle {
+            id: namedenialrectangle
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 660
+            width: 150
+            height: 20
+            color: "#D60000"
+            radius: 5
+            Text {
+                color: "white"
+                font.pixelSize: 12
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Please enter name."
+            }
+            visible:
+                if (currentcustomername.text != "") {false}
+                else if (addressdenialrectangle.visible == true || emailrectangle.visible == true) {false}
                 else {true}
         }
         Button {
@@ -2471,7 +2492,7 @@ Item {
             y: enroute.y + enroute.height + 20
             anchors.left: parent.left
             anchors.leftMargin: 50
-            text: "Order En Route"
+            text: "Delivered"
             font.family: "Avenir"
             font.letterSpacing: 2
         }
@@ -2501,8 +2522,6 @@ Item {
             font.family: "Avenir"
             font.letterSpacing: 2
         }*/
-
-        // Place another order
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
