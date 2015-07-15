@@ -9,7 +9,7 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 450
+    width: parent ? parent.width : 400
     height: parent ? parent.height : 800
 
     /********************************************************/
@@ -275,18 +275,18 @@ Item {
                          else if (order1_click.text == "1" | order2_click.text == "1" | order3_click.text == "1") {true}
                 text: "Deliver Order"
                 onClicked: {
-                     if (order1_click.text == "1") {
+                    page.state = "batterystatuswindowstate"
+                    backButton5.visible = false
+
+                    if (order1_click.text == "1") {
                          deliver.text = "1"
-                         page.state = "batterystatuswindowstate"
-                     }
-                     else if (order2_click.text == "1") {
+                    }
+                    else if (order2_click.text == "1") {
                          deliver.text = "2"
-                         page.state = "batterystatuswindowstate"
-                     }
-                     else if (order3_click.text == "1"){
+                    }
+                    else if (order3_click.text == "1"){
                          deliver.text = "3"
-                         page.state = "batterystatuswindowstate"
-                     }
+                    }
                      else {console.debug("Please select order.")}
                 }
             }
@@ -846,8 +846,8 @@ Item {
             id: tracking_drone
             anchors.horizontalCenter: parent.horizontalCenter
             y: 100
-            width: 400
-            height: 300
+            width: page.width - 100
+            height: page.width - 150
             z: 10
 
             Text {
@@ -875,8 +875,8 @@ Item {
             Map {
                 id: tracking_drone_map
                 plugin: osmplugin1
-                width: 400
-                height: 300
+                width: page.width - 100
+                height: page.width - 150
                 zoomLevel: mapslider1.value
                 center {
                     latitude: 22.3362535
@@ -966,8 +966,11 @@ Item {
         }
         Slider {
             id: mapslider1
-            x: tracking_drone.x + tracking_drone.width + 20
-            y: tracking_drone.y + 5
+            anchors.right: parent.right
+            anchors.rightMargin: 15
+            anchors.top: parent.top
+            anchors.topMargin: tracking_drone.y
+            height: tracking_drone_map.height
             value: 17
             maximumValue: 19
             minimumValue: 2
@@ -986,7 +989,7 @@ Item {
             id: currentdistance
             y: tracking_drone.y + tracking_drone.height + 25
             anchors.left: parent.left
-            anchors.leftMargin: 70
+            anchors.leftMargin: 50
             text: "Current Distance:"
             font.family: "Avenir"
             horizontalAlignment: Text.AlignHCenter
@@ -995,7 +998,7 @@ Item {
         Text {
             id: display_distance
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: 50
             y: tracking_drone.y + tracking_drone.height + 25
             text: distance.text
             font.family: "Avenir"
@@ -1006,7 +1009,7 @@ Item {
             id: deliverystatus
             y: currentdistance.y + currentdistance.height + 25
             anchors.left: parent.left
-            anchors.leftMargin: 70
+            anchors.leftMargin: 50
             text: qsTr("Current Status:")
             font.family: "Avenir"
             horizontalAlignment: Text.AlignHCenter
@@ -1015,7 +1018,7 @@ Item {
         Text {
             id: display_deliverystatus
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: 50
             y: currentdistance.y + currentdistance.height + 25
             text: if (delivered_validation.text != "Y" & delivered_validation.text != "N") {qsTr("Delivering")}
                   else if (delivered_validation.text == "Y" & returned_validation.text != "Y") {qsTr ("Returning")}
@@ -1028,7 +1031,7 @@ Item {
             id: delivered
             y: deliverystatus.y + deliverystatus.height + 25
             anchors.left: parent.left
-            anchors.leftMargin: 70
+            anchors.leftMargin: 50
             text: qsTr("Delivered")
             font.family: "Avenir"
             horizontalAlignment: Text.AlignHCenter
@@ -1046,7 +1049,7 @@ Item {
             height: delivered.height + 10
             width: delivered.height + 10
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: 50
             source: if (delivered_validation.text == "Y") {"checkgreen.png"}
                     else if (delivered_validation.text == "N" || delivered_validation.text == ""){"checkgrey.png"}
         }
@@ -1054,7 +1057,7 @@ Item {
             id: returned
             y: delivered.y + delivered.height + 20
             anchors.left: parent.left
-            anchors.leftMargin: 70
+            anchors.leftMargin: 50
             text: qsTr("Returned")
             font.family: "Avenir"
             horizontalAlignment: Text.AlignHCenter
@@ -1072,14 +1075,14 @@ Item {
             height: returned.height + 10
             width: returned.height + 10
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: 50
             source: if (returned_validation.text == "Y") {"checkgreen.png"}
                     else if (returned_validation.text == "N" || returned_validation.text == ""){"checkgrey.png"}
         }
         Text {
             id: currentbattery
             anchors.left: parent.left
-            anchors.leftMargin: 70
+            anchors.leftMargin: 50
             y: returned.y + returned.height + 30
             text: "Current Battery:"
             font.family: "Avenir"
@@ -1088,7 +1091,7 @@ Item {
         Rectangle {
             id: battery1
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: 50
             y: currentbattery.y - 4
             width: 75
             height: 30
@@ -1128,7 +1131,8 @@ Item {
         Button {
             id: view_other_orders
             anchors.horizontalCenter: parent.horizontalCenter
-            y: currentbattery.y + currentbattery.height + 50
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 110
             visible: true
             text: "View other orders"
             width: cancelreturn.width
@@ -1213,7 +1217,8 @@ Item {
         Button {
             id: cancelreturn
             anchors.horizontalCenter: parent.horizontalCenter
-            y: view_other_orders.y + view_other_orders.height + 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 70
             visible: if (returned_validation.text == "Y") {false} else {true}
             text: "Cancel Order and Return"
             onClicked: {
