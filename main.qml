@@ -941,6 +941,7 @@ Item {
             id: delivered_validation
             y: delivered.y
             x: delivered.x + delivered.width + 70
+            placeholderText: "Test Y or N"
         }
         Image {
             id: delivered_validationsign
@@ -966,6 +967,7 @@ Item {
             id: returned_validation
             y: returned.y
             x: returned.x + returned.width + 70
+            placeholderText: "Test Y or N"
         }
         Image {
             id: returned_validationsign
@@ -2278,7 +2280,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: 100
             width: page.width - 100
-            height: map.width - 100
+            height: map.width - 150
 
             signal resetState()
 
@@ -2292,7 +2294,7 @@ Item {
 
             // HOME
             MapCircle {
-                id: redcircle
+                id: homecoordinates
                 center {
                     latitude: 22.336400
                     longitude: 114.265466
@@ -2379,8 +2381,8 @@ Item {
                 delegate: pointDelegate
             }
         }
-        // Displays Customer Address
         Text {
+            id: custtrackorderaddress
             anchors.left: parent.left
             anchors.leftMargin: 50
             y: map.y + map.height + 20
@@ -2389,11 +2391,110 @@ Item {
             font.family: "Avenir"
             font.letterSpacing: 2
         }
+        Text {
+            id: distancecustside
+            text: Math.floor(6371000*Math.acos(Math.sin(currentlatitude.text*0.0174532925) * Math.sin(customerlat.text*0.0174532925) + Math.cos(currentlatitude.text*0.0174532925) * Math.cos(customerlat.text*0.0174532925) * Math.cos (customerlong.text*0.0174532925 - currentlongitude.text*0.0174532925))) + " m"
+            visible: false
+            y: custtrackorderaddress.y + custtrackorderaddress.height + 20
+        }
+        Text {
+            y: custtrackorderaddress.y + custtrackorderaddress.height + 20
+            anchors.left: parent.left
+            anchors.leftMargin: 50
+            text: "Current Distance:"
+            font.family: "Avenir"
+            horizontalAlignment: Text.AlignHCenter
+            font.letterSpacing: 2
+        }
+        Text {
+            id: display_distancecustside
+            anchors.right: parent.right
+            anchors.rightMargin: 70
+            y: custtrackorderaddress.y + custtrackorderaddress.height + 20
+            text: distancecustside.text
+            font.family: "Avenir"
+            horizontalAlignment: Text.AlignHCenter
+            font.letterSpacing: 2
+        }
+        Text {
+            id: orderrecieved
+            y: display_distancecustside.y + display_distancecustside.height + 20
+            anchors.left: parent.left
+            anchors.leftMargin: 50
+            text: "Order Recieved"
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        TextField {
+            id: orderrecievedvalidation
+            y: display_distancecustside.y + display_distancecustside.height + 20
+            anchors.left: parent.left
+            anchors.leftMargin: 200
+            placeholderText: "Test Y or N"
+        }
+        Image {
+            y: orderrecieved.y - 5
+            height: orderrecieved.height + 10
+            width: orderrecieved.height + 10
+            anchors.right: parent.right
+            anchors.rightMargin: 70
+            source: if (orderrecievedvalidation.text == "Y") {"checkgreen.png"}
+                    else if (orderrecievedvalidation.text == "N" || orderrecievedvalidation.text == ""){"checkgrey.png"}
+        }
+        Text {
+            id: enroute
+            y: orderrecieved.y + orderrecieved.height + 20
+            anchors.left: parent.left
+            anchors.leftMargin: 50
+            text: "Order En Route"
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        TextField {
+            id: enroutevalidation
+            y: orderrecieved.y + orderrecieved.height + 20
+            anchors.left: parent.left
+            anchors.leftMargin: 200
+            placeholderText: "Test Y or N"
+        }
+        Image {
+            y: enroute.y - 5
+            height: enroute.height + 10
+            width: enroute.height + 10
+            anchors.right: parent.right
+            anchors.rightMargin: 70
+            source: if (enroutevalidation.text == "Y") {"checkgreen.png"}
+                    else if (enroutevalidation.text == "N" || enroutevalidation.text == ""){"checkgrey.png"}
+        }
+        Text {
+            id: delivered2
+            y: enroute.y + enroute.height + 20
+            anchors.left: parent.left
+            anchors.leftMargin: 50
+            text: "Order En Route"
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        TextField {
+            id: deliveredvalidation2
+            y: enroute.y + enroute.height + 20
+            anchors.left: parent.left
+            anchors.leftMargin: 200
+            placeholderText: "Test Y or N"
+        }
+        Image {
+            y: delivered2.y - 5
+            height: delivered2.height + 10
+            width: delivered2.height + 10
+            anchors.right: parent.right
+            anchors.rightMargin: 70
+            source: if (deliveredvalidation2.text == "Y") {"checkgreen.png"}
+                    else if (deliveredvalidation2.text == "N" || deliveredvalidation2.text == ""){"checkgrey.png"}
+        }
 
         // Displays Lat/Long of Destination Address
         /*Text {
             anchors.left: parent
-            x: 50
             y: 200 + map.height
             width: 200
             text: "Latitude: " + map.center.latitude + '<br>' + "Longitude: "+ map.center.longitude
