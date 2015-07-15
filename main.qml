@@ -29,7 +29,6 @@ Item {
             source: "qrc:/logo.png"
             asynchronous : true
         }
-
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             y: logo.y + logo.height + 100
@@ -40,7 +39,6 @@ Item {
                 page.state = "pendingorderswindowstate"
             }
         }
-
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             y: vendorButton.y + vendorButton.height + 30
@@ -76,7 +74,6 @@ Item {
             font.family: "Avenir"
             font.letterSpacing: 2
         }
-
         Text {
             id: order1_click
             text: "0"
@@ -89,18 +86,23 @@ Item {
         }
         Text {
             id: order1_street
-            text: "29 Oxford Street"
+            text: "Hong Fung House"
             visible: false
         }
         Text {
             id: order1_city
-            text: "Cambridge"
+            text: "Hong Kong"
             visible: false
         }
         Text {
-            id: order1_statezip
-            text: "MA 02138"
+            id: order1_state
+            text: ""
             visible: false
+        }
+        Text {
+            id: order1_zip
+            text: ""
+            visible:false
         }
         Text {
             id: order1_totalprice
@@ -109,12 +111,12 @@ Item {
         }
         Text {
             id: order1_deliveryfee
-            text: "4"
+            text: "$ 4.00"
             visible: false
         }
         Text {
             id: order1_grandtotal
-            text: (order1_totalprice.text) + (order1_deliveryfee.text)
+            text: (order1_totalprice.text *1.08) + 4
             visible: false
         }
         Text {
@@ -128,6 +130,21 @@ Item {
             visible: false
         }
         Text {
+            id: order1_country
+            text: "Hong Kong"
+            visible: false
+        }
+        Text {
+            id: order1_time
+            y: order1.y
+            text: ""
+            visible: order1.visible
+            anchors.right: parent.right
+            anchors.rightMargin: 70
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        Text {
             id: order1
             y: 150
             text: if (order1_click.text == "0") {order1_name.text + " \n\nItems: " + order1_number.text}
@@ -135,11 +152,12 @@ Item {
                       order1_name.text + "\n\n" +
                       order1_order.text +
                       "\n\nTotal Price: $" + order1_totalprice.text +
-                      "\nDelivery Fee: $" + order1_deliveryfee.text +
+                      "\nDelivery Fee: " + order1_deliveryfee.text +
                       "\nGrand Total: $" + order1_grandtotal.text +
                       "\n\nPaid" +
                       "\n\nAddress: " + "\n" + order1_street.text +
-                      "\n" + order1_city.text + ", " + order1_statezip.text
+                      "\n" + order1_city.text + ", " + order1_state.text + " " + order1_zip.text +
+                      "\n" + order1_country.text
                   }
             visible: if (order1_name.text == "") {false}
                      else {true}
@@ -157,9 +175,11 @@ Item {
                 onClicked: if (order1_click.text == "0") {
                                order1_click.text = "1"
                                order2_click.text = "0"
+                               order3_click.text = "0"
                            }
                            else if (order1_click.text == "1") {
                                order1_click.text = "0"
+                               order3_click.text = "0"
                                order2_click.text = "0"
                            }
             }
@@ -168,27 +188,32 @@ Item {
                 id: deliverorder1_button
                 y: if (order1_click.text == "1") {order1.y + order1.height - deliverorder1_button.height - 100}
                    else if (order2_click.text == "1") {order2.y + order2.height - deliverorder1_button.height - 100}
-                   else {1000}
-                visible: if (order1_click.text == "0" & order2_click.text == "0") {false}
-                         else if (order1_click.text == "1" | order2_click.text == "1") {true}
+                   else if (order3_click.text == "1") {order3.y + order3.height - deliverorder1_button.height - 100}
+                visible: if (order1_click.text == "0" & order2_click.text == "0" & order3_click.text == "0") {false}
+                         else if (order1_click.text == "1" | order2_click.text == "1" | order3_click.text == "1") {true}
                 text: "Deliver Order"
                 onClicked: {
                      if (order1_click.text == "1") {
                          console.debug("Deliver Order 1")
-                         order1_deliver.text = "1"
+                         deliver.text = "1"
                          page.state = "batterystatuswindowstate"
                      }
                      else if (order2_click.text == "1") {
                          console.debug("Deliver Order 2")
-                         order2_deliver.text = "1"
+                         deliver.text = "2"
                          page.state = "batterystatuswindowstate"
 
                      }
+                     else if (order3_click.text == "1"){
+                         console.debug("Deliver Order 3")
+                         deliver.text = "3"
+                         page.state = "batterystatuswindowstate"
+                     }
+
                      else {console.debug("Please select order.")}
                 }
             }
         }
-
         Rectangle {
             id: order1_beforeline
             anchors.left: parent.left
@@ -217,9 +242,8 @@ Item {
                      else {true}
         }
         Text {
-            id: order1_deliver
+            id: deliver
             visible: false
-            text: "0"
         }
 
         Text {
@@ -229,23 +253,28 @@ Item {
         }
         Text {
             id: order2_name
-            text: "Billie"
+            text: ""
             visible: false
         }
         Text {
             id: order2_street
-            text: "29 Oxford Street"
+            text: ""
             visible: false
         }
         Text {
             id: order2_city
-            text: "Cambridge"
+            text: ""
             visible: false
         }
         Text {
-            id: order2_statezip
-            text: "MA 02138"
+            id: order2_state
+            text: ""
             visible: false
+        }
+        Text {
+            id: order2_zip
+            text: ""
+            visible:false
         }
         Text {
             id: order2_totalprice
@@ -254,12 +283,12 @@ Item {
         }
         Text {
             id: order2_deliveryfee
-            text: "8"
+            text: "$ 4.00"
             visible: false
         }
         Text {
             id: order2_grandtotal
-            text: (order2_totalprice.text) + (order2_deliveryfee.text)
+            text: (order2_totalprice.text*1.08) + 4
             visible: false
         }
         Text {
@@ -273,6 +302,21 @@ Item {
             visible: false
         }
         Text {
+            id: order2_country
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order2_time
+            y: order2.y
+            text: ""
+            visible: order2.visible
+            anchors.right: parent.right
+            anchors.rightMargin: 70
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        Text {
             id: order2
             y: order1_line.y + 25
             text: if (order2_click.text == "0") {order2_name.text + " \n\nItems: " + order2_number.text}
@@ -280,11 +324,12 @@ Item {
                   order2_name.text + "\n\n" +
                   order2_order.text +
                   "\n\nTotal Price: $" + order2_totalprice.text +
-                  "\nDelivery Fee: $" + order2_deliveryfee.text +
+                  "\nDelivery Fee: " + order2_deliveryfee.text +
                   "\nGrand Total: $" + order2_grandtotal.text +
                   "\n\nPaid" +
                   "\n\nAddress: " + "\n" + order2_street.text +
-                  "\n" + order2_city.text + ", " + order2_statezip.text
+                  "\n" + order2_city.text + ", " + order2_state.text + " " + order2_zip.text +
+                  "\n" + order2_country.text
                   }
             visible: if (order2_name.text == ""){false}
                      else {true}
@@ -300,9 +345,11 @@ Item {
                 anchors.fill: parent
                 onClicked: if (order2_click.text == "0") {
                                order2_click.text = "1"
+                               order3_click.text = "0"
                                order1_click.text = "0"
                            }
                            else if (order2_click.text == "1") {
+                               order3_click.text = "0"
                                order2_click.text = "0"
                                order1_click.text = "0"
                            }
@@ -323,10 +370,131 @@ Item {
             visible: if (order2_name.text == "") {false}
                      else {true}
         }
+
         Text {
-            id: order2_deliver
+            id: order3_click
             text: "0"
             visible: false
+        }
+        Text {
+            id: order3_name
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_street
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_city
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_state
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_zip
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_totalprice
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_deliveryfee
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_grandtotal
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_order
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_number
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_country
+            text: ""
+            visible: false
+        }
+        Text {
+            id: order3_time
+            y: order3.y
+            text: ""
+            visible: order3.visible
+            anchors.right: parent.right
+            anchors.rightMargin: 70
+            font.family: "Avenir"
+            font.letterSpacing: 2
+        }
+        Text {
+            id: order3
+            y: order2_line.y + 25
+            text: if (order3_click.text == "0") {order3_name.text + " \n\nItems: " + order3_number.text}
+                  else if (order3_click.text == "1"){
+                  order3_name.text + "\n\n" +
+                  order3_order.text +
+                  "\n\nTotal Price: $" + order3_totalprice.text +
+                  "\nDelivery Fee: " + order3_deliveryfee.text +
+                  "\nGrand Total: $" + order3_grandtotal.text +
+                  "\n\nPaid" +
+                  "\n\nAddress: " + "\n" + order3_street.text +
+                  "\n" + order3_city.text + ", " + order3_state.text + " " + order3_zip.text +
+                  "\n" + order3_country.text
+                  }
+            visible: if (order3_name.text == ""){false}
+                     else {true}
+            anchors.right: parent.right
+            anchors.rightMargin: 35
+            anchors.left: parent.left
+            anchors.leftMargin: 35
+            font.pixelSize: 12
+            font.family: "Avenir"
+            font.letterSpacing: 2
+
+            MouseArea{
+                id: order3_area
+                anchors.fill: parent
+                onClicked: if (order3_click.text == "0") {
+                               order3_click.text = "1"
+                               order2_click.text = "0"
+                               order1_click.text = "0"
+                           }
+                           else if (order3_click.text == "1") {
+                               order3_click.text = "0"
+                               order2_click.text = "0"
+                               order1_click.text = "0"
+                           }
+            }
+        }
+        Rectangle {
+            id: order3_line
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            y: if (order3_click.text == "0" ) {order3.y + order3.height + 20}
+               else if (order3_click.text == "1") {deliverorder1_button.y + deliverorder1_button.height + 170}
+            height: 1
+            color: "#6E6E6E"
+            border.width: 1
+            border.color: "#6E6E6E"
+            visible: if (order3_name.text == "") {false}
+                     else {true}
         }
 
         Text {
@@ -378,7 +546,6 @@ Item {
             id: orderb_number
             text: ""
         }
-
         Button {
             id: backButton4
             anchors.horizontalCenter: parent.horizontalCenter
@@ -388,7 +555,6 @@ Item {
             onClicked:
                 page.state = ""
         }
-
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             y: 730
@@ -450,7 +616,6 @@ Item {
             border.width: 3
             border.color: "#000"
         }
-
         Rectangle {
             id: battery_green
             x: rectangle1.x + 10
@@ -464,7 +629,6 @@ Item {
                 else {false}
             }
         }
-
         Rectangle {
             id: battery_orange
             x: rectangle1.x + 10
@@ -477,7 +641,6 @@ Item {
                 else {false}
             }
         }
-
         Rectangle {
             id: battery_red
             x: rectangle1.x + 10
@@ -490,7 +653,6 @@ Item {
                 else {false}
             }
         }
-
         Text {
             id: batteryinfo
             anchors.horizontalCenter: parent.horizontalCenter
@@ -515,7 +677,6 @@ Item {
                 if (battery_green.visible == true) {"#000"}
                 else {"#E00000"}
         }
-
         Button {
             id: proceed_button
             anchors.horizontalCenter: parent.horizontalCenter
@@ -526,7 +687,6 @@ Item {
             onClicked:
                 page.state = "trackorderswindowstate"
         }
-
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             y: rectangle1.y + rectangle1.height + 150
@@ -543,7 +703,6 @@ Item {
                 text: "Replace battery to proceed"
             }
         }
-
         Button {
             id: cancel_button
             anchors.horizontalCenter: parent.horizontalCenter
@@ -554,7 +713,6 @@ Item {
             onClicked:
                 page.state = "pendingorderswindowstate"
         }
-
     }
 
     /********************************************************/
@@ -574,16 +732,11 @@ Item {
         }
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 50
+            y: 50
             text: "TRACK ORDER"
             font.family: "Avenir"
             font.letterSpacing: 2
         }
-
-        property variant fromCoordinate: QtPositioning.coordinate(59.9483, 10.7695)
-        property variant toCoordinate: QtPositioning.coordinate(59.9645, 10.671)
-
         Plugin {
             id: osmplugin1
             name:"osm"
@@ -600,20 +753,24 @@ Item {
                 id: targetlatitude
                 visible: false
             }
+
             Text {
                 id: targetlongitude
                 visible: false
             }
+
             Text {
                 id: currentlatitude
                 text: "22.3362536"
                 visible: false
             }
+
             Text {
                 id: currentlongitude
                 text: "114.2629409"
                 visible: false
             }
+
             Map {
                 id: tracking_drone_map
                 plugin: osmplugin1
@@ -624,6 +781,7 @@ Item {
                     latitude: 22.3362535
                     longitude: 114.2629409
                 }
+
                 MapPolyline {
                     line.width: 3
                     line.color: 'green'
@@ -632,10 +790,12 @@ Item {
                         { latitude: targetlatitude.text, longitude: targetlongitude.text }
                     ]
                 }
+
                 MapItemView {
                     model: geocodeModel1
                     delegate: pointDelegate1
                 }
+
                 MapCircle {
                     id: point
                     radius: if (mapslider1.value < 13) {200}
@@ -649,18 +809,22 @@ Item {
                         longitude: currentlongitude.text
                     }
                 }
+
                 GeocodeModel {
                     id: geocodeModel1
                     plugin: osmplugin1
                     autoUpdate: true
                     query: fromAddress
                     onLocationsChanged: {
-                        tracking_drone_map.center.latitude = get(0).coordinate.latitude
-                        tracking_drone_map.center.longitude = get(0).coordinate.longitude
-                        targetlatitude.text = get(0).coordinate.latitude
-                        targetlongitude.text = get(0).coordinate.longitude
+
+                            tracking_drone_map.center.latitude = get(0).coordinate.latitude
+                            tracking_drone_map.center.longitude = get(0).coordinate.longitude
+                            targetlatitude.text = get(0).coordinate.latitude
+                            targetlongitude.text = get(0).coordinate.longitude
+
                     }
                 }
+
                 Component {
                     id: pointDelegate1
                     MapCircle {
@@ -677,13 +841,24 @@ Item {
                         }
                     }
                 }
+
                 Address {
                     id :fromAddress
-                    street: "Pik Shui Sun Tsuen"
-                    city: "Hong Kong"
-                    country: ""
-                    state : ""
-                    postalCode: "0"
+                    street: if (deliver.text == "1") {order1_street.text}
+                            else if (deliver.text == "2") {order2_street.text}
+                            else if (deliver.text == "3") {order3_street.text}
+                    city: if (deliver.text == "1") {order1_city.text}
+                          else if (deliver.text == "2") {order2_city.text}
+                          else if (deliver.text == "3") {order3_city.text}
+                    country: if (deliver.text == "1") {order1_country.text}
+                             else if (deliver.text == "2") {order2_country.text}
+                             else if (deliver.text == "3") {order3_country.text}
+                    state : if (deliver.text == "1") {order1_state.text}
+                            else if (deliver.text == "2") {order2_state.text}
+                            else if (deliver.text == "3") {order3_state.text}
+                    postalCode: if (deliver.text == "1") {order1_zip.text}
+                                else if (deliver.text == "2") {order2_zip.text}
+                                else if (deliver.text == "3") {order3_zip.text}
                 }
             }
 
@@ -855,55 +1030,80 @@ Item {
             text: "View other orders"
             width: cancelreturn.width
             onClicked: {
-                if(order1_deliver.text == "1" & display_deliverystatus.text == "Returned") {
+                page.state = "pendingorderswindowstate"
+                if(deliver.text == "1" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
                    order1_name.text = order2_name.text
                    order1_city.text = order2_city.text
                    order1_number.text = order2_number.text
-                   order1_statezip.text = order2_statezip.text
+                   order1_state.text = order2_state.text
+                   order1_zip.text = order2_zip.text
                    order1_street.text = order2_street.text
                    order1_order.text = order2_order.text
                    order1_totalprice.text = order2_totalprice.text
                    order1_deliveryfee.text = order2_deliveryfee.text
                    order1_grandtotal.text = order2_grandtotal.text
                    order1_click.text = "0"
+                   order1_time.text = order2_time.text
 
-                   order2_name.text = orderb_name.text
-                   order2_city.text = orderb_city.text
-                   order2_number.text = orderb_number.text
-                   order2_statezip.text = orderb_statezip.text
-                   order2_street.text = orderb_street.text
-                   order2_order.text = orderb_order.text
-                   order2_totalprice.text = orderb_totalprice.text
-                   order2_deliveryfee.text = orderb_deliveryfee.text
-                   order2_grandtotal.text = orderb_grandtotal.text
+                   order2_name.text = order3_name.text
+                   order2_city.text = order3_city.text
+                   order2_number.text = order3_number.text
+                   order2_state.text = order3_state.text
+                   order2_zip.text = order3_zip.text
+                   order2_street.text = order3_street.text
+                   order2_order.text = order3_order.text
+                   order2_totalprice.text = order3_totalprice.text
+                   order2_deliveryfee.text = order3_deliveryfee.text
+                   order2_grandtotal.text = order3_grandtotal.text
                    order2_click.text = "0"
+                   order2_time.text = ""
                 }
-                if(order2_deliver.text == "1" & display_deliverystatus.text == "Returned") {
-                   /*order1_name.text = order2_name.text
-                   order1_city.text = order2_city.text
-                   order1_number.text = order2_number.text
-                   order1_statezip.text = order2_statezip.text
-                   order1_street.text = order2_street.text
-                   order1_order.text = order2_order.text
-                   order1_totalprice.text = order2_totalprice.text
-                   order1_deliveryfee.text = order2_deliveryfee.text
-                   order1_grandtotal.text = order2_grandtotal.text
-                   order1_click.text = "0"*/
+                if(deliver.text == "2" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
 
-                   order2_name.text = orderb_name.text
-                   order2_city.text = orderb_city.text
-                   order2_number.text = orderb_number.text
-                   order2_statezip.text = orderb_statezip.text
-                   order2_street.text = orderb_street.text
-                   order2_order.text = orderb_order.text
-                   order2_totalprice.text = orderb_totalprice.text
-                   order2_deliveryfee.text = orderb_deliveryfee.text
-                   order2_grandtotal.text = orderb_grandtotal.text
+
+                   order2_name.text = order3_name.text
+                   order2_city.text = order3_city.text
+                   order2_number.text = order3_number.text
+                   order2_state.text = order3_state.text
+                   order2_zip.text = order3.zip.text
+                   order2_street.text = order3_street.text
+                   order2_order.text = order3_order.text
+                   order2_totalprice.text = order3_totalprice.text
+                   order2_deliveryfee.text = order3_deliveryfee.text
+                   order2_grandtotal.text = order3_grandtotal.text
                    order2_click.text = "0"
+                   order2_time.text = order3_time.text
+
+                   order3_name.text = orderb_name.text
+                   order3_city.text = orderb_city.text
+                   order3_number.text = orderb_number.text
+                   order3_state.text = ""
+                   order3_zip.text = ""
+                   order3_street.text = orderb_street.text
+                   order3_order.text = orderb_order.text
+                   order3_totalprice.text = orderb_totalprice.text
+                   order3_deliveryfee.text = orderb_deliveryfee.text
+                   order3_grandtotal.text = orderb_grandtotal.text
+                   order3_click.text = "0"
+                   order3_time.text = ""
+                }
+                if(deliver.text == "3" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
+
+
+                   order3_name.text = orderb_name.text
+                   order3_city.text = orderb_city.text
+                   order3_number.text = orderb_number.text
+                   order3_state.text = ""
+                   order3_street.text = orderb_street.text
+                   order3_order.text = orderb_order.text
+                   order3_totalprice.text = orderb_totalprice.text
+                   order3_deliveryfee.text = orderb_deliveryfee.text
+                   order3_grandtotal.text = orderb_grandtotal.text
+                   order3_click.text = "0"
+                   order3_time.text = ""
                 }
                pendingorders.visible = true
-               geocodeModel1.query = "HKU, Hong Kong"
-               geocodeModel1.update();
+
                //trackorders.visible = false
             }
         }
@@ -996,7 +1196,6 @@ Item {
             font.family: "Avenir"
             font.letterSpacing: 2
         }
-
         Map {
             id: tracking_dronelocation_map
             anchors.horizontalCenter: parent.horizontalCenter
@@ -1010,7 +1209,6 @@ Item {
                 longitude: 114.2629409
             }
         }
-
         Button {
             id: beep
             anchors.horizontalCenter: parent.horizontalCenter
@@ -1019,7 +1217,6 @@ Item {
             visible: true
             text: "BEEP"
         }
-
         Button {
             id: retrieved
             anchors.horizontalCenter: parent.horizontalCenter
@@ -1369,7 +1566,6 @@ Item {
                 text: (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
             }
         }
-
         Button {
             id: checkoutButton
             anchors.horizontalCenter: parent.horizontalCenter
@@ -1974,8 +2170,60 @@ Item {
             anchors.bottomMargin: 60
             width: 150
             text: "Place order now"
-            onClicked:
+            onClicked: {
                page.state = "customertrackorderwindowstate"
+               if (order1_name.text == "") {
+                order1_name.text = currentcustomername.text
+                order1_city.text = currentcustomercity.text
+                order1_number.text = (quantity1.text * 1) + (quantity2.text * 1) + (quantity3.text * 1) + (quantity4.text * 1)
+                order1_state.text = currentcustomerstate.text
+                order1_zip.text = currentcustomerzipcode.text
+                order1_street.text = currentcustomerstreet.text
+                order1_country.text = currentcustomercountry.text
+                order1_order.text = quantity1.text + " " + itemname1.text + "\n" +
+                                    quantity2.text + " " + itemname2.text + "\n" +
+                                    quantity3.text + " " + itemname3.text + "\n" +
+                                    quantity4.text + " " + itemname4.text
+                order1_totalprice.text = (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
+                order1_deliveryfee.text = shippingfee.text
+                order1_grandtotal.text = (totalprice.text*1.08 + 4.0).toFixed(2)
+                order1_time.text = Qt.formatTime(new Date(),"hh:mm")
+            }
+               else if (order2_name.text == ""){
+                    order2_name.text = currentcustomername.text
+                    order2_city.text = currentcustomercity.text
+                    order2_number.text = (quantity1.text * 1) + (quantity2.text * 1) + (quantity3.text * 1) + (quantity4.text * 1)
+                    order2_state.text = currentcustomerstate.text
+                    order2_zip.text = currentcustomerzipcode.text
+                    order2_street.text = currentcustomerstreet.text
+                    order2_country.text = currentcustomercountry.text
+                    order2_order.text = quantity1.text + " " + itemname1.text + "\n" +
+                                        quantity2.text + " " + itemname2.text + "\n" +
+                                        quantity3.text + " " + itemname3.text + "\n" +
+                                        quantity4.text + " " + itemname4.text
+                    order2_totalprice.text = (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
+                    order2_deliveryfee.text = shippingfee.text
+                    order2_grandtotal.text = (totalprice.text*1.08 + 4.0).toFixed(2)
+                    order2_time.text = Qt.formatTime(new Date(),"hh:mm")
+            }
+               else if (order3_name.text == ""){
+                    order3_name.text = currentcustomername.text
+                    order3_city.text = currentcustomercity.text
+                    order3_number.text = (quantity1.text * 1) + (quantity2.text * 1) + (quantity3.text * 1) + (quantity4.text * 1)
+                    order3_state.text = currentcustomerstate.text
+                    order3_zip.text = currentcustomerzipcode.text
+                    order3_street.text = currentcustomerstreet.text
+                    order3_country.text = currentcustomercountry.text
+                    order3_order.text = quantity1.text + " " + itemname1.text + "\n" +
+                                        quantity2.text + " " + itemname2.text + "\n" +
+                                        quantity3.text + " " + itemname3.text + "\n" +
+                                        quantity4.text + " " + itemname4.text
+                    order3_totalprice.text = (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
+                    order3_deliveryfee.text = shippingfee.text
+                    order3_grandtotal.text = (totalprice.text*1.08 + 4.0).toFixed(2)
+                    order3_time.text = Qt.formatTime(new Date(),"hh:mm")
+            }
+            }
         }
     }
 
