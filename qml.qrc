@@ -10,5 +10,6 @@
         <file>map.png</file>
         <file>logo.png</file>
         <file>logo.jpg</file>
+        <file>mainerin.qml</file>
     </qresource>
 </RCC>

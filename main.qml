@@ -9,8 +9,8 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 720
-    height: parent ? parent.height : 1280
+    width: parent ? parent.width : 500
+    height: parent ? parent.height : 800
 
     /********************************************************/
     // Login Window
@@ -140,14 +140,15 @@ Item {
         id: pendingorderswindow
         width: page.width
         height: page.height
+
         Image {
             visible: true
             anchors.right: parent.right
-            anchors.rightMargin: 20
+            anchors.rightMargin: page.width * 0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
+            anchors.bottomMargin: page.width * 0.05
+            width: page.width * 0.15
+            height: page.width * 0.15
             source: "qrc:/logo.png"
             asynchronous : true
         }
@@ -225,7 +226,7 @@ Item {
             text: "08:23"
             visible: order1.visible
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: page.width * 0.1
             font.family: "Avenir"
             font.letterSpacing: 2
         }
@@ -250,9 +251,9 @@ Item {
             anchors.rightMargin: 35
             anchors.left: parent.left
             anchors.leftMargin: 35
-            font.pixelSize: 12
             font.family: "Avenir"
             font.letterSpacing: 2
+            z: 10
 
             MouseArea{
                 id: order1_area
@@ -271,12 +272,13 @@ Item {
 
             Button {
                 id: deliverorder1_button
-                y: if (order1_click.text == "1") {order1.y + order1.height - deliverorder1_button.height - 100}
-                   else if (order2_click.text == "1") {order2.y + order2.height - deliverorder1_button.height - 100}
-                   else if (order3_click.text == "1") {order3.y + order3.height - deliverorder1_button.height - 100}
+                y: if (order1_click.text == "1") {order1.y + order1.height - 100}
+                   else if (order2_click.text == "1") {order2.y + order2.height - 100}
+                   else if (order3_click.text == "1") {order3.y + order3.height - 100}
                 visible: if (order1_click.text == "0" & order2_click.text == "0" & order3_click.text == "0") {false}
                          else if (order1_click.text == "1" | order2_click.text == "1" | order3_click.text == "1") {true}
                 text: "Deliver Order"
+                anchors.leftMargin: 35
                 onClicked: {
                     page.state = "batterystatuswindowstate"
                     backButton5.visible = false
@@ -392,7 +394,7 @@ Item {
             text: ""
             visible: order2.visible
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: page.width * 0.1
             font.family: "Avenir"
             font.letterSpacing: 2
         }
@@ -417,9 +419,9 @@ Item {
             anchors.rightMargin: 35
             anchors.left: parent.left
             anchors.leftMargin: 35
-            font.pixelSize: 12
             font.family: "Avenir"
             font.letterSpacing: 2
+            z: 10
             MouseArea {
                 id: order2_area
                 anchors.fill: parent
@@ -517,7 +519,7 @@ Item {
             text: ""
             visible: order3.visible
             anchors.right: parent.right
-            anchors.rightMargin: 70
+            anchors.rightMargin: page.width * 0.1
             font.family: "Avenir"
             font.letterSpacing: 2
         }
@@ -542,9 +544,9 @@ Item {
             anchors.rightMargin: 35
             anchors.left: parent.left
             anchors.leftMargin: 35
-            font.pixelSize: 12
             font.family: "Avenir"
             font.letterSpacing: 2
+            z: 10
 
             MouseArea{
                 id: order3_area
@@ -630,18 +632,24 @@ Item {
             id: backButton4
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 100
-            width: 150
+            anchors.bottomMargin: 240
+            visible: if (order1_click.text == "1" | order2_click.text == "1" | order3_click.text == "1") {false}
+                     else {true}
             text: "Return to homepage"
+            z:0
             onClicked:
-                page.state = ""
+                page.state = "openwindowstate"
         }
         Button {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 70
-            width: 150
+           id: viewbatterystatus_button
+           anchors.horizontalCenter: parent.horizontalCenter
+//            anchors.bottom: parent.bottom
+//            anchors.bottomMargin: 60
+            y: backButton4.y + backButton4.height + page.height*0.05
+            width: backButton4.width
             text: "View Battery Status"
+            visible: if (order1_click.text == "1" | order2_click.text == "1" | order3_click.text == "1") {false}
+                     else {true}
             onClicked: {
                 page.state = "batterystatuswindowstate"
                 proceed_button.visible = false
@@ -661,14 +669,15 @@ Item {
         Image {
             visible: true
             anchors.right: parent.right
-            anchors.rightMargin: 20
+            anchors.rightMargin: page.width * 0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
+            anchors.bottomMargin: page.width * 0.05
+            width: page.width * 0.15
+            height: page.width * 0.15
             source: "qrc:/logo.png"
             asynchronous : true
         }
+
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
@@ -679,7 +688,7 @@ Item {
         }
         TextField {
             id: percentage
-            y: 700
+            anchors.bottomMargin: 50
             text: "87"
             anchors.horizontalCenter: parent.horizontalCenter
             validator: IntValidator {bottom: 0; top: 100;}
@@ -745,9 +754,13 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             y: 400
-            width: 270
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: page.width * 0.15
+            anchors.rightMargin: page.height * 0.15
             wrapMode: Text.WordWrap
             font.letterSpacing: 2
+            visible: true
             font.family: "Avenir"
             text: {
                if (battery_green.visible == true) {
@@ -767,9 +780,8 @@ Item {
         Button {
             id: proceed_button
             anchors.horizontalCenter: parent.horizontalCenter
-            y: rectangle1.y + rectangle1.height + 150
+            y: batteryinfo.y + batteryinfo.height + 50
             visible: if (battery_green.visible == true) {true} else {false}
-            width: 150
             text: "Proceed"
             onClicked: {
                 order1_click.text = "0"
@@ -781,7 +793,7 @@ Item {
         Rectangle {
             id: batterydenialrectangle
             anchors.horizontalCenter: parent.horizontalCenter
-            y: rectangle1.y + rectangle1.height + 150
+            y: proceed_button
             height: proceed_button.height
             color: "#D60000"
             visible: if (battery_green.visible == true || backButton5.visible == true) {false} else {true}
@@ -798,7 +810,6 @@ Item {
             id: backButton5
             anchors.horizontalCenter: parent.horizontalCenter
             y: rectangle1.y + rectangle1.height + 150
-            width: 150
             text: "Go Back"
             onClicked: {
                 page.state = "pendingorderswindowstate"
@@ -810,9 +821,10 @@ Item {
         Button {
             id: cancel_button
             anchors.horizontalCenter: parent.horizontalCenter
-            y: proceed_button.y + proceed_button.height + 30
-            width: 150
+            y: proceed_button.y + proceed_button.height + 40
             text: "Cancel"
+            width: if (backButton5.visible == true) {backButton5.width}
+                   else {proceed_button.width}
             onClicked:
                 page.state = "pendingorderswindowstate"
         }
@@ -849,9 +861,9 @@ Item {
         Item {
             id: tracking_drone
             anchors.horizontalCenter: parent.horizontalCenter
-            y: 100
-            width: page.width - 100
-            height: page.width - 250
+            y: 120
+            width: page.width * 1.2
+            height: page.width
             z: 10
 
             Text {
@@ -879,8 +891,8 @@ Item {
             Map {
                 id: tracking_drone_map
                 plugin: osmplugin1
-                width: page.width - 100
-                height: page.width - 250
+                width: tracking_drone.width
+                height: tracking_drone.height
                 zoomLevel: mapslider1.value
                 center {
                     latitude: 22.3362535
@@ -1033,7 +1045,7 @@ Item {
         }
         Text {
             id: delivered
-            y: deliverystatus.y + deliverystatus.height + 25
+            y: deliverystatus.y + deliverystatus.height + 35
             anchors.left: parent.left
             anchors.leftMargin: 50
             text: qsTr("Delivered")
@@ -1059,7 +1071,7 @@ Item {
         }
         Text {
             id: returned
-            y: delivered.y + delivered.height + 20
+            y: delivered.y + delivered.height + 30
             anchors.left: parent.left
             anchors.leftMargin: 50
             text: qsTr("Returned")
@@ -1087,7 +1099,7 @@ Item {
             id: currentbattery
             anchors.left: parent.left
             anchors.leftMargin: 50
-            y: returned.y + returned.height + 30
+            y: returned.y + returned.height + 35
             text: "Current Battery:"
             font.family: "Avenir"
             font.letterSpacing: 2
@@ -1096,7 +1108,7 @@ Item {
             id: battery1
             anchors.right: parent.right
             anchors.rightMargin: 50
-            y: currentbattery.y - 4
+            y: currentbattery.y
             width: 75
             height: 30
             color: "#00000000"
@@ -1136,12 +1148,14 @@ Item {
             id: view_other_orders
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 110
+            anchors.bottomMargin: page.width * 0.55
             visible: true
             text: "View other orders"
             width: cancelreturn.width
             onClicked: {
                 page.state = "pendingorderswindowstate"
+                delivered_validation.text = ""
+                returned_validation.text = ""
                 if(deliver.text == "1" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
                    order1_name.text = order2_name.text
                    order1_city.text = order2_city.text
@@ -1221,8 +1235,7 @@ Item {
         Button {
             id: cancelreturn
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 70
+            y: view_other_orders.y + view_other_orders.height + 40
             visible: if (returned_validation.text == "Y") {false} else {true}
             text: "Cancel Order and Return"
             onClicked: {
@@ -1239,21 +1252,20 @@ Item {
         width: page.width
         height: page.height
         Image {
+            id: logowarn
             visible: true
-            anchors.right: parent.right
-            anchors.rightMargin: 20
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: page.height*.25
+            width: page.width*.4
+            height: page.width*.4
             source: "qrc:/logo.png"
             asynchronous : true
         }
         Text {
             id: malfunctioningpagetitle
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 200
+            y: logowarn.y + logowarn.height + page.height*.05
             text: "WARNING!"
             font.family: "Avenir"
             font.letterSpacing: 2
@@ -1264,8 +1276,8 @@ Item {
             id: malfunctioning_warning
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
-            width: 300
-            y: malfunctioningpagetitle.y + malfunctioningpagetitle.height + 50
+            width: page.width
+            y: malfunctioningpagetitle.y + malfunctioningpagetitle.height + page.height*.05
             font.family: "Avenir"
             font.letterSpacing: 2
             wrapMode: Text.WordWrap
@@ -1274,8 +1286,8 @@ Item {
         Button {
             id: malfunctioning_landing
             anchors.horizontalCenter: parent.horizontalCenter
-            y: malfunctioning_warning.y + malfunctioning_warning.height + 50
-            width: 150
+            y: malfunctioning_warning.y + malfunctioning_warning.height + page.width*.12
+            width: page.width*.5
             text: "Proceed"
             onClicked:
                 page.state = "dronelocationwindowstate"
@@ -1378,8 +1390,6 @@ Item {
             height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
             TextField {
                 id: quantity1
                 anchors.right: parent.right
@@ -1447,8 +1457,6 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 0
             height: page.height*0.12
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
             TextField {
                 id: quantity2
                 anchors.right: parent.right
@@ -1518,8 +1526,6 @@ Item {
             height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
             TextField {
                 id: quantity3
                 anchors.right: parent.right
@@ -1587,8 +1593,6 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 0
             height: page.height*0.12
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
             TextField {
                 id: quantity4
                 anchors.right: parent.right
@@ -1658,8 +1662,6 @@ Item {
             height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
             Text {
                 id: totalweighttext
                 anchors.left: parent.left
@@ -1805,190 +1807,188 @@ Item {
 
     /********************************************************/
     // Address Entry Window (user side)
-    Window {
-        id: addressentrywindow
-        width: page.width
-        height: page.height
-        Image {
-            visible: true
-            anchors.right: parent.right
-            anchors.rightMargin: 20
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
-            source: "qrc:/logo.png"
-            asynchronous : true
-        }
-        Text {
-            id: checkoutaddressWindowtitle
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 75
-            width: page.width - 100
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-            text: "PLEASE ENTER YOUR SHIPPING INFORMATION"
-            font.family: "Avenir"
-            font.letterSpacing: 2
-        }
-        TextField {
-            id: currentcustomername
-            maximumLength: 40
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 160
-            width: page.width - 100
-            height: 40
-            placeholderText: qsTr("Name")
-        }
-        TextField {
-            id: currentcustomerstreet
-            maximumLength: 100
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 230
-            width: page.width - 100
-            height: 40
-            placeholderText: qsTr("Street")
-        }
-        TextField {
-            id: currentcustomercity
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 300
-            width: page.width - 100
-            height: 40
-            placeholderText: qsTr("City")
-        }
-        TextField {
-            id: currentcustomerstate
-            anchors.left: parent.left
-            anchors.leftMargin: 50
-            y: 370
-            width: (page.width - 100) * 0.45
-            height: 40
-            placeholderText: qsTr("State")
-        }
-        TextField {
-            id: currentcustomerzipcode
-            maximumLength: 5
-            anchors.right: parent.right
-            anchors.rightMargin: 50
-            y: 370
-            width: (page.width - 100) * 0.45
-            height: 40
-            validator: IntValidator {bottom: 0; top: 99999;}
-            placeholderText: qsTr("Zip Code")
-        }
-        TextField {
-            id: currentcustomercountry
-            anchors.horizontalCenter: parent.horizontalCenter
-            placeholderText: "Country"
-            y: 440
-            width: page.width - 100
-            height: 40
-        }
-        TextField {
-            id: currentcustomeremail
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 510
-            width: page.width - 100
-            height: 40
-            placeholderText: qsTr("Email")
-        }
-        TextField {
-            id: currentcustomerphone
-            anchors.horizontalCenter: parent.horizontalCenter
-            maximumLength: 14
-            y: 580
-            width: page.width - 100
-            height: 40
-            placeholderText: "X-XXX-XXX-XXXX (Phone Number)"
-        }
-        Button {
-            id: submitaddressButton
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 660
-            z: addressdenialrectangle.z + 3
-            width: 100
-            text: "Submit"
-            visible:
-                if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomeremail.text == "" || currentcustomername.text == "") {false}
-                else {true}
-            onClicked:
-                page.state = "paymentwindowstate",
-                geocodeModel.query = geocodeAddress,
-                geocodeModel.update()
-        }
-        Rectangle {
-            id: addressdenialrectangle
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 660
-            z: emailrectangle.z + 3
-            width: 150
-            height: 20
-            color: "#D60000"
-            radius: 5
-            Text {
-                color: "white"
-                font.pixelSize: 12
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                text: "Address incomplete."
+            Window {
+                id: addressentrywindow
+                width: page.width
+                height: page.height
+                Image {
+                    visible: true
+                    anchors.right: parent.right
+                    anchors.rightMargin: page.width*.1
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: page.width*.1
+                    width: page.width*.15
+                    height: page.width*.15
+                    source: "qrc:/logo.png"
+                    asynchronous : true
+                }
+                Text {
+                    id: checkoutaddressWindowtitle
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: page.height*.1
+                    width: page.width
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    text: "PLEASE ENTER YOUR SHIPPING INFORMATION"
+                    font.family: "Avenir"
+                    font.letterSpacing: 2
+                }
+                TextField {
+                    id: currentcustomername
+                    maximumLength: 40
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: checkoutaddressWindowtitle.y + page.height*.15
+                    width: page.width
+                    height: page.height*.1
+                    placeholderText: qsTr("Name")
+                }
+                TextField {
+                    id: currentcustomerstreet
+                    maximumLength: 100
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: currentcustomername.y + page.height*.12
+                    width: page.width
+                    height: page.height*.1
+                    placeholderText: qsTr("Street")
+                }
+                TextField {
+                    id: currentcustomercity
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: currentcustomerstreet.y + page.height*.12
+                    width: page.width
+                    height: page.height*.1
+                    placeholderText: qsTr("City")
+                }
+                TextField {
+                    id: currentcustomerstate
+                    anchors.left: currentcustomercity.left
+                    y: currentcustomercity.y + page.height*.12
+                    width: (page.width) * 0.45
+                    height: page.height*.1
+                    placeholderText: qsTr("State")
+                }
+                TextField {
+                    id: currentcustomerzipcode
+                    maximumLength: 5
+                    anchors.right: currentcustomercity.right
+                    y: currentcustomercity.y + page.height*.12
+                    width: (page.width) * 0.45
+                    height: page.height*.1
+                    validator: IntValidator {bottom: 0; top: 99999;}
+                    placeholderText: qsTr("Zip Code")
+                }
+                TextField {
+                    id: currentcustomercountry
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    placeholderText: "Country"
+                    y: currentcustomerzipcode.y + page.height*.12
+                    width: page.width
+                    height: page.height*.1
+                }
+                TextField {
+                    id: currentcustomeremail
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: currentcustomercountry.y + page.height*.12
+                    width: page.width
+                    height: page.height*.1
+                    placeholderText: qsTr("Email")
+                }
+                TextField {
+                    id: currentcustomerphone
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    maximumLength: 14
+                    y: currentcustomeremail.y + page.height*.12
+                    width: page.width
+                    height: page.height*.1
+                    placeholderText: "X-XXX-XXX-XXXX (Phone Number)"
+                }
+                Button {
+                    id: submitaddressButton
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: currentcustomerphone.y + page.height*.12
+                    z: addressdenialrectangle.z + 3
+                    width:  page.width*0.5
+                    text: "Submit"
+                    visible:
+                        if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomeremail.text == "" || currentcustomername.text == "") {false}
+                        else {true}
+                    onClicked:
+                        page.state = "paymentwindowstate",
+                        geocodeModel.query = geocodeAddress,
+                        geocodeModel.update()
+                }
+                Rectangle {
+                    id: addressdenialrectangle
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: currentcustomerphone.y + page.height*.12
+                    z: emailrectangle.z + 3
+                    width:  page.width
+                    height: page.height*.1
+                    color: "#D60000"
+                    radius: 5
+                    Text {
+                        color: "white"
+                        font.pixelSize: 20
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: "Address incomplete."
+                    }
+                    visible:
+                        if (namedenialrectangle.visible == true || emailrectangle.visible == true) {false}
+                        else if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomercountry.text == "") {true}
+                        else {false}
+                }
+                Rectangle {
+                    id: emailrectangle
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: currentcustomerphone.y + page.height*.12
+                    width: page.width
+                    height: page.height*.1
+                    color: "#D60000"
+                    radius: 5
+                    Text {
+                        color: "white"
+                        font.pixelSize: 20
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: "Please enter email"
+                    }
+                    visible:
+                        if (currentcustomeremail.text != "") {false}
+                        else if (addressdenialrectangle.visible == true || namedenialrectangle.visible == true) {false}
+                        else {true}
+                }
+                Rectangle {
+                    id: namedenialrectangle
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: currentcustomerphone.y + page.height*.12
+                    width: page.width
+                    height: page.height*.1
+                    color: "#D60000"
+                    radius: 5
+                    Text {
+                        color: "white"
+                        font.pixelSize: 20
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: "Please enter name."
+                    }
+                    visible:
+                        if (currentcustomername.text != "") {false}
+                        else if (addressdenialrectangle.visible == true || emailrectangle.visible == true) {false}
+                        else {true}
+                }
+                Button {
+                    id: backButton3
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: submitaddressButton.y + page.height*.15
+                    width: page.width*0.5
+                    text: "Back"
+                    onClicked:
+                        page.state = "availableitemsstate"
+                }
             }
-            visible:
-                if (namedenialrectangle.visible == true || emailrectangle.visible == true) {false}
-                else if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomercountry.text == "") {true}
-                else {false}
-        }
-        Rectangle {
-            id: emailrectangle
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 660
-            width: 150
-            height: 20
-            color: "#D60000"
-            radius: 5
-            Text {
-                color: "white"
-                font.pixelSize: 12
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                text: "Please enter email"
-            }
-            visible:
-                if (currentcustomeremail.text != "") {false}
-                else if (addressdenialrectangle.visible == true || namedenialrectangle.visible == true) {false}
-                else {true}
-        }
-        Rectangle {
-            id: namedenialrectangle
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 660
-            width: 150
-            height: 20
-            color: "#D60000"
-            radius: 5
-            Text {
-                color: "white"
-                font.pixelSize: 12
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                text: "Please enter name."
-            }
-            visible:
-                if (currentcustomername.text != "") {false}
-                else if (addressdenialrectangle.visible == true || emailrectangle.visible == true) {false}
-                else {true}
-        }
-        Button {
-            id: backButton3
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 700
-            width: 100
-            text: "Back"
-            onClicked:
-                page.state = "availableitemsstate"
-        }
-    }
 
     /********************************************************/
     // Payment Window (user side)
