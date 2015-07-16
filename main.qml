@@ -1370,7 +1370,7 @@ Item {
         Rectangle {
             id: item1
             anchors.horizontalCenter: parent.horizontalCenter
-            y: availableitemswindowtitle.y + page.width*0.1
+            y: availableitemswindowtitle.y + availableitemswindowtitle.height + page.height*0.05
             anchors.left: parent.left
             anchors.leftMargin: 0
             anchors.right: parent.right
@@ -1398,6 +1398,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Water Balloon"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemweight1
@@ -1407,6 +1408,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "100"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 x: itemweight1.x + itemweight1.width + (page.width*0.02)
@@ -1414,6 +1416,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 anchors.left: parent.left
@@ -1422,6 +1425,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemprice1
@@ -1431,6 +1435,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "2.15"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
         }
         Rectangle {
@@ -1462,6 +1467,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Okra"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemweight2
@@ -1471,6 +1477,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "100"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 x: itemweight2.x + itemweight2.width + (page.width*0.02)
@@ -1478,6 +1485,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 anchors.left: parent.left
@@ -1486,6 +1494,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemprice2
@@ -1495,6 +1504,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "2.20"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
         }
         Rectangle {
@@ -1528,6 +1538,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Iced Coffee"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemweight3
@@ -1537,6 +1548,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "200"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 x: itemweight3.x + itemweight3.width + (page.width*0.02)
@@ -1544,6 +1556,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 anchors.left: parent.left
@@ -1552,6 +1565,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemprice3
@@ -1561,6 +1575,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "5.00"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
         }
         Rectangle {
@@ -1592,6 +1607,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Mangoes"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemweight4
@@ -1601,6 +1617,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "100"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 x: itemweight4.x + itemweight4.width + (page.width*0.02)
@@ -1608,6 +1625,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 anchors.left: parent.left
@@ -1616,6 +1634,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: itemprice4
@@ -1625,6 +1644,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "3.00"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
         }
         Rectangle {
@@ -1648,8 +1668,8 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Total Weight:"
                 font.family: "Avenir"
-                font.pixelSize: 12
                 style: Text.Normal
+                font.pixelSize: 12
             }
             Text {
                 id: totalpricetext
@@ -1659,6 +1679,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "Total Price:"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: maxweighttext
@@ -1667,6 +1688,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "/ 400 g"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: dollarsign5
@@ -1676,6 +1698,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
+                font.pixelSize: 12
             }
             Text {
                 id: totalweight
@@ -1683,6 +1706,7 @@ Item {
                     if (totalweight.text > 400) {"#D60000"}
                     else {"black"}
                 font.family: "Avenir"
+                font.pixelSize: 12
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.3
                 anchors.top: parent.top
@@ -1692,6 +1716,7 @@ Item {
             Text {
                 id: totalprice
                 font.family: "Avenir"
+                font.pixelSize: 12
                 x: dollarsign5.x + dollarsign5.width + page.width*0.02
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: parent.height*0.25
