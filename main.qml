@@ -91,18 +91,19 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             y: about.y + about.height + 20
-            width: page.width - 100
+            width: page.width*0.8
             wrapMode: Text.WordWrap
             text: "This delivery system application was developed by the Harvard-HKUST Design Team 2015. To place an order, please click the buttons and follow the instructions given."
             font.family: "Avenir"
             font.letterSpacing: 2
+            font.pixelSize: 10
         }
         Text {
             id: terms
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             y: aboutinfo.y + aboutinfo.height + 30
-            width: page.width - 200
+            width: page.width*0.8
             wrapMode: Text.WordWrap
             text: "TERMS OF USE"
             font.family: "Avenir"
@@ -113,16 +114,16 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             y: terms.y + terms.height + 20
-            width: page.width - 100
+            width: page.width*0.8
             wrapMode: Text.WordWrap
             text: "By using this service you are bound to the terms of use outlined below. This app is currently under development and we reserve the right to make any changes or deny service for any reason. Also, your credit card information is definitely not at all secure, and we apologize for that."
             font.family: "Avenir"
             font.letterSpacing: 2
+            font.pixelSize: 10
         }
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             y: termsinfo.y + termsinfo.height + 40
-            width: 150
             id: backhomeButton
             text: "Return to homepage"
             onClicked: {
