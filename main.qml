@@ -9,7 +9,7 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 400
+    width: parent ? parent.width : 500
     height: parent ? parent.height : 800
 
     /********************************************************/
@@ -1371,7 +1371,10 @@ Item {
             id: item1
             anchors.horizontalCenter: parent.horizontalCenter
             y: availableitemswindowtitle.y + page.width*0.1
-            width: page.width
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
             height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
@@ -1434,7 +1437,10 @@ Item {
             id: item2
             anchors.horizontalCenter: parent.horizontalCenter
             y: item1.y + item1.height
-            width: page.width
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
             height: page.height*0.12
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
@@ -1495,7 +1501,10 @@ Item {
             id: item3
             anchors.horizontalCenter: parent.horizontalCenter
             y: item2.y + item2.height
-            width: page.width
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
             height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
@@ -1558,7 +1567,10 @@ Item {
             id: item4
             anchors.horizontalCenter: parent.horizontalCenter
             y: item3.y + item3.height
-            width: page.width
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
             height: page.height*0.12
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
@@ -1619,7 +1631,10 @@ Item {
             id: totalbox
             anchors.horizontalCenter: parent.horizontalCenter
             y: item4.y + item4.height
-            width: page.width
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
             height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
@@ -1685,10 +1700,10 @@ Item {
         }
         Button {
             id: checkoutButton
+            width: backButton1.width
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.15
-            width: backButton1.width
+            anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
             text: "Checkout"
             visible:
                 if (totalweight.text > 400 || totalweight.text == 0) {false}
@@ -1701,7 +1716,7 @@ Item {
             id: checkoutdenialrectangle
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.15
+            anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
             height: checkoutButton.height
             width: page.width*0.4
             color: "#D60000"
@@ -1721,7 +1736,7 @@ Item {
             id: checkoutdenialrectangle2
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.15
+            anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
             height: checkoutButton.height
             width: page.width*0.4
             color: "#D60000"
@@ -1741,7 +1756,7 @@ Item {
             id: backButton1
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.1
+            anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + (page.height*0.03)
             text: "Return to homepage"
             onClicked:
                 page.state = ""
@@ -1959,11 +1974,11 @@ Item {
         Image {
             visible: true
             anchors.right: parent.right
-            anchors.rightMargin: 20
+            anchors.rightMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
+            anchors.bottomMargin: page.width*0.05
+            width: page.width*.10
+            height: page.width*.10
             source: "qrc:/logo.png"
             asynchronous : true
         }
@@ -1971,7 +1986,7 @@ Item {
             id: paymentWindowtitle
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 100
+            anchors.topMargin: page.width*0.1
             text: "ENTER PAYMENT INFORMATION"
             font.family: "Avenir"
             font.letterSpacing: 2
@@ -1980,7 +1995,7 @@ Item {
             id: rowLayout1
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 150
+            anchors.topMargin: page.width*0.25
             width: paymentWindowtitle.width
             Column {
                 id: column0
@@ -1995,8 +2010,8 @@ Item {
                 }
                 Image {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: 50
-                    height: 50
+                    width: page.width*0.1
+                    height: page.width*0.1
                     fillMode: Image.PreserveAspectFit
                     source: "amx.png"
                 }
@@ -2014,8 +2029,8 @@ Item {
                 }
                 Image {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: 50
-                    height: 50
+                    width: page.width*0.1
+                    height: page.width*0.1
                     fillMode: Image.PreserveAspectFit
                     source: "visa.png"
                 }
@@ -2033,8 +2048,8 @@ Item {
                 }
                 Image {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: 50
-                    height: 50
+                    width: page.width*0.1
+                    height: page.width*0.1
                     fillMode: Image.PreserveAspectFit
                     source: "discover.png"
                 }
@@ -2044,9 +2059,9 @@ Item {
             id: cardnumber
             maximumLength: 19
             anchors.horizontalCenter: parent.horizontalCenter
-            y: rowLayout1.y + rowLayout1.height + 40
-            width: page.width - 100
-            height: 40
+            y: rowLayout1.y + rowLayout1.height + (page.height*0.05)
+            width: page.width*0.8
+            height: page.height*0.05
             placeholderText: "Card Number"
             echoMode: TextInput.Password
         }
@@ -2056,33 +2071,33 @@ Item {
             validator: IntValidator{bottom: 0; top: 9999;}
             anchors.horizontalCenter: parent.horizontalCenter
             echoMode: TextInput.Password
-            y: cardnumber.y + cardnumber.height + 40
-            width: page.width - 100
-            height: 40
+            y: cardnumber.y + cardnumber.height + (page.height*0.04)
+            width: page.width*0.8
+            height: page.height*0.05
             placeholderText: "Security Code"
         }
         TextField {
             id: cardholdername
             anchors.horizontalCenter: parent.horizontalCenter
-            y: cvccode.y + cvccode.height + 40
-            width: page.width - 100
-            height: 40
+            y: cvccode.y + cvccode.height + (page.height*0.04)
+            width: page.width*0.8
+            height: page.height*0.05
             placeholderText: qsTr("Cardholder's Name")
         }
         TextField {
             id: cardexpirationdate
             maximumLength: 7
             anchors.horizontalCenter: parent.horizontalCenter
-            y: cardholdername.y + cardholdername.height + 40
-            width: page.width - 100
-            height: 40
+            y: cardholdername.y + cardholdername.height + (page.height*0.04)
+            width: page.width*0.8
+            height: page.height*0.05
             placeholderText: "MM/YYYY" + "  " + "(Expiration Date)"
         }
         Button {
             id: submitpaymentinfoButton
             anchors.horizontalCenter: parent.horizontalCenter
-            y: cardexpirationdate.y + cardexpirationdate.height + 40
-            width: 180
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.1
             text: "Submit and Review Order"
             onClicked:
                page.state = "orderconfirmationwindowstate"
@@ -2090,8 +2105,9 @@ Item {
         Button {
             id: backButton2
             anchors.horizontalCenter: parent.horizontalCenter
-            y: submitpaymentinfoButton.y + submitpaymentinfoButton.height + 20
-            width: 180
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.05
+            width: submitpaymentinfoButton.width
             text: "Back"
             onClicked:
                page.state = "addressentrywindowstate"
@@ -2107,11 +2123,11 @@ Item {
         Image {
             visible: true
             anchors.right: parent.right
-            anchors.rightMargin: 20
+            anchors.rightMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
+            anchors.bottomMargin: page.width*0.05
+            width: page.width*.10
+            height: page.width*.10
             source: "qrc:/logo.png"
             asynchronous : true
         }
@@ -2119,7 +2135,7 @@ Item {
             id: orderconfirmationWindowtitle
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 50
+            anchors.topMargin: page.width*0.1
             text: "PLEASE CONFIRM ORDER INFORMATION"
             font.family: "Avenir"
             font.letterSpacing: 2
@@ -2127,9 +2143,9 @@ Item {
         Text {
             id: addressdisplaytext
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             anchors.top: parent.top
-            anchors.topMargin: 100
+            anchors.topMargin: page.width*0.2
             text: "ADDRESS"
             font.family: "Avenir"
             font.letterSpacing: 2
@@ -2137,10 +2153,9 @@ Item {
         Button {
             id: editaddressButton
             anchors.right: parent.right
-            anchors.rightMargin: 50
+            anchors.rightMargin: page.width*0.1
             anchors.top: parent.top
-            anchors.topMargin: 100
-            width: 80
+            anchors.topMargin: page.width*0.2
             text: "Edit"
             onClicked:
                page.state = "addressentrywindowstate"
@@ -2148,7 +2163,7 @@ Item {
         Text {
             id: displayaddress
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             y: addressdisplaytext.y + addressdisplaytext.height + 20
             text: currentcustomername.text + '<br>' + currentcustomerstreet.text + '<br>' + currentcustomercity.text  + ", " + currentcustomerstate.text + "  "+ currentcustomerzipcode.text
             font.family: "Avenir"
@@ -2157,7 +2172,7 @@ Item {
         Text {
             id: itemsordereddisplaytext
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             y: displayaddress.y + displayaddress.height + 30
             text: "ITEMS ORDERED"
             font.family: "Avenir"
@@ -2166,7 +2181,7 @@ Item {
         Text {
             id: item1confirmtext
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             height: if (quantity1.text == 0 || quantity1.text == "") {itemsordereddisplaytext.height}
             y: if (quantity1.text == 0 || quantity1.text == "") {itemsordereddisplaytext.y}
                else {itemsordereddisplaytext.y + 20}
@@ -2178,7 +2193,7 @@ Item {
         Text {
             id: item2confirmtext
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             height: if (quantity2.text == 0 || quantity2.text == "") {0}
             y: if (item1confirmtext.text == "") {itemsordereddisplaytext.y + 20}
                else {item1confirmtext.y + item1confirmtext.height + 20}
@@ -2190,7 +2205,7 @@ Item {
         Text {
             id: item3confirmtext
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             height: if (quantity3.text == 0 || quantity3.text == "") {0}
             y: if (item2confirmtext.text == "") {item1confirmtext.y + item1confirmtext.height + 20}
                else {item2confirmtext.y + item2confirmtext.height + 20}
@@ -2202,7 +2217,7 @@ Item {
         Text {
             id: item4confirmtext
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             height: if (quantity4.text == 0 || quantity4.text == "") {0}
             y: if (item3confirmtext.text == "") {item2confirmtext.y + item2confirmtext.height + 20}
                else {item3confirmtext.y + item3confirmtext.height + 20}
@@ -2214,9 +2229,8 @@ Item {
         Button {
             id: editorderButton
             anchors.right: parent.right
-            anchors.rightMargin: 50
+            anchors.rightMargin: page.width*0.1
             y: itemsordereddisplaytext.y
-            width: 80
             text: "Edit"
             onClicked:
                page.state = "availableitemsstate"
@@ -2224,20 +2238,18 @@ Item {
         // Totals
         Text {
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 180
-            width: 200
+            anchors.bottomMargin: page.height*0.24
             text: "TOTAL:"
             font.family: "Avenir"
             font.letterSpacing: 2
         }
         Text {
-            anchors.left: parent
-            x: 220
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.5
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 180
-            width: 200
+            anchors.bottomMargin: page.height*0.24
             text: "$" + totalprice.text
             wrapMode: Text.WordWrap
             font.family: "Avenir"
@@ -2245,9 +2257,9 @@ Item {
         }
         Text {
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 160
+            anchors.bottomMargin: page.height*0.21
             width: 200
             text: "TAX:"
             wrapMode: Text.WordWrap
@@ -2255,10 +2267,10 @@ Item {
             font.letterSpacing: 2
         }
         Text {
-            anchors.left: parent
-            x: 220
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.5
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 160
+            anchors.bottomMargin: page.height*0.21
             width: 200
             text: "$" + (totalprice.text*0.18).toFixed(2)
             wrapMode: Text.WordWrap
@@ -2267,9 +2279,9 @@ Item {
         }
         Text {
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 140
+            anchors.bottomMargin: page.height*0.18
             width: 200
             text: "SHIPPING:"
             wrapMode: Text.WordWrap
@@ -2278,18 +2290,18 @@ Item {
         }
         Text {
             id: shippingfee
-            x: 220
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.5
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 140
-            width: 200
+            anchors.bottomMargin: page.height*0.18
             text: if (totalweight.text > 0) {"$" + "4.00"} else {"$" + "0.00"}
             font.family: "Avenir"
             font.letterSpacing: 2        }
         Text {
             anchors.left: parent.left
-            anchors.leftMargin: 50
+            anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 120
+            anchors.bottomMargin: page.height*0.15
             width: 200
             text: "GRAND TOTAL:"
             wrapMode: Text.WordWrap
@@ -2297,9 +2309,10 @@ Item {
             font.letterSpacing: 2
         }
         Text {
-            x: 220
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.5
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 120
+            anchors.bottomMargin: page.height*0.15
             width: 200
             text: if (totalweight.text > 0) {"$" + (totalprice.text*1.08 + 4.0).toFixed(2)} else {"$0.00"}
             font.family: "Avenir"
@@ -2309,8 +2322,7 @@ Item {
             id: orderconfirmationButton
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 60
-            width: 150
+            anchors.bottomMargin: page.height*0.05
             text: "Place order now"
             onClicked: {
                page.state = "customertrackorderwindowstate"
