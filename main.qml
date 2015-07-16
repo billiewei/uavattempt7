@@ -23,16 +23,17 @@ Item {
             id: logo
             visible: true
             anchors.horizontalCenter: parent.horizontalCenter
-            y: 200
-            width: 150
-            height: 150
+            anchors.top: parent.top
+            anchors.topMargin: page.height*.25
+            width: page.width*.25
+            height: page.width*.25
             source: "qrc:/logo.png"
             asynchronous : true
         }
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             y: logo.y + logo.height + 100
-            width: 150
+            width: userloginButton.width
             id: vendorButton
             text: "Vendor Login"
             onClicked: {
@@ -42,7 +43,6 @@ Item {
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             y: vendorButton.y + vendorButton.height + 30
-            width: 150
             id: userloginButton
             text: "Place an Order"
             onClicked: {
@@ -53,7 +53,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: true
             y: userloginButton.y + userloginButton.height + 30
-            width: 150
+            width: userloginButton.width
             id: aboutButton
             text: "About"
             onClicked: {
@@ -85,6 +85,7 @@ Item {
             text: "ABOUT"
             font.family: "Avenir"
             font.letterSpacing: 2
+            font.pixelSize: 12
         }
         Text {
             id: aboutinfo
@@ -96,7 +97,7 @@ Item {
             text: "This delivery system application was developed by the Harvard-HKUST Design Team 2015. To place an order, please click the buttons and follow the instructions given."
             font.family: "Avenir"
             font.letterSpacing: 2
-            font.pixelSize: 10
+            font.pixelSize: 12
         }
         Text {
             id: terms
@@ -108,6 +109,7 @@ Item {
             text: "TERMS OF USE"
             font.family: "Avenir"
             font.letterSpacing: 2
+            font.pixelSize: 12
         }
         Text {
             id: termsinfo
@@ -119,7 +121,7 @@ Item {
             text: "By using this service you are bound to the terms of use outlined below. This app is currently under development and we reserve the right to make any changes or deny service for any reason. Also, your credit card information is definitely not at all secure, and we apologize for that."
             font.family: "Avenir"
             font.letterSpacing: 2
-            font.pixelSize: 10
+            font.pixelSize: 12
         }
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
