@@ -85,7 +85,7 @@ Item {
             text: "ABOUT"
             font.family: "Avenir"
             font.letterSpacing: 2
-            font.pixelSize: 12
+            font.pixelSize: 20
         }
         Text {
             id: aboutinfo
@@ -97,7 +97,7 @@ Item {
             text: "This delivery system application was developed by the Harvard-HKUST Design Team 2015. To place an order, please click the buttons and follow the instructions given."
             font.family: "Avenir"
             font.letterSpacing: 2
-            font.pixelSize: 12
+            font.pixelSize: 20
         }
         Text {
             id: terms
@@ -109,7 +109,7 @@ Item {
             text: "TERMS OF USE"
             font.family: "Avenir"
             font.letterSpacing: 2
-            font.pixelSize: 12
+            font.pixelSize: 20
         }
         Text {
             id: termsinfo
@@ -121,7 +121,7 @@ Item {
             text: "By using this service you are bound to the terms of use outlined below. This app is currently under development and we reserve the right to make any changes or deny service for any reason. Also, your credit card information is definitely not at all secure, and we apologize for that."
             font.family: "Avenir"
             font.letterSpacing: 2
-            font.pixelSize: 12
+            font.pixelSize: 20
         }
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -862,8 +862,8 @@ Item {
             id: tracking_drone
             anchors.horizontalCenter: parent.horizontalCenter
             y: 120
-            width: page.width * 1.2
-            height: page.width
+            width: page.width * 1.15
+            height: page.width * 0.9
             z: 10
 
             Text {
@@ -1148,7 +1148,7 @@ Item {
             id: view_other_orders
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.width * 0.55
+            anchors.bottomMargin: page.width * 0.4
             visible: true
             text: "View other orders"
             width: cancelreturn.width
@@ -1358,7 +1358,6 @@ Item {
         id: availableitemswindow
         width: page.width
         height: page.height
-        visible: true
         Image {
             visible: true
             anchors.right: parent.right
@@ -1378,6 +1377,7 @@ Item {
             text: "AVAILABLE ITEMS"
             font.family: "Avenir"
             font.letterSpacing: 2
+            font.pixelSize: 30
         }
         Rectangle {
             id: item1
@@ -1387,7 +1387,7 @@ Item {
             anchors.leftMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
-            height: page.height*0.12
+            height: page.height*0.13
             border.color: "#ADADAD"
             border.width: 0.5
             TextField {
@@ -1396,7 +1396,7 @@ Item {
                 anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
                 width: page.width*0.15
-                height: item1.height*0.3
+                height: page.height*0.1
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
@@ -1408,44 +1408,44 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Water Balloon"
                 font.family: "Avenir"
-                font.pixelSize: 14
+                font.pixelSize: 25
             }
             Text {
                 id: itemweight1
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "100"
                 font.family: "Avenir"
-                font.pixelSize: 14
+                font.pixelSize: 25
             }
             Text {
                 x: itemweight1.x + itemweight1.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "g"
                 font.family: "Avenir"
-                font.pixelSize: 14
+                font.pixelSize: 25
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.3
+                anchors.leftMargin: page.width*0.4
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
-                font.pixelSize: 14
+                font.pixelSize: 25
             }
             Text {
                 id: itemprice1
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.33
+                anchors.leftMargin: page.width*0.43
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "2.15"
                 font.family: "Avenir"
-                font.pixelSize: 14
+                font.pixelSize: 25
             }
         }
         Rectangle {
@@ -1456,14 +1456,14 @@ Item {
             anchors.leftMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
-            height: page.height*0.12
+            height: page.height*0.13
             TextField {
                 id: quantity2
                 anchors.right: parent.right
                 anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
                 width: page.width*0.15
-                height: item1.height*0.3
+                height: page.height*0.1
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
@@ -1475,44 +1475,44 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Okra"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: itemweight2
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "100"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 x: itemweight2.x + itemweight2.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "g"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.3
+                anchors.leftMargin: page.width*0.4
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: itemprice2
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.33
+                anchors.leftMargin: page.width*0.43
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "2.20"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
         }
         Rectangle {
@@ -1523,7 +1523,7 @@ Item {
             anchors.leftMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
-            height: page.height*0.12
+            height: page.height*0.13
             border.color: "#ADADAD"
             border.width: 0.5
             TextField {
@@ -1532,7 +1532,7 @@ Item {
                 anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
                 width: page.width*0.15
-                height: item1.height*0.3
+                height: page.height*0.1
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
@@ -1544,44 +1544,44 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Iced Coffee"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: itemweight3
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "200"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 x: itemweight3.x + itemweight3.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "g"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.3
+                anchors.leftMargin: page.width*0.4
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: itemprice3
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.33
+                anchors.leftMargin: page.width*0.43
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "5.00"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
         }
         Rectangle {
@@ -1592,14 +1592,14 @@ Item {
             anchors.leftMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
-            height: page.height*0.12
+            height: page.height*0.13
             TextField {
                 id: quantity4
                 anchors.right: parent.right
                 anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
                 width: page.width*0.15
-                height: item1.height*0.3
+                height: page.height*0.1
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
@@ -1611,44 +1611,44 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Mangoes"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: itemweight4
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "100"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 x: itemweight4.x + itemweight4.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "g"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.3
+                anchors.leftMargin: page.width*0.4
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: itemprice4
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.33
+                anchors.leftMargin: page.width*0.43
                 anchors.top: parent.top
                 anchors.topMargin: parent.height*0.25
                 text: "3.00"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
         }
         Rectangle {
@@ -1659,7 +1659,7 @@ Item {
             anchors.leftMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
-            height: page.height*0.12
+            height: page.height*0.13
             border.color: "#ADADAD"
             border.width: 0.5
             Text {
@@ -1671,7 +1671,7 @@ Item {
                 text: "Total Weight:"
                 font.family: "Avenir"
                 style: Text.Normal
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: totalpricetext
@@ -1681,26 +1681,26 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "Total Price:"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: maxweighttext
                 x: totalweight.x + totalweight.width + page.width*0.02
                 anchors.top: parent.top
-                anchors.topMargin: parent.height*0.25
+                anchors.topMargin: parent.height*0.22
                 text: "/ 400 g"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: dollarsign5
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.3
+                anchors.leftMargin: page.width*0.4
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: "$"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
             }
             Text {
                 id: totalweight
@@ -1708,20 +1708,20 @@ Item {
                     if (totalweight.text > 400) {"#D60000"}
                     else {"black"}
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
                 anchors.left: parent.left
-                anchors.leftMargin: page.width*0.3
+                anchors.leftMargin: page.width*0.4
                 anchors.top: parent.top
-                anchors.topMargin: parent.height*0.25
+                anchors.topMargin: parent.height*0.22
                 text: (quantity1.text*itemweight1.text) + (quantity2.text*itemweight2.text) + (quantity3.text*itemweight3.text) + (quantity4.text*itemweight4.text)
             }
             Text {
                 id: totalprice
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 25
                 x: dollarsign5.x + dollarsign5.width + page.width*0.02
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height*0.25
+                anchors.bottomMargin: parent.height*0.22
                 text: (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
             }
         }
@@ -1745,12 +1745,12 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
             height: checkoutButton.height
-            width: page.width*0.4
+            width: page.width*0.7
             color: "#D60000"
             radius: 5
             Text {
                 color: "white"
-                font.pixelSize: 12
+                font.pixelSize: 20
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 text: "Please remove some items."
@@ -1765,12 +1765,12 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
             height: checkoutButton.height
-            width: page.width*0.4
+            width: page.width*0.7
             color: "#D60000"
             radius: 5
             Text {
                 color: "white"
-                font.pixelSize: 12
+                font.pixelSize: 20
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 text: "You have no items in your cart."
@@ -2014,6 +2014,7 @@ Item {
             anchors.topMargin: page.width*0.1
             text: "ENTER PAYMENT INFORMATION"
             font.family: "Avenir"
+            font.pixelSize: 35
             font.letterSpacing: 2
         }
         RowLayout {
@@ -2035,8 +2036,8 @@ Item {
                 }
                 Image {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: page.width*0.1
-                    height: page.width*0.1
+                    width: page.width*0.15
+                    height: page.width*0.15
                     fillMode: Image.PreserveAspectFit
                     source: "amx.png"
                 }
@@ -2054,8 +2055,8 @@ Item {
                 }
                 Image {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: page.width*0.1
-                    height: page.width*0.1
+                    width: page.width*0.15
+                    height: page.width*0.15
                     fillMode: Image.PreserveAspectFit
                     source: "visa.png"
                 }
@@ -2073,8 +2074,8 @@ Item {
                 }
                 Image {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: page.width*0.1
-                    height: page.width*0.1
+                    width: page.width*0.15
+                    height: page.width*0.15
                     fillMode: Image.PreserveAspectFit
                     source: "discover.png"
                 }
@@ -2085,8 +2086,8 @@ Item {
             maximumLength: 19
             anchors.horizontalCenter: parent.horizontalCenter
             y: rowLayout1.y + rowLayout1.height + (page.height*0.05)
-            width: page.width*0.8
-            height: page.height*0.05
+            width: page.width
+            height: page.height*0.1
             placeholderText: "Card Number"
             echoMode: TextInput.Password
         }
@@ -2097,16 +2098,16 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             echoMode: TextInput.Password
             y: cardnumber.y + cardnumber.height + (page.height*0.04)
-            width: page.width*0.8
-            height: page.height*0.05
+            width: page.width
+            height: page.height*0.1
             placeholderText: "Security Code"
         }
         TextField {
             id: cardholdername
             anchors.horizontalCenter: parent.horizontalCenter
             y: cvccode.y + cvccode.height + (page.height*0.04)
-            width: page.width*0.8
-            height: page.height*0.05
+            width: page.width
+            height: page.height*0.1
             placeholderText: qsTr("Cardholder's Name")
         }
         TextField {
@@ -2114,15 +2115,15 @@ Item {
             maximumLength: 7
             anchors.horizontalCenter: parent.horizontalCenter
             y: cardholdername.y + cardholdername.height + (page.height*0.04)
-            width: page.width*0.8
-            height: page.height*0.05
+            width: page.width
+            height: page.height*0.1
             placeholderText: "MM/YYYY" + "  " + "(Expiration Date)"
         }
         Button {
             id: submitpaymentinfoButton
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.1
+            anchors.bottomMargin: backButton2.height + page.height*0.2
             text: "Submit and Review Order"
             onClicked:
                page.state = "orderconfirmationwindowstate"
@@ -2131,7 +2132,7 @@ Item {
             id: backButton2
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.05
+            anchors.bottomMargin: page.height*0.15
             width: submitpaymentinfoButton.width
             text: "Back"
             onClicked:
@@ -2163,6 +2164,7 @@ Item {
             anchors.topMargin: page.width*0.1
             text: "PLEASE CONFIRM ORDER INFORMATION"
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
@@ -2170,9 +2172,10 @@ Item {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.1
             anchors.top: parent.top
-            anchors.topMargin: page.width*0.2
+            anchors.topMargin: orderconfirmationWindowtitle.height + page.height*0.1
             text: "ADDRESS"
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Button {
@@ -2180,7 +2183,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: page.width*0.1
             anchors.top: parent.top
-            anchors.topMargin: page.width*0.2
+            anchors.topMargin: orderconfirmationWindowtitle.height + page.height*0.1
             text: "Edit"
             onClicked:
                page.state = "addressentrywindowstate"
@@ -2189,18 +2192,20 @@ Item {
             id: displayaddress
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.1
-            y: addressdisplaytext.y + addressdisplaytext.height + 20
+            y: addressdisplaytext.y + addressdisplaytext.height + page.height*0.03
             text: currentcustomername.text + '<br>' + currentcustomerstreet.text + '<br>' + currentcustomercity.text  + ", " + currentcustomerstate.text + "  "+ currentcustomerzipcode.text
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
             id: itemsordereddisplaytext
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.1
-            y: displayaddress.y + displayaddress.height + 30
+            y: displayaddress.y + displayaddress.height + page.height*0.1
             text: "ITEMS ORDERED"
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
@@ -2209,10 +2214,11 @@ Item {
             anchors.leftMargin: page.width*0.1
             height: if (quantity1.text == 0 || quantity1.text == "") {itemsordereddisplaytext.height}
             y: if (quantity1.text == 0 || quantity1.text == "") {itemsordereddisplaytext.y}
-               else {itemsordereddisplaytext.y + 20}
+               else {itemsordereddisplaytext.y + page.height*.05}
             text: if (quantity1.text == 0 || quantity1.text == "") {""}
                   else {itemname1.text + '<br>' + "Unit Price: $ " + itemprice1.text + '<br>' + "Quantity: "+ quantity1.text}
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
@@ -2225,6 +2231,7 @@ Item {
             text: if (quantity2.text == 0 || quantity2.text == "") {""}
                   else {itemname2.text + '<br>' + "Unit Price: $ " + itemprice2.text + '<br>' + "Quantity: "+ quantity2.text}
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
@@ -2237,6 +2244,7 @@ Item {
             text: if (quantity3.text == 0 || quantity3.text == "") {""}
                   else {itemname3.text + '<br>' + "Unit Price: $ " + itemprice3.text + '<br>' + "Quantity: "+ quantity3.text}
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
@@ -2249,6 +2257,7 @@ Item {
             text: if (quantity4.text == 0 || quantity4.text == "") {""}
                   else {itemname4.text + '<br>' + "Unit Price: $ " + itemprice4.text + '<br>' + "Quantity: "+ quantity4.text}
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Button {
@@ -2265,89 +2274,97 @@ Item {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.24
+            anchors.bottomMargin: page.height*0.5
             text: "TOTAL:"
             font.family: "Avenir"
+            font.pixelSize: 35
             font.letterSpacing: 2
         }
         Text {
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.5
+            anchors.leftMargin: page.width*0.7
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.24
+            anchors.bottomMargin: page.height*0.5
             text: "$" + totalprice.text
             wrapMode: Text.WordWrap
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.21
+            anchors.bottomMargin: page.height*0.44
             width: 200
             text: "TAX:"
             wrapMode: Text.WordWrap
             font.family: "Avenir"
+            font.pixelSize: 35
             font.letterSpacing: 2
         }
         Text {
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.5
+            anchors.leftMargin: page.width*0.7
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.21
+            anchors.bottomMargin: page.height*0.44
             width: 200
             text: "$" + (totalprice.text*0.18).toFixed(2)
             wrapMode: Text.WordWrap
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.18
+            anchors.bottomMargin: page.height*0.38
             width: 200
             text: "SHIPPING:"
             wrapMode: Text.WordWrap
             font.family: "Avenir"
+            font.pixelSize: 35
             font.letterSpacing: 2
         }
         Text {
             id: shippingfee
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.5
+            anchors.leftMargin: page.width*0.7
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.18
+            anchors.bottomMargin: page.height*0.38
             text: if (totalweight.text > 0) {"$" + "4.00"} else {"$" + "0.00"}
             font.family: "Avenir"
-            font.letterSpacing: 2        }
-        Text {
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.1
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.15
-            width: 200
-            text: "GRAND TOTAL:"
-            wrapMode: Text.WordWrap
-            font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Text {
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.5
+            anchors.leftMargin: page.width*0.1
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.15
+            anchors.bottomMargin: page.height*0.32
+            width: 200
+            text: "GRAND TOTAL:"
+            font.family: "Avenir"
+            font.pixelSize: 35
+            font.letterSpacing: 2
+        }
+        Text {
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.7
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.32
             width: 200
             text: if (totalweight.text > 0) {"$" + (totalprice.text*1.08 + 4.0).toFixed(2)} else {"$0.00"}
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
         }
         Button {
             id: orderconfirmationButton
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: page.height*0.05
+            anchors.bottomMargin: page.height*0.1
             text: "Place order now"
             onClicked: {
                page.state = "customertrackorderwindowstate"
@@ -2408,281 +2425,292 @@ Item {
 
     /********************************************************/
     // Customer Track Order Window (user side)
-    Window {
-        id: customertrackorderwindow
-        title: "Track Your Order"
-        width: page.width
-        height: page.height
-        Image {
-            visible: true
-            anchors.right: parent.right
-            anchors.rightMargin: 20
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
-            source: "qrc:/logo.png"
-            asynchronous : true
-        }
-        Text {
-            id: customertrackWindowtitle
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 50
-            text: "TRACK YOUR ORDER"
-            font.family: "Avenir"
-            font.letterSpacing: 2
-        }
-        Plugin {
-            id: osmplugin
-            name:"osm"
-        }
-        Address {
-            id: geocodeAddress
-            street: currentcustomerstreet.text
-            city: currentcustomercity.text
-            state: currentcustomerstate.text
-            country: currentcustomercountry.text
-            postalCode: currentcustomerzipcode.text
-        }
-        Map {
-            id: map
-            plugin: osmplugin
-            zoomLevel: maximumZoomLevel
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 100
-            width: page.width - 100
-            height: map.width - 150
-
-            signal resetState()
-
-            center {
-                latitude: 22.336400
-                longitude: 114.265466
+        Window {
+            id: customertrackorderwindow
+            title: "Track Your Order"
+            width: page.width
+            height: page.height
+            Image {
+                visible: true
+                anchors.right: parent.right
+                anchors.rightMargin: 20
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 20
+                width: 50
+                height: 50
+                source: "qrc:/logo.png"
+                asynchronous : true
+            }
+            Text {
+                id: customertrackWindowtitle
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: 50
+                text: "TRACK YOUR ORDER"
+                font.family: "Avenir"
+                font.letterSpacing: 2
+            }
+            Plugin {
+                id: osmplugin
+                name:"osm"
+            }
+            Address {
+                id: geocodeAddress
+                street: currentcustomerstreet.text
+                city: currentcustomercity.text
+                state: currentcustomerstate.text
+                country: currentcustomercountry.text
+                postalCode: currentcustomerzipcode.text
             }
 
-            gesture.flickDeceleration: 3000
-            gesture.enabled: true
+            MapPolyline {
+                line.width: 3
+                line.color: 'green'
+                path: [
+                    { latitude: currentlatitude.text, longitude: currentlongitude.text },
+                    { latitude: customerlat.text, longitude: customerlong.text }
+                ]
+            }
 
-            // HOME
-            MapCircle {
-                id: homecoordinates
+            Map {
+                id: map
+                plugin: osmplugin
+                zoomLevel: maximumZoomLevel
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 100
+                width: page.width * 1.2
+                height: page.width
+
+                signal resetState()
+
                 center {
                     latitude: 22.336400
                     longitude: 114.265466
                 }
 
-                radius: if (map.zoomLevel < 13) {200}
-                        else {20}
+                gesture.flickDeceleration: 3000
+                gesture.enabled: true
 
-                color: "#FF4747"
-                border.width: 1
-                border.color: "#242424"
-                opacity: 0.6
-            }
-
-            Slider {
-                id: zoomSlider;
-                opacity: 1
-                maximumValue: 20;
-                minimumValue: 10;
-                visible: parent.visible
-                z: map.z + 3
-                anchors {
-                    bottom: parent.bottom;
-                    bottomMargin: 15; rightMargin: 30; leftMargin: 30
-                    left: parent.left
-                }
-                width: parent.width - anchors.rightMargin - anchors.leftMargin
-
-                value: map.zoomLevel
-
-                Binding {
-                    target: zoomSlider; property: "value"; value: 12
-                }
-
-                onValueChanged: {
-                    map.zoomLevel = value
-                    map.state=""
-                    map.resetState()
-                }
-            }
-
-            Text {
-                id: customerlat
-                text: ""
-                visible: false
-            }
-
-            Text {
-                id: customerlong
-                text: ""
-                visible: false
-            }
-
-            GeocodeModel {
-                id: geocodeModel
-                plugin: osmplugin
-                autoUpdate: true
-                query: geocodeAddress
-                onLocationsChanged:
-                {
-                    map.center.latitude = get(0).coordinate.latitude
-                    map.center.longitude = get(0).coordinate.longitude
-                    customerlat.text = get(0).coordinate.latitude
-                    customerlong.text = get(0).coordinate.longitude
-                }
-
-            }
-
-            Component {
-                id: pointDelegate
+                // HOME
                 MapCircle {
-                    radius: 5000/map.zoomLevel
-                    color: "#F666FF"
-                    opacity: 0.5
+                    id: homecoordinates
                     center {
-                        latitude: customerlat.text
-                        longitude: customerlong.text
+                        latitude: 22.336400
+                        longitude: 114.265466
+                    }
+
+                    radius: if (map.zoomLevel < 13) {200}
+                            else {20}
+
+                    color: "#FF4747"
+                    border.width: 1
+                    border.color: "#242424"
+                    opacity: 0.6
+                }
+
+                Slider {
+                    id: zoomSlider;
+                    opacity: 1
+                    maximumValue: 20;
+                    minimumValue: 10;
+                    visible: parent.visible
+                    z: map.z + 3
+                    anchors {
+                        bottom: parent.bottom;
+                        bottomMargin: 15; rightMargin: 30; leftMargin: 30
+                        left: parent.left
+                    }
+                    width: parent.width - anchors.rightMargin - anchors.leftMargin
+
+                    value: map.zoomLevel
+
+                    Binding {
+                        target: zoomSlider; property: "value"; value: 12
+                    }
+
+                    onValueChanged: {
+                        map.zoomLevel = value
+                        map.state=""
+                        map.resetState()
                     }
                 }
+
+                Text {
+                    id: customerlat
+                    text: ""
+                    visible: false
+                }
+
+                Text {
+                    id: customerlong
+                    text: ""
+                    visible: false
+                }
+
+                GeocodeModel {
+                    id: geocodeModel
+                    plugin: osmplugin
+                    autoUpdate: true
+                    query: geocodeAddress
+                    onLocationsChanged:
+                    {
+                        map.center.latitude = get(0).coordinate.latitude
+                        map.center.longitude = get(0).coordinate.longitude
+                        customerlat.text = get(0).coordinate.latitude
+                        customerlong.text = get(0).coordinate.longitude
+                    }
+
+                }
+
+                Component {
+                    id: pointDelegate
+                    MapCircle {
+                        radius: 5000/map.zoomLevel
+                        color: "#F666FF"
+                        opacity: 0.5
+                        center {
+                            latitude: customerlat.text
+                            longitude: customerlong.text
+                        }
+                    }
+                }
+
+                MapItemView {
+                    model: geocodeModel
+                    delegate: pointDelegate
+                }
+            }
+            Text {
+                id: custtrackorderaddress
+                anchors.left: parent.left
+                anchors.leftMargin: 50
+                y: map.y + map.height + 20
+                width: 200
+                text: "Delivering to: " + '<br>' + currentcustomername.text + '<br>' + currentcustomerstreet.text + '<br>' + currentcustomercity.text  + ", " + currentcustomerstate.text + "  "+ currentcustomerzipcode.text
+                font.family: "Avenir"
+                font.letterSpacing: 2
+            }
+            Text {
+                id: distancecustside
+                text: Math.floor(6371000*Math.acos(Math.sin(currentlatitude.text*0.0174532925) * Math.sin(customerlat.text*0.0174532925) + Math.cos(currentlatitude.text*0.0174532925) * Math.cos(customerlat.text*0.0174532925) * Math.cos (customerlong.text*0.0174532925 - currentlongitude.text*0.0174532925))) + " m"
+                visible: false
+                y: custtrackorderaddress.y + custtrackorderaddress.height + 20
+            }
+            Text {
+                y: custtrackorderaddress.y + custtrackorderaddress.height + 20
+                anchors.left: parent.left
+                anchors.leftMargin: 50
+                text: "Current Distance:"
+                font.family: "Avenir"
+                horizontalAlignment: Text.AlignHCenter
+                font.letterSpacing: 2
+            }
+            Text {
+                id: display_distancecustside
+                anchors.right: parent.right
+                anchors.rightMargin: 70
+                y: custtrackorderaddress.y + custtrackorderaddress.height + 20
+                text: distancecustside.text
+                font.family: "Avenir"
+                horizontalAlignment: Text.AlignHCenter
+                font.letterSpacing: 2
+            }
+            Text {
+                id: orderrecieved
+                y: display_distancecustside.y + display_distancecustside.height + 20
+                anchors.left: parent.left
+                anchors.leftMargin: 50
+                text: "Order Recieved"
+                font.family: "Avenir"
+                font.letterSpacing: 2
+                z: 10
+            }
+            TextField {
+                id: orderrecievedvalidation
+                y: display_distancecustside.y + display_distancecustside.height + 20
+                anchors.left: enroute.right
+                anchors.right: enroutevalidation.left
+                placeholderText: "Test Y or N"
+            }
+            Image {
+                y: orderrecieved.y - 5
+                height: orderrecieved.height + 10
+                width: orderrecieved.height + 10
+                anchors.right: parent.right
+                anchors.rightMargin: 70
+                source: if (orderrecievedvalidation.text == "Y") {"checkgreen.png"}
+                        else if (orderrecievedvalidation.text == "N" || orderrecievedvalidation.text == ""){"checkgrey.png"}
+            }
+            Text {
+                id: enroute
+                y: orderrecieved.y + orderrecieved.height + 20
+                anchors.left: parent.left
+                anchors.leftMargin: 50
+                text: "Order En Route"
+                font.family: "Avenir"
+                font.letterSpacing: 2
+                z: 10
+            }
+            TextField {
+                id: enroutevalidation
+                y: orderrecieved.y + orderrecieved.height + 20
+                anchors.left: enroute.right
+                anchors.right: enroutevalidation.left
+                placeholderText: "Test Y or N"
+            }
+            Image {
+                y: enroute.y - 5
+                height: enroute.height + 10
+                width: enroute.height + 10
+                anchors.right: parent.right
+                anchors.rightMargin: 70
+                source: if (enroutevalidation.text == "Y") {"checkgreen.png"}
+                        else if (enroutevalidation.text == "N" || enroutevalidation.text == ""){"checkgrey.png"}
+            }
+            Text {
+                id: delivered2
+                y: enroute.y + enroute.height + 20
+                anchors.left: parent.left
+                anchors.leftMargin: 50
+                text: "Delivered"
+                font.family: "Avenir"
+                font.letterSpacing: 2
+            }
+            TextField {
+                id: deliveredvalidation2
+                y: enroute.y + enroute.height + 20
+                anchors.left: enroute.right
+                anchors.right: enroutevalidation.left
+                placeholderText: "Test Y or N"
+            }
+            Image {
+                y: delivered2.y - 5
+                height: delivered2.height + 10
+                width: delivered2.height + 10
+                anchors.right: parent.right
+                anchors.rightMargin: 70
+                source: if (deliveredvalidation2.text == "Y") {"checkgreen.png"}
+                        else if (deliveredvalidation2.text == "N" || deliveredvalidation2.text == ""){"checkgrey.png"}
             }
 
-            MapItemView {
-                model: geocodeModel
-                delegate: pointDelegate
+            // Displays Lat/Long of Destination Address
+            /*Text {
+                anchors.left: parent
+                y: 200 + map.height
+                width: 200
+                text: "Latitude: " + map.center.latitude + '<br>' + "Longitude: "+ map.center.longitude
+                font.family: "Avenir"
+                font.letterSpacing: 2
+            }*/
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 80
+                text: "Place another order"
+                onClicked:
+                   page.state = ""
             }
         }
-        Text {
-            id: custtrackorderaddress
-            anchors.left: parent.left
-            anchors.leftMargin: 50
-            y: map.y + map.height + 20
-            width: 200
-            text: "Delivering to: " + '<br>' + currentcustomername.text + '<br>' + currentcustomerstreet.text + '<br>' + currentcustomercity.text  + ", " + currentcustomerstate.text + "  "+ currentcustomerzipcode.text
-            font.family: "Avenir"
-            font.letterSpacing: 2
-        }
-        Text {
-            id: distancecustside
-            text: Math.floor(6371000*Math.acos(Math.sin(currentlatitude.text*0.0174532925) * Math.sin(customerlat.text*0.0174532925) + Math.cos(currentlatitude.text*0.0174532925) * Math.cos(customerlat.text*0.0174532925) * Math.cos (customerlong.text*0.0174532925 - currentlongitude.text*0.0174532925))) + " m"
-            visible: false
-            y: custtrackorderaddress.y + custtrackorderaddress.height + 20
-        }
-        Text {
-            y: custtrackorderaddress.y + custtrackorderaddress.height + 20
-            anchors.left: parent.left
-            anchors.leftMargin: 50
-            text: "Current Distance:"
-            font.family: "Avenir"
-            horizontalAlignment: Text.AlignHCenter
-            font.letterSpacing: 2
-        }
-        Text {
-            id: display_distancecustside
-            anchors.right: parent.right
-            anchors.rightMargin: 70
-            y: custtrackorderaddress.y + custtrackorderaddress.height + 20
-            text: distancecustside.text
-            font.family: "Avenir"
-            horizontalAlignment: Text.AlignHCenter
-            font.letterSpacing: 2
-        }
-        Text {
-            id: orderrecieved
-            y: display_distancecustside.y + display_distancecustside.height + 20
-            anchors.left: parent.left
-            anchors.leftMargin: 50
-            text: "Order Recieved"
-            font.family: "Avenir"
-            font.letterSpacing: 2
-        }
-        TextField {
-            id: orderrecievedvalidation
-            y: display_distancecustside.y + display_distancecustside.height + 20
-            anchors.left: parent.left
-            anchors.leftMargin: 200
-            placeholderText: "Test Y or N"
-        }
-        Image {
-            y: orderrecieved.y - 5
-            height: orderrecieved.height + 10
-            width: orderrecieved.height + 10
-            anchors.right: parent.right
-            anchors.rightMargin: 70
-            source: if (orderrecievedvalidation.text == "Y") {"checkgreen.png"}
-                    else if (orderrecievedvalidation.text == "N" || orderrecievedvalidation.text == ""){"checkgrey.png"}
-        }
-        Text {
-            id: enroute
-            y: orderrecieved.y + orderrecieved.height + 20
-            anchors.left: parent.left
-            anchors.leftMargin: 50
-            text: "Order En Route"
-            font.family: "Avenir"
-            font.letterSpacing: 2
-        }
-        TextField {
-            id: enroutevalidation
-            y: orderrecieved.y + orderrecieved.height + 20
-            anchors.left: parent.left
-            anchors.leftMargin: 200
-            placeholderText: "Test Y or N"
-        }
-        Image {
-            y: enroute.y - 5
-            height: enroute.height + 10
-            width: enroute.height + 10
-            anchors.right: parent.right
-            anchors.rightMargin: 70
-            source: if (enroutevalidation.text == "Y") {"checkgreen.png"}
-                    else if (enroutevalidation.text == "N" || enroutevalidation.text == ""){"checkgrey.png"}
-        }
-        Text {
-            id: delivered2
-            y: enroute.y + enroute.height + 20
-            anchors.left: parent.left
-            anchors.leftMargin: 50
-            text: "Delivered"
-            font.family: "Avenir"
-            font.letterSpacing: 2
-        }
-        TextField {
-            id: deliveredvalidation2
-            y: enroute.y + enroute.height + 20
-            anchors.left: parent.left
-            anchors.leftMargin: 200
-            placeholderText: "Test Y or N"
-        }
-        Image {
-            y: delivered2.y - 5
-            height: delivered2.height + 10
-            width: delivered2.height + 10
-            anchors.right: parent.right
-            anchors.rightMargin: 70
-            source: if (deliveredvalidation2.text == "Y") {"checkgreen.png"}
-                    else if (deliveredvalidation2.text == "N" || deliveredvalidation2.text == ""){"checkgrey.png"}
-        }
-
-        // Displays Lat/Long of Destination Address
-        /*Text {
-            anchors.left: parent
-            y: 200 + map.height
-            width: 200
-            text: "Latitude: " + map.center.latitude + '<br>' + "Longitude: "+ map.center.longitude
-            font.family: "Avenir"
-            font.letterSpacing: 2
-        }*/
-        Button {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 70
-            width: 150
-            text: "Place another order"
-            onClicked:
-               page.state = ""
-        }
-    }
 
     /********************************************************/
     // PAGE STATES!!!!!!!!
