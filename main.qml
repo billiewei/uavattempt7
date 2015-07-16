@@ -9,7 +9,7 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 500
+    width: parent ? parent.width : 400
     height: parent ? parent.height : 800
 
     /********************************************************/
@@ -645,6 +645,7 @@ Item {
                 proceed_button.visible = false
                 cancel_button.visible = false
                 backButton5.visible = true
+                batterydenialrectangle.visible = false
             }
         }
     }
@@ -776,12 +777,12 @@ Item {
             }
         }
         Rectangle {
+            id: batterydenialrectangle
             anchors.horizontalCenter: parent.horizontalCenter
             y: rectangle1.y + rectangle1.height + 150
-            width: 200
             height: proceed_button.height
             color: "#D60000"
-            visible: if (battery_green.visible == true) {false} else {true}
+            visible: if (battery_green.visible == true || backButton5.visible == true) {false} else {true}
             radius: 5
             Text {
                 color: "white"
