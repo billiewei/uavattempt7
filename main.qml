@@ -9,8 +9,8 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 500
-    height: parent ? parent.height : 800
+    width: parent ? parent.width : 720
+    height: parent ? parent.height : 1280
 
     /********************************************************/
     // Login Window
@@ -1398,7 +1398,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "Water Balloon"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 14
             }
             Text {
                 id: itemweight1
@@ -1408,7 +1408,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "100"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 14
             }
             Text {
                 x: itemweight1.x + itemweight1.width + (page.width*0.02)
@@ -1416,7 +1416,7 @@ Item {
                 anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 14
             }
             Text {
                 anchors.left: parent.left
@@ -1425,7 +1425,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 14
             }
             Text {
                 id: itemprice1
@@ -1435,7 +1435,7 @@ Item {
                 anchors.topMargin: parent.height*0.25
                 text: "2.15"
                 font.family: "Avenir"
-                font.pixelSize: 12
+                font.pixelSize: 14
             }
         }
         Rectangle {
