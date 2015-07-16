@@ -1346,14 +1346,15 @@ Item {
         id: availableitemswindow
         width: page.width
         height: page.height
+        visible: true
         Image {
             visible: true
             anchors.right: parent.right
-            anchors.rightMargin: 20
+            anchors.rightMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-            width: 50
-            height: 50
+            anchors.bottomMargin: page.width*0.05
+            width: page.width*.10
+            height: page.width*.10
             source: "qrc:/logo.png"
             asynchronous : true
         }
@@ -1361,7 +1362,7 @@ Item {
             id: availableitemswindowtitle
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 50
+            anchors.topMargin: page.width*0.1
             text: "AVAILABLE ITEMS"
             font.family: "Avenir"
             font.letterSpacing: 2
@@ -1369,9 +1370,9 @@ Item {
         Rectangle {
             id: item1
             anchors.horizontalCenter: parent.horizontalCenter
-            y: availableitemswindowtitle.y + 50
+            y: availableitemswindowtitle.y + page.width*0.1
             width: page.width
-            height: 90
+            height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -1379,51 +1380,52 @@ Item {
             TextField {
                 id: quantity1
                 anchors.right: parent.right
-                anchors.rightMargin: 25
+                anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
-                width: 60
+                width: page.width*0.15
+                height: item1.height*0.3
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
             Text {
                 id: itemname1
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "Water Balloon"
                 font.family: "Avenir"
             }
             Text {
                 id: itemweight1
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "100"
                 font.family: "Avenir"
             }
             Text {
-                x: itemweight1.x + itemweight1.width + 5
+                x: itemweight1.x + itemweight1.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 150
+                anchors.leftMargin: page.width*0.3
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
             }
             Text {
                 id: itemprice1
                 anchors.left: parent.left
-                anchors.leftMargin: 160
+                anchors.leftMargin: page.width*0.33
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "2.15"
                 font.family: "Avenir"
             }
@@ -1433,57 +1435,58 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: item1.y + item1.height
             width: page.width
-            height: 90
+            height: page.height*0.12
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
             TextField {
                 id: quantity2
                 anchors.right: parent.right
-                anchors.rightMargin: 25
+                anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
-                width: 60
+                width: page.width*0.15
+                height: item1.height*0.3
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
             Text {
                 id: itemname2
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "Okra"
                 font.family: "Avenir"
             }
             Text {
                 id: itemweight2
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "100"
                 font.family: "Avenir"
             }
             Text {
-                x: itemweight2.x + itemweight2.width + 5
+                x: itemweight2.x + itemweight2.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 150
+                anchors.leftMargin: page.width*0.3
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
             }
             Text {
                 id: itemprice2
                 anchors.left: parent.left
-                anchors.leftMargin: 160
+                anchors.leftMargin: page.width*0.33
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "2.20"
                 font.family: "Avenir"
             }
@@ -1493,7 +1496,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: item2.y + item2.height
             width: page.width
-            height: 90
+            height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -1501,51 +1504,52 @@ Item {
             TextField {
                 id: quantity3
                 anchors.right: parent.right
-                anchors.rightMargin: 25
+                anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
-                width: 60
+                width: page.width*0.15
+                height: item1.height*0.3
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
             Text {
                 id: itemname3
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "Iced Coffee"
                 font.family: "Avenir"
             }
             Text {
                 id: itemweight3
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "200"
                 font.family: "Avenir"
             }
             Text {
-                x: itemweight3.x + itemweight3.width + 5
+                x: itemweight3.x + itemweight3.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 150
+                anchors.leftMargin: page.width*0.3
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
             }
             Text {
                 id: itemprice3
                 anchors.left: parent.left
-                anchors.leftMargin: 160
+                anchors.leftMargin: page.width*0.33
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "5.00"
                 font.family: "Avenir"
             }
@@ -1555,57 +1559,58 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: item3.y + item3.height
             width: page.width
-            height: 90
+            height: page.height*0.12
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
             TextField {
                 id: quantity4
                 anchors.right: parent.right
-                anchors.rightMargin: 25
+                anchors.rightMargin: page.width*0.05
                 anchors.verticalCenter: parent.verticalCenter
-                width: 60
+                width: page.width*0.15
+                height: item1.height*0.3
                 validator: IntValidator {bottom: 0; top: 9;}
                 placeholderText: "0"
             }
             Text {
                 id: itemname4
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "Mangoes"
                 font.family: "Avenir"
             }
             Text {
                 id: itemweight4
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "100"
                 font.family: "Avenir"
             }
             Text {
-                x: itemweight4.x + itemweight4.width + 5
+                x: itemweight4.x + itemweight4.width + (page.width*0.02)
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "g"
                 font.family: "Avenir"
             }
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 150
+                anchors.leftMargin: page.width*0.3
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
             }
             Text {
                 id: itemprice4
                 anchors.left: parent.left
-                anchors.leftMargin: 160
+                anchors.leftMargin: page.width*0.33
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "3.00"
                 font.family: "Avenir"
             }
@@ -1615,7 +1620,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: item4.y + item4.height
             width: page.width
-            height: 90
+            height: page.height*0.12
             border.color: "#ADADAD"
             border.width: 0.5
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -1623,9 +1628,9 @@ Item {
             Text {
                 id: totalweighttext
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "Total Weight:"
                 font.family: "Avenir"
                 font.pixelSize: 12
@@ -1634,26 +1639,26 @@ Item {
             Text {
                 id: totalpricetext
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: page.width*0.05
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "Total Price:"
                 font.family: "Avenir"
             }
             Text {
                 id: maxweighttext
-                x: totalweight.x + totalweight.width + 10
+                x: totalweight.x + totalweight.width + page.width*0.02
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: "/ 400 g"
                 font.family: "Avenir"
             }
             Text {
                 id: dollarsign5
                 anchors.left: parent.left
-                anchors.leftMargin: 150
+                anchors.leftMargin: page.width*0.3
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: "$"
                 font.family: "Avenir"
             }
@@ -1664,25 +1669,26 @@ Item {
                     else {"black"}
                 font.family: "Avenir"
                 anchors.left: parent.left
-                anchors.leftMargin: 150
+                anchors.leftMargin: page.width*0.3
                 anchors.top: parent.top
-                anchors.topMargin: 25
+                anchors.topMargin: parent.height*0.25
                 text: (quantity1.text*itemweight1.text) + (quantity2.text*itemweight2.text) + (quantity3.text*itemweight3.text) + (quantity4.text*itemweight4.text)
             }
             Text {
                 id: totalprice
                 font.family: "Avenir"
-                x: dollarsign5.x + dollarsign5.width + 5
+                x: dollarsign5.x + dollarsign5.width + page.width*0.02
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 25
+                anchors.bottomMargin: parent.height*0.25
                 text: (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
             }
         }
         Button {
             id: checkoutButton
             anchors.horizontalCenter: parent.horizontalCenter
-            y: totalbox.y + totalbox.height + 40
-            width: 150
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.15
+            width: backButton1.width
             text: "Checkout"
             visible:
                 if (totalweight.text > 400 || totalweight.text == 0) {false}
@@ -1694,9 +1700,10 @@ Item {
         Rectangle {
             id: checkoutdenialrectangle
             anchors.horizontalCenter: parent.horizontalCenter
-            y: totalbox.y + totalbox.height + 40
-            width: 200
-            height: 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.15
+            height: checkoutButton.height
+            width: page.width*0.4
             color: "#D60000"
             radius: 5
             Text {
@@ -1713,9 +1720,10 @@ Item {
         Rectangle {
             id: checkoutdenialrectangle2
             anchors.horizontalCenter: parent.horizontalCenter
-            y: totalbox.y + totalbox.height + 40
-            width: 200
-            height: 20
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.15
+            height: checkoutButton.height
+            width: page.width*0.4
             color: "#D60000"
             radius: 5
             Text {
@@ -1732,8 +1740,8 @@ Item {
         Button {
             id: backButton1
             anchors.horizontalCenter: parent.horizontalCenter
-            y: checkoutButton.y + checkoutButton.height + 15
-            width: 150
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.1
             text: "Return to homepage"
             onClicked:
                 page.state = ""
@@ -1741,8 +1749,9 @@ Item {
         Button {
             id: clearButton
             anchors.horizontalCenter: parent.horizontalCenter
-            y: backButton1.y + backButton1.height + 15
-            width: 150
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: page.height*0.05
+            width: backButton1.width
             text: "Clear all entries"
             onClicked:
                 totalweight.text = 0
