@@ -9,7 +9,7 @@ import QtQml 2.2
 
 Item {
     id: page
-    width: parent ? parent.width : 400
+    width: parent ? parent.width : 500
     height: parent ? parent.height : 800
 
     /********************************************************/
@@ -847,7 +847,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: 100
             width: page.width - 100
-            height: page.width - 150
+            height: page.width - 250
             z: 10
 
             Text {
@@ -876,7 +876,7 @@ Item {
                 id: tracking_drone_map
                 plugin: osmplugin1
                 width: page.width - 100
-                height: page.width - 150
+                height: page.width - 250
                 zoomLevel: mapslider1.value
                 center {
                     latitude: 22.3362535
