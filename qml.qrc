@@ -10,5 +10,17 @@
         <file>map.png</file>
         <file>logo.png</file>
         <file>logo.jpg</file>
+        <file>OpeningPage.qml</file>
+        <file>AboutPage.qml</file>
+        <file>PendingOrderPage.qml</file>
+        <file>BatteryStatusPage.qml</file>
+        <file>VendorTrackPage.qml</file>
+        <file>MalfunctioningPage.qml</file>
+        <file>DroneLocationPage.qml</file>
+        <file>MenuPage.qml</file>
+        <file>AddressPage.qml</file>
+        <file>PaymentPage.qml</file>
+        <file>ConfirmationPage.qml</file>
+        <file>CustomerTrackPage.qml</file>
     </qresource>
 </RCC>
