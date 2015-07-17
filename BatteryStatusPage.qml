@@ -134,7 +134,7 @@ Rectangle {
     Rectangle {
         id: batterydenialrectangle
         anchors.horizontalCenter: parent.horizontalCenter
-        y: proceed_button
+        y: proceed_button.y
         height: proceed_button.height
         color: "#D60000"
         visible: if (battery_green.visible == true || backButton5.visible == true) {false} else {true}

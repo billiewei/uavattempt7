@@ -20,15 +20,21 @@ ApplicationWindow {
         Menu {
             title: qsTr("&File")
             MenuItem {
-                text: qsTr("&About")
-                onTriggered: about_page.visible = true
+                text: qsTr("A&bout")
+                onTriggered: {
+                    opening_page.visible = false
+                    about_page.visible = true
+                    pending_order_page.visible = false
+                    battery_status_page.visible = false
+                    vendor_track_page.visible = false
+                }
             }
             MenuItem {
-                text: qsTr("O&pen")
+                text: qsTr("Op&en")
                 onTriggered: messageDialog.show(qsTr("Open action triggered"));
             }
             MenuItem {
-                text: qsTr("Ex&it")
+                text: qsTr("Exi&t")
                 onTriggered: Qt.quit();
             }
         }

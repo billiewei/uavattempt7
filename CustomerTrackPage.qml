@@ -165,7 +165,8 @@ Rectangle {
         anchors.leftMargin: 50
         y: map.y + map.height + 20
         width: 200
-        text: "Delivering to: " + '<br>' + currentcustomername.text + '<br>' + currentcustomerstreet.text + '<br>' + currentcustomercity.text  + ", " + currentcustomerstate.text + "  "+ currentcustomerzipcode.text
+        text: "Delivering to: " + '<br>' + address_page_handler.name + '<br>' + address_page_handler.street + '<br>'
+              + address_page_handler.city  + ", " + address_page_handler.state + "  "+ address_page_handler.zip
         font.family: "Avenir"
         font.letterSpacing: 2
     }
