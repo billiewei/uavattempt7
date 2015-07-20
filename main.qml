@@ -22,10 +22,17 @@ ApplicationWindow {
             MenuItem {
                 text: qsTr("A&bout")
                 onTriggered: {
-                    opening_page.visible = false
                     about_page.visible = true
-                    pending_order_page.visible = false
+                    address_page.visible = false
                     battery_status_page.visible = false
+                    confirmation_page.visible = false
+                    customer_track_page.visible = false
+                    drone_location_page.visible = false
+                    malfunctioning_page.visible = false
+                    menu_page.visible = false
+                    opening_page.visible = false
+                    payment_page.visible = false
+                    pending_order_page.visible = false
                     vendor_track_page.visible = false
                 }
             }
@@ -52,9 +59,22 @@ ApplicationWindow {
 
     VendorHandler{
         id: vendor_handler
-        valid1: true
-        valid2: false
-        valid3: false
+        name1: "Vinh N."
+        name2: ""
+        name3: ""
+        street1: ""
+        street2: ""
+        street3: ""
+        city1: ""
+        city2: ""
+        city3: ""
+        state1: ""
+        state2: ""
+        state3: ""
+        region1: "Hong Kong"
+        region2: ""
+        region3: ""
+
     }
 
     PendingOrderPage{

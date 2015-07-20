@@ -104,12 +104,10 @@ Rectangle {
                 autoUpdate: true
                 query: fromAddress
                 onLocationsChanged: {
-
                         tracking_drone_map.center.latitude = get(0).coordinate.latitude
                         tracking_drone_map.center.longitude = get(0).coordinate.longitude
                         targetlatitude.text = get(0).coordinate.latitude
                         targetlongitude.text = get(0).coordinate.longitude
-
                 }
             }
 
@@ -132,8 +130,6 @@ Rectangle {
 
             Address {
                 id :fromAddress
-                // design an array to do this
-                // show array[1*deliver.text]
                 street: if (vendor_handler.delivery == 1) {vendor_handler.street1}
                         else if (vendor_handler.delivery == 2) {vendor_handler.street2}
                         else if (vendor_handler.delivery == 3) {vendor_handler.street3}
@@ -142,7 +138,7 @@ Rectangle {
                       else if (vendor_handler.delivery == 3) {vendor_handler.city3}
                 country: if (vendor_handler.delivery == 1) {vendor_handler.region1}
                          else if (vendor_handler.delivery == 2) {vendor_handler.region2}
-                         else if (vendor_handler.delivery == 3) {vendor_handler.region2}
+                         else if (vendor_handler.delivery == 3) {vendor_handler.region3}
                 state : if (vendor_handler.delivery == 1) {vendor_handler.state1}
                         else if (vendor_handler.delivery == 2) {vendor_handler.state2}
                         else if (vendor_handler.delivery == 3) {vendor_handler.state3}
@@ -340,49 +336,21 @@ Rectangle {
                     vendor_handler.pass3to2();
                 else
                     vendor_handler.reset2();
+                vendor_handler.reset3();
             }
             if(deliver.text == "2" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
                 if(vendor_handler.valid3)
                     vendor_handler.pass3to2();
                 else
                     vendor_handler.reset2();
-/**
-               order2_name.text = order3_name.text
-               order2_city.text = order3_city.text
-               order2_number.text = order3_number.text
-               order2_state.text = order3_state.text
-               order2_zip.text = order3.zip.text
-               order2_street.text = order3_street.text
-               order2_order.text = order3_order.text
-               order2_totalprice.text = order3_totalprice.text
-               order2_deliveryfee.text = order3_deliveryfee.text
-               order2_grandtotal.text = order3_grandtotal.text
-               order2_click.text = "0"
-               order2_time.text = order3_time.text
-               */
-
-
+                vendor_handler.reset3();
             }
             if(deliver.text == "3" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
-
                 vendor_handler.reset3();
-
-  /**             order3_name.text = orderb_name.text
-               order3_city.text = orderb_city.text
-               order3_number.text = orderb_number.text
-               order3_state.text = ""
-               order3_street.text = orderb_street.text
-               order3_order.text = orderb_order.text
-               order3_totalprice.text = orderb_totalprice.text
-               order3_deliveryfee.text = orderb_deliveryfee.text
-               order3_grandtotal.text = orderb_grandtotal.text
-               order3_click.text = "0"
-               order3_time.text = ""
-               */
             }
-           pendingorders.visible = true
-
-           //trackorders.visible = false
+            //what is this?
+           trackorders.visible = false
+           pendingorders.visible = true     
         }
     }
     Button {

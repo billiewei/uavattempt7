@@ -1,8 +1,7 @@
 #include "vendorhandler.h"
 
 VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
-    vendor_delivery(0),
-  vendor_latitude(22.3362536), vendor_longitude(114.2629409)
+  vendor_latitude(22.3362536), vendor_longitude(114.2629409), vendor_delivery(0)
 {   order_valid[0] = true;
     order_valid[1] = false;
     order_valid[2] = false;
@@ -30,7 +29,6 @@ VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
     order_price[0] = 50;
     order_price[1] = 0;
     order_price[2] = 0;
-
 }
 
 void VendorHandler::pass2to1(){
