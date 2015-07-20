@@ -138,7 +138,6 @@ Rectangle {
                 customerlat.text = get(0).coordinate.latitude
                 customerlong.text = get(0).coordinate.longitude
             }
-
         }
 
         Component {

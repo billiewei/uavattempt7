@@ -270,7 +270,6 @@ Rectangle {
         onClicked: {
             pending_order_page.visible = false
             battery_status_page.visible = true
-
             proceed_button.visible = false
             cancel_button.visible = false
             backButton5.visible = true
