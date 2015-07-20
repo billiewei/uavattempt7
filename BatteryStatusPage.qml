@@ -121,7 +121,7 @@ Rectangle {
         id: proceed_button
         anchors.horizontalCenter: parent.horizontalCenter
         y: batteryinfo.y + batteryinfo.height + 50
-        visible: if (battery_green.visible == true) {true} else {false}
+        visible: battery_green.visible & (vendor_handler.delivery != 0)
         text: "Proceed"
         onClicked: {
      //       order1_click.text = "0"
