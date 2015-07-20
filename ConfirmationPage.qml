@@ -234,25 +234,37 @@ Rectangle {
         onClicked: {
            confirmation_page.visible = false
            customer_track_page.visible = true
-           if (order1_name.text == "") {
-            order1_name.text = currentcustomername.text
-            order1_city.text = currentcustomercity.text
-            order1_number.text = (quantity1.text * 1) + (quantity2.text * 1) + (quantity3.text * 1) + (quantity4.text * 1)
-            order1_state.text = currentcustomerstate.text
-            order1_zip.text = currentcustomerzipcode.text
-            order1_street.text = currentcustomerstreet.text
-            order1_country.text = currentcustomercountry.text
-            order1_order.text = quantity1.text + " " + itemname1.text + "\n" +
-                                quantity2.text + " " + itemname2.text + "\n" +
-                                quantity3.text + " " + itemname3.text + "\n" +
-                                quantity4.text + " " + itemname4.text
-            order1_totalprice.text = (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
-            order1_deliveryfee.text = shippingfee.text
-            order1_grandtotal.text = (totalprice.text*1.08 + 4.0).toFixed(2)
-            order1_time.text = Qt.formatTime(new Date(),"hh:mm")
-        }
-           else if (order2_name.text == ""){
-                order2_name.text = currentcustomername.text
+           if (!vendor_handler.valid1) {
+              vendor_handler.name1 = address_page_handler.name
+              vendor_handler.street1 = address_page_handler.street
+              vendor_handler.city1 = address_page_handler.city
+           // we can add this later
+           // order1_number.text = (quantity1.text * 1) + (quantity2.text * 1) + (quantity3.text * 1) + (quantity4.text * 1)
+              vendor_handler.state1 = address_page_handler.state
+              vendor_handler.zip1 = address_page_handler.zip
+              vendor_handler.region1 = address_page_handler.region
+     //       order1_order.text = quantity1.text + " " + itemname1.text + "\n" +
+     //                           quantity2.text + " " + itemname2.text + "\n" +
+     //                           quantity3.text + " " + itemname3.text + "\n" +
+     //                           quantity4.text + " " + itemname4.text
+              vendor_handler.price1 = menu_page_handler.total;
+              vendor_handler.time1 = Qt.formatTime(new Date(),"hh:mm");
+            //(quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
+      //      order1_deliveryfee.text = shippingfee.text
+      //      order1_grandtotal.text = (totalprice.text*1.08 + 4.0).toFixed(2)
+       //     order1_time.text = Qt.formatTime(new Date(),"hh:mm")
+           }
+           else if (!vendor_handler.valid2){
+               vendor_handler.name2 = address_page_handler.name
+               vendor_handler.street2 = address_page_handler.street
+               vendor_handler.city2 = address_page_handler.city
+               vendor_handler.state2 = address_page_handler.state
+               vendor_handler.zip2 = address_page_handler.zip
+               vendor_handler.region2 = address_page_handler.region
+               vendor_handler.price2 = menu_page_handler.total;
+               vendor_handler.time2 = Qt.formatTime(new Date(),"hh:mm");
+
+    /**            order2_name.text = currentcustomername.text
                 order2_city.text = currentcustomercity.text
                 order2_number.text = (quantity1.text * 1) + (quantity2.text * 1) + (quantity3.text * 1) + (quantity4.text * 1)
                 order2_state.text = currentcustomerstate.text
@@ -267,9 +279,18 @@ Rectangle {
                 order2_deliveryfee.text = shippingfee.text
                 order2_grandtotal.text = (totalprice.text*1.08 + 4.0).toFixed(2)
                 order2_time.text = Qt.formatTime(new Date(),"hh:mm")
-        }
-           else if (order3_name.text == ""){
-                order3_name.text = currentcustomername.text
+                */
+           }
+           else if (!vendor_handler.valid3){
+               vendor_handler.name3 = address_page_handler.name
+               vendor_handler.street3 = address_page_handler.street
+               vendor_handler.city3 = address_page_handler.city
+               vendor_handler.state3 = address_page_handler.state
+               vendor_handler.zip3 = address_page_handler.zip
+               vendor_handler.region3 = address_page_handler.region
+               vendor_handler.price3 = menu_page_handler.total;
+               vendor_handler.time3 = Qt.formatTime(new Date(),"hh:mm");
+            /**    order3_name.text = currentcustomername.text
                 order3_city.text = currentcustomercity.text
                 order3_number.text = (quantity1.text * 1) + (quantity2.text * 1) + (quantity3.text * 1) + (quantity4.text * 1)
                 order3_state.text = currentcustomerstate.text
@@ -284,7 +305,8 @@ Rectangle {
                 order3_deliveryfee.text = shippingfee.text
                 order3_grandtotal.text = (totalprice.text*1.08 + 4.0).toFixed(2)
                 order3_time.text = Qt.formatTime(new Date(),"hh:mm")
-        }
+                */
+          }
         }
     }
 }

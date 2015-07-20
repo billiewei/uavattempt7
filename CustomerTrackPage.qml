@@ -46,7 +46,7 @@ Rectangle {
         line.width: 3
         line.color: 'green'
         path: [
-            { latitude: currentlatitude.text, longitude: currentlongitude.text },
+            { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
             { latitude: customerlat.text, longitude: customerlong.text }
         ]
     }
@@ -172,7 +172,7 @@ Rectangle {
     }
     Text {
         id: distancecustside
-        text: Math.floor(6371000*Math.acos(Math.sin(currentlatitude.text*0.0174532925) * Math.sin(customerlat.text*0.0174532925) + Math.cos(currentlatitude.text*0.0174532925) * Math.cos(customerlat.text*0.0174532925) * Math.cos (customerlong.text*0.0174532925 - currentlongitude.text*0.0174532925))) + " m"
+        text: Math.floor(6371000*Math.acos(Math.sin(vendor_handler.latitude*0.0174532925) * Math.sin(customerlat.text*0.0174532925) + Math.cos(vendor_handler.latitude*0.0174532925) * Math.cos(customerlat.text*0.0174532925) * Math.cos (customerlong.text*0.0174532925 - vendor_handler.longitude*0.0174532925))) + " m"
         visible: false
         y: custtrackorderaddress.y + custtrackorderaddress.height + 20
     }
@@ -235,7 +235,7 @@ Rectangle {
         id: enroutevalidation
         y: orderrecieved.y + orderrecieved.height + 20
         anchors.left: enroute.right
-        anchors.right: enroutevalidation.left
+      //  anchors.right: enroutevalidation.left
         placeholderText: "Test Y or N"
     }
     Image {

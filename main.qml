@@ -50,6 +50,13 @@ ApplicationWindow {
         visible: false
     }
 
+    VendorHandler{
+        id: vendor_handler
+        valid1: true
+        valid2: false
+        valid3: false
+    }
+
     PendingOrderPage{
         id: pending_order_page
         visible: false
@@ -58,6 +65,10 @@ ApplicationWindow {
     BatteryStatusPage{
         id: battery_status_page
         visible: false
+        BatteryPageHandler {
+            id: battery_page_handler
+            percentage: 100
+        }
     }
 
     VendorTrackPage {
@@ -119,9 +130,6 @@ ApplicationWindow {
         id: customer_track_page
         visible: false
     }
-
-
-
 }
 
 

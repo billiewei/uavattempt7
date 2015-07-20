@@ -49,13 +49,13 @@ Rectangle {
 
         Text {
             id: currentlatitude
-            text: "22.3362536"
+            text: vendor_handler.latitude//"22.3362536"
             visible: false
         }
 
         Text {
             id: currentlongitude
-            text: "114.2629409"
+            text: vendor_handler.longitude// "114.2629409"
             visible: false
         }
 
@@ -132,21 +132,23 @@ Rectangle {
 
             Address {
                 id :fromAddress
-                street: if (deliver.text == "1") {order1_street.text}
-                        else if (deliver.text == "2") {order2_street.text}
-                        else if (deliver.text == "3") {order3_street.text}
-                city: if (deliver.text == "1") {order1_city.text}
-                      else if (deliver.text == "2") {order2_city.text}
-                      else if (deliver.text == "3") {order3_city.text}
-                country: if (deliver.text == "1") {order1_country.text}
-                         else if (deliver.text == "2") {order2_country.text}
-                         else if (deliver.text == "3") {order3_country.text}
-                state : if (deliver.text == "1") {order1_state.text}
-                        else if (deliver.text == "2") {order2_state.text}
-                        else if (deliver.text == "3") {order3_state.text}
-                postalCode: if (deliver.text == "1") {order1_zip.text}
-                            else if (deliver.text == "2") {order2_zip.text}
-                            else if (deliver.text == "3") {order3_zip.text}
+                // design an array to do this
+                // show array[1*deliver.text]
+                street: if (vendor_handler.delivery == 1) {vendor_handler.street1}
+                        else if (vendor_handler.delivery == 2) {vendor_handler.street2}
+                        else if (vendor_handler.delivery == 3) {vendor_handler.street3}
+                city: if (vendor_handler.delivery == 1) {vendor_handler.city1}
+                      else if (vendor_handler.delivery == 2) {vendor_handler.city2}
+                      else if (vendor_handler.delivery == 3) {vendor_handler.city3}
+                country: if (vendor_handler.delivery == 1) {vendor_handler.region1}
+                         else if (vendor_handler.delivery == 2) {vendor_handler.region2}
+                         else if (vendor_handler.delivery == 3) {vendor_handler.region2}
+                state : if (vendor_handler.delivery == 1) {vendor_handler.state1}
+                        else if (vendor_handler.delivery == 2) {vendor_handler.state2}
+                        else if (vendor_handler.delivery == 3) {vendor_handler.state3}
+                postalCode: if (vendor_handler.delivery == 1) {vendor_handler.zip1}
+                            else if (vendor_handler.delivery == 2) {vendor_handler.zip2}
+                            else if (vendor_handler.delivery == 3) {vendor_handler.zip3}
             }
         }
 
@@ -290,9 +292,9 @@ Rectangle {
         x: battery1.x + 5
         y: battery1.y + 5
         color: "#D60000"
-        width: (battery1.width - 10) * percentage.text / 100
+        width: (battery1.width - 10) * battery_page_handler.percentage / 100
         height: battery1.height - 10
-        visible: if (percentage.text < 60) {true}
+        visible: if (battery_page_handler.percentage < 60) {true}
                  else {false}
     }
     Rectangle {
@@ -300,9 +302,9 @@ Rectangle {
         x: battery1.x + 5
         y: battery1.y + 5
         color: "#FF790A"
-        width: (battery1.width - 10) * percentage.text / 100
+        width: (battery1.width - 10) * battery_page_handler.percentage / 100
         height: battery1.height - 10
-        visible: if (percentage.text >=60 & percentage.text < 85) {true}
+        visible: if (battery_page_handler.percentage >=60 & battery_page_handler.percentage < 85) {true}
                  else {false}
     }
     Rectangle {
@@ -310,9 +312,9 @@ Rectangle {
         x: battery1.x + 5
         y: battery1.y + 5
         color: "#65E01F"
-        width: (battery1.width - 10) * percentage.text / 100
+        width: (battery1.width - 10) * battery_page_handler.percentage / 100
         height: battery1.height - 10
-        visible: if (percentage.text >= 85) {true}
+        visible: if (battery_page_handler.percentage >= 85) {true}
                  else {false}
     }
     Button {
@@ -324,39 +326,27 @@ Rectangle {
         text: "View other orders"
         width: cancelreturn.width
         onClicked: {
-            page.state = "pendingorderswindowstate"
+            vendor_track_page.visible = false
+            pending_order_page.visible = true
             delivered_validation.text = ""
             returned_validation.text = ""
-            if(deliver.text == "1" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
-               order1_name.text = order2_name.text
-               order1_city.text = order2_city.text
-               order1_number.text = order2_number.text
-               order1_state.text = order2_state.text
-               order1_zip.text = order2_zip.text
-               order1_street.text = order2_street.text
-               order1_order.text = order2_order.text
-               order1_totalprice.text = order2_totalprice.text
-               order1_deliveryfee.text = order2_deliveryfee.text
-               order1_grandtotal.text = order2_grandtotal.text
-               order1_click.text = "0"
-               order1_time.text = order2_time.text
+            if(vendor_handler.delivery == 1 & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
+                if(vendor_handler.valid2)
+                    vendor_handler.pass2to1();
+                else
+                    vendor_handler.reset1();
 
-               order2_name.text = order3_name.text
-               order2_city.text = order3_city.text
-               order2_number.text = order3_number.text
-               order2_state.text = order3_state.text
-               order2_zip.text = order3_zip.text
-               order2_street.text = order3_street.text
-               order2_order.text = order3_order.text
-               order2_totalprice.text = order3_totalprice.text
-               order2_deliveryfee.text = order3_deliveryfee.text
-               order2_grandtotal.text = order3_grandtotal.text
-               order2_click.text = "0"
-               order2_time.text = ""
+                if(vendor_handler.valid3)
+                    vendor_handler.pass3to2();
+                else
+                    vendor_handler.reset2();
             }
             if(deliver.text == "2" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
-
-
+                if(vendor_handler.valid3)
+                    vendor_handler.pass3to2();
+                else
+                    vendor_handler.reset2();
+/**
                order2_name.text = order3_name.text
                order2_city.text = order3_city.text
                order2_number.text = order3_number.text
@@ -369,24 +359,15 @@ Rectangle {
                order2_grandtotal.text = order3_grandtotal.text
                order2_click.text = "0"
                order2_time.text = order3_time.text
+               */
 
-               order3_name.text = orderb_name.text
-               order3_city.text = orderb_city.text
-               order3_number.text = orderb_number.text
-               order3_state.text = ""
-               order3_zip.text = ""
-               order3_street.text = orderb_street.text
-               order3_order.text = orderb_order.text
-               order3_totalprice.text = orderb_totalprice.text
-               order3_deliveryfee.text = orderb_deliveryfee.text
-               order3_grandtotal.text = orderb_grandtotal.text
-               order3_click.text = "0"
-               order3_time.text = ""
+
             }
             if(deliver.text == "3" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
 
+                vendor_handler.reset3();
 
-               order3_name.text = orderb_name.text
+  /**             order3_name.text = orderb_name.text
                order3_city.text = orderb_city.text
                order3_number.text = orderb_number.text
                order3_state.text = ""
@@ -397,6 +378,7 @@ Rectangle {
                order3_grandtotal.text = orderb_grandtotal.text
                order3_click.text = "0"
                order3_time.text = ""
+               */
             }
            pendingorders.visible = true
 

@@ -5,8 +5,8 @@ QT += qml quick widgets
 SOURCES += main.cpp \
     addresspagehandler.cpp \
     menupagehandler.cpp \
-    vendorpagehandler.cpp \
-    batterypagehandler.cpp
+    batterypagehandler.cpp \
+    vendorhandler.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,5 +19,5 @@ include(deployment.pri)
 HEADERS += \
     addresspagehandler.h \
     menupagehandler.h \
-    vendorpagehandler.h \
-    batterypagehandler.h
+    batterypagehandler.h \
+    vendorhandler.h

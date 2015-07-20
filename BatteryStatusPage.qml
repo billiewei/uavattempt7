@@ -124,17 +124,18 @@ Rectangle {
         visible: if (battery_green.visible == true) {true} else {false}
         text: "Proceed"
         onClicked: {
-            order1_click.text = "0"
-            order2_click.text = "0"
-            order3_click.text = "0"
+     //       order1_click.text = "0"
+     //       order2_click.text = "0"
+     //       order3_click.text = "0"
             battery_status_page.visible = false
-            track_order_page.visible = true
+            vendor_track_page.visible = true
         }
     }
     Rectangle {
         id: batterydenialrectangle
         anchors.horizontalCenter: parent.horizontalCenter
         y: proceed_button.y
+        width: page.width * .6
         height: proceed_button.height
         color: "#D60000"
         visible: if (battery_green.visible == true || backButton5.visible == true) {false} else {true}

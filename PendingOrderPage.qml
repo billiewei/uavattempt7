@@ -24,6 +24,8 @@ Rectangle {
         font.family: "Avenir"
         font.letterSpacing: 2
     }
+
+ //extract order 1 information
     Text {
         id: order1_click
         text: "0"
@@ -84,6 +86,7 @@ Rectangle {
         text: "Hong Kong"
         visible: false
     }
+
     Text {
         id: order1_time
         y: order1.y
@@ -122,25 +125,21 @@ Rectangle {
         MouseArea{
             id: order1_area
             anchors.fill: parent
-            onClicked: if (order1_click.text == "0") {
-                           order1_click.text = "1"
-                           order2_click.text = "0"
-                           order3_click.text = "0"
+            onClicked: if (vendor_handler.delivery == 0) {
+                           vendor_handler.delivery = 1
                        }
-                       else if (order1_click.text == "1") {
-                           order1_click.text = "0"
-                           order3_click.text = "0"
-                           order2_click.text = "0"
+                       else if (vendor_handler.delivery == 1) {
+                            vendor_handler.delivery = 0
                        }
         }
 
         Button {
             id: deliverorder1_button
-            y: if (order1_click.text == "1") {order1.y + order1.height - 100}
-               else if (order2_click.text == "1") {order2.y + order2.height - 100}
-               else if (order3_click.text == "1") {order3.y + order3.height - 100}
-            visible: if (order1_click.text == "0" & order2_click.text == "0" & order3_click.text == "0") {false}
-                     else if (order1_click.text == "1" | order2_click.text == "1" | order3_click.text == "1") {true}
+            y: if (vendor_handler.delivery == 1) {order1.y + order1.height - 100}
+               else if (vendor_handler.delivery == 2) {order2.y + order2.height - 100}
+               else if (vendor_handler.delivery == 3) {order3.y + order3.height - 100}
+            visible: if (vendor_handler.delivery == 0) {false}
+                     else {true}
             text: "Deliver Order"
             anchors.leftMargin: 35
             onClicked: {
@@ -188,6 +187,7 @@ Rectangle {
         visible: if (order1_name.text == "") {false}
                  else {true}
     }
+
     Text {
         id: deliver
         visible: false

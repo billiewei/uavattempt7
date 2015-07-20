@@ -169,8 +169,8 @@ Rectangle {
         y: item2.y + item2.height
         anchors.left: parent.left
         anchors.leftMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
+    //    anchors.right: parent.right
+    //    anchors.rightMargin: 0
         height: page.height*0.13
         border.color: "#ADADAD"
         border.width: 0.5
