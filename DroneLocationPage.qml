@@ -34,7 +34,7 @@ Rectangle {
         y: dronelocation_title.y + dronelocation_title.height + 50
         width: 400
         height: 400
-        plugin: osmplugin
+        plugin: customer_track_page.osmplugin
         zoomLevel: (maximumZoomLevel)*0.95
         center {
             latitude: 22.3362535
