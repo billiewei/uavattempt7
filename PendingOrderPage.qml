@@ -45,20 +45,21 @@ Rectangle {
     Text {
         id: order1
         y: 150
-        text: if (vendor_handler.delivery == 0) {vendor_handler.name1 + " \n\nItems: " } //+ order1_number.text}
-              else if (vendor_handler.delivery == 1) {
+        text:
+              if (vendor_handler.delivery == 1) {
                   vendor_handler.name1 + "\n\n" +
          //         will do it later
          //         order1_order.text +
 
-                  "\n\nTotal Price: $" + vendor_handler.price1 +
+                  "\n\nTotal Price: $" + (vendor_handler.price1).toFixed(2) +
                   "\nDelivery Fee: $4.00" +
-                  "\nGrand Total: $" + (vendor_handler.price1 *1.08 + 4) +
+                  "\nGrand Total: $" + (vendor_handler.price1 *1.08 + 4).toFixed(2) +
                   "\n\nPaid" +
                   "\n\nAddress: " + "\n" + vendor_handler.street1 +
                   "\n" + vendor_handler.city1 + ", " + vendor_handler.state1 + " " + vendor_handler.zip1 +
                   "\n" + vendor_handler.region1
               }
+              else {vendor_handler.name1 + " \n\nItems: " } //+ order1_number.text
         visible: vendor_handler.valid1
         anchors.right: parent.right
         anchors.rightMargin: 35
@@ -71,7 +72,7 @@ Rectangle {
         MouseArea{
             id: order1_area
             anchors.fill: parent
-            onClicked: if (vendor_handler.delivery == 0) {
+            onClicked: if (vendor_handler.delivery != 1) {
                            vendor_handler.delivery = 1
                        }
                        else if (vendor_handler.delivery == 1) {
@@ -90,7 +91,7 @@ Rectangle {
             onClicked: {
                 pending_order_page.visible = false
                 battery_status_page.visible = true
-                backButton5.visible = false
+                //backButton5.visible = false
             }
         }
     }
@@ -112,18 +113,13 @@ Rectangle {
         anchors.leftMargin: 0
         anchors.right: parent.right
         anchors.rightMargin: 0
-        y: if (order1_click.text == "0" ) {order1.y + order1.height + 20}
-           else if (order1_click.text == "1") {deliverorder1_button.y + deliverorder1_button.height + 170}
+        y:  if (vendor_handler.delivery == 1) {deliverorder1_button.y + deliverorder1_button.height + 170}
+            else {order1.y + order1.height + 20}
         height: 1
         color: "#6E6E6E"
         border.color: "#6E6E6E"
         border.width: 1
         visible: vendor_handler.valid1
-    }
-
-    Text {
-        id: deliver
-        visible: false
     }
 
     Text {
@@ -143,9 +139,9 @@ Rectangle {
               if (vendor_handler.delivery == 2){
               vendor_handler.name2 + "\n\n" +
          //     order2_order.text +
-              "\n\nTotal Price: $" + vendor_handler.price2 +
+              "\n\nTotal Price: $" + (vendor_handler.price2).toFixed(2) +
               "\nDelivery Fee: $4.00" +
-              "\nGrand Total: $" + (vendor_handler.price2 * 1.08 + 4) +
+              "\nGrand Total: $" + (vendor_handler.price2 * 1.08 + 4).toFixed(2) +
               "\n\nPaid" +
               "\n\nAddress: " + "\n" + vendor_handler.street2 +
               "\n" + vendor_handler.city2 + ", " + vendor_handler.state2 + " " + vendor_handler.zip2 +
@@ -163,7 +159,7 @@ Rectangle {
         MouseArea {
             id: order2_area
             anchors.fill: parent
-            onClicked: if (vendor_handler.delivery == 0) {
+            onClicked: if (vendor_handler.delivery != 2) {
                             vendor_handler.delivery = 2
                        }
                        else if (vendor_handler.delivery == 2) {
@@ -224,7 +220,7 @@ Rectangle {
         MouseArea{
             id: order3_area
             anchors.fill: parent
-            onClicked: if (vendor_handler.delivery == 0) {
+            onClicked: if (vendor_handler.delivery != 3) {
                             vendor_handler.delivery = 3
                        }
                        else if (vendor_handler.delivery == 3) {

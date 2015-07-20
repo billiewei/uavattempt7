@@ -59,22 +59,6 @@ ApplicationWindow {
 
     VendorHandler{
         id: vendor_handler
-        name1: "Vinh N."
-        name2: ""
-        name3: ""
-        street1: ""
-        street2: ""
-        street3: ""
-        city1: ""
-        city2: ""
-        city3: ""
-        state1: ""
-        state2: ""
-        state3: ""
-        region1: "Hong Kong"
-        region2: ""
-        region3: ""
-
     }
 
     PendingOrderPage{
