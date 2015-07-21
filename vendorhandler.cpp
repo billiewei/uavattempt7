@@ -5,6 +5,9 @@ VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
 {   order_valid[0] = true;
     order_valid[1] = false;
     order_valid[2] = false;
+    order[0] = "2 Iced Coffee\n";
+    order[1] = "";
+    order[2] = "";
     order_name[0] = "Vinh N.";
     order_name[1] = "";
     order_name[2] = "";
@@ -26,7 +29,7 @@ VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
     order_zip[0] = 0;
     order_zip[1] = 0;
     order_zip[2] = 0;
-    order_price[0] = 50;
+    order_price[0] = 10;
     order_price[1] = 0;
     order_price[2] = 0;
 }
@@ -105,6 +108,18 @@ bool VendorHandler::valid2(){
 
 bool VendorHandler::valid3(){
     return order_valid[2];
+}
+
+QString VendorHandler::order1(){
+    return order[0];
+}
+
+QString VendorHandler::order2(){
+    return order[1];
+}
+
+QString VendorHandler::order3(){
+    return order[2];
 }
 
 double VendorHandler::latitude(){
@@ -237,6 +252,27 @@ void VendorHandler::setValid3(bool v
     if(order_valid[2] != v){
         order_valid[2] = v;
         emit valid3Changed();
+    }
+}
+
+void VendorHandler::setOrder1(QString o){
+    if(order[0].compare(o)){
+        order[0] = o;
+        emit order1Changed();
+    }
+}
+
+void VendorHandler::setOrder2(QString o){
+    if(order[1].compare(o)){
+        order[1] = o;
+        emit order2Changed();
+    }
+}
+
+void VendorHandler::setOrder3(QString o){
+    if(order[2].compare(o)){
+        order[2] = o;
+        emit order3Changed();
     }
 }
 

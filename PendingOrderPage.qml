@@ -47,10 +47,8 @@ Rectangle {
         y: 150
         text:
               if (vendor_handler.delivery == 1) {
-                  vendor_handler.name1 + "\n\n" +
-         //         will do it later
-         //         order1_order.text +
-
+                  vendor_handler.name1 + "\n" +
+                  vendor_handler.order1 +
                   "\n\nTotal Price: $" + (vendor_handler.price1).toFixed(2) +
                   "\nDelivery Fee: $4.00" +
                   "\nGrand Total: $" + (vendor_handler.price1 *1.08 + 4).toFixed(2) +
@@ -137,8 +135,8 @@ Rectangle {
         y: order1_line.y + 25
         text:
               if (vendor_handler.delivery == 2){
-              vendor_handler.name2 + "\n\n" +
-         //     order2_order.text +
+              vendor_handler.name2 + "\n" +
+              vendor_handler.order2 +
               "\n\nTotal Price: $" + (vendor_handler.price2).toFixed(2) +
               "\nDelivery Fee: $4.00" +
               "\nGrand Total: $" + (vendor_handler.price2 * 1.08 + 4).toFixed(2) +
@@ -196,8 +194,8 @@ Rectangle {
         id: order3
         y: order2_line.y + 25
         text: if (vendor_handler.delivery == 3){
-              vendor_handler.name3 + "\n\n" +
-         //     order3_order.text +
+              vendor_handler.name3 + "\n" +
+              vendor_handler.order3 +
               "\n\nTotal Price: $" + vendor_handler.price3 +
               "\nDelivery Fee: $4.00" +
               "\nGrand Total: $" + (vendor_handler.price3 * 1.08 + 4) +

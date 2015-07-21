@@ -243,10 +243,15 @@ Rectangle {
               vendor_handler.state1 = address_page_handler.state
               vendor_handler.zip1 = address_page_handler.zip
               vendor_handler.region1 = address_page_handler.region
-     //       order1_order.text = quantity1.text + " " + itemname1.text + "\n" +
-     //                           quantity2.text + " " + itemname2.text + "\n" +
-     //                           quantity3.text + " " + itemname3.text + "\n" +
-     //                           quantity4.text + " " + itemname4.text
+              vendor_handler.order1 = ""
+              if (menu_page_handler.num1 > 0)
+                  vendor_handler.order1 += menu_page_handler.num1 + "\t" + "Water Balloon\n";
+              if (menu_page_handler.num2 > 0)
+                  vendor_handler.order1 += menu_page_handler.num2 + "\t" + "Okra\n";
+              if (menu_page_handler.num3 > 0)
+                  vendor_handler.order1 += menu_page_handler.num3 + "\t" + "Iced Coffee\n";
+              if (menu_page_handler.num4 > 0)
+                  vendor_handler.order1 += menu_page_handler.num4 +  "\t " + "Mangoes\n";
               vendor_handler.price1 = menu_page_handler.total;
               vendor_handler.time1 = Qt.formatTime(new Date(),"hh:mm");
               vendor_handler.valid1 = true
@@ -258,6 +263,19 @@ Rectangle {
                vendor_handler.state2 = address_page_handler.state
                vendor_handler.zip2 = address_page_handler.zip
                vendor_handler.region2 = address_page_handler.region
+               vendor_handler.order2 = ""
+               if (menu_page_handler.num1 > 0)
+                   vendor_handler.order2 += menu_page_handler.num1 + "\t" + "Water Balloon\n";
+               if (menu_page_handler.num2 > 0)
+                   vendor_handler.order2 += menu_page_handler.num2 + "\t" + "Okra\n";
+               if (menu_page_handler.num3 > 0)
+                   vendor_handler.order2 += menu_page_handler.num3 + "\t" + "Iced Coffee\n";
+               if (menu_page_handler.num4 > 0)
+                   vendor_handler.order2 += menu_page_handler.num4 +  "\t " + "Mangoes\n";
+      //         vendor_handler.order2 = menu_page_handler.num1 + "\t" + "Water Balloon" + "\n" +
+      //                                 menu_page_handler.num2 + "\t" + "Okra" + "\n" +
+      //                                 menu_page_handler.num3 + "\t" + "Iced Coffee" + "\n" +
+      //                                 menu_page_handler.num4 + "\t " + "Mangoes"
                vendor_handler.price2 = menu_page_handler.total;
                vendor_handler.time2 = Qt.formatTime(new Date(),"hh:mm")
                vendor_handler.valid2 = true
@@ -269,6 +287,19 @@ Rectangle {
                vendor_handler.state3 = address_page_handler.state
                vendor_handler.zip3 = address_page_handler.zip
                vendor_handler.region3 = address_page_handler.region
+               vendor_handler.order3 = ""
+               if (menu_page_handler.num1 > 0)
+                   vendor_handler.order3 += menu_page_handler.num1 + "\t" + "Water Balloon\n";
+               if (menu_page_handler.num2 > 0)
+                   vendor_handler.order3 += menu_page_handler.num2 + "\t" + "Okra\n";
+               if (menu_page_handler.num3 > 0)
+                   vendor_handler.order3 += menu_page_handler.num3 + "\t" + "Iced Coffee\n";
+               if (menu_page_handler.num4 > 0)
+                   vendor_handler.order3 += menu_page_handler.num4 +  "\t " + "Mangoes\n";
+             //  vendor_handler.order3 = menu_page_handler.num1 + "\t" + "Water Balloon" + "\n" +
+             //                          menu_page_handler.num2 + "\t" + "Okra" + "\n" +
+             //                          menu_page_handler.num3 + "\t" + "Iced Coffee" + "\n" +
+             //                          menu_page_handler.num4 + "\t " + "Mangoes"
                vendor_handler.price3 = menu_page_handler.total;
                vendor_handler.time3 = Qt.formatTime(new Date(),"hh:mm")
                vendor_handler.valid3 = true

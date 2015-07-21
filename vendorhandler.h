@@ -11,6 +11,9 @@ class VendorHandler : public QQuickItem
     Q_PROPERTY(bool valid1 READ valid1 WRITE setValid1 NOTIFY valid1Changed)
     Q_PROPERTY(bool valid2 READ valid2 WRITE setValid2 NOTIFY valid2Changed)
     Q_PROPERTY(bool valid3 READ valid3 WRITE setValid3 NOTIFY valid3Changed)
+    Q_PROPERTY(QString order1 READ order1 WRITE setOrder1 NOTIFY order1Changed)
+    Q_PROPERTY(QString order2 READ order2 WRITE setOrder2 NOTIFY order2Changed)
+    Q_PROPERTY(QString order3 READ order3 WRITE setOrder3 NOTIFY order3Changed)
     Q_PROPERTY(QString name1 READ name1 WRITE setName1 NOTIFY name1Changed)
     Q_PROPERTY(QString name2 READ name2 WRITE setName2 NOTIFY name2Changed)
     Q_PROPERTY(QString name3 READ name3 WRITE setName3 NOTIFY name3Changed)
@@ -51,6 +54,9 @@ signals:
     void valid1Changed();
     void valid2Changed();
     void valid3Changed();
+    void order1Changed();
+    void order2Changed();
+    void order3Changed();
     void latitudeChanged();
     void longitudeChanged();
     void name1Changed();
@@ -83,6 +89,7 @@ public slots:
 
 private:
     bool order_valid[3];
+    QString order[3];
     QString order_name[3];
     QString order_street[3];
     QString order_city[3];
@@ -104,6 +111,9 @@ private:
     bool valid1();
     bool valid2();
     bool valid3();
+    QString order1();
+    QString order2();
+    QString order3();
     double latitude();
     double longitude();
     QString name1();
@@ -135,6 +145,9 @@ private:
     void setValid1(bool v);
     void setValid2(bool v);
     void setValid3(bool v);
+    void setOrder1(QString o);
+    void setOrder2(QString o);
+    void setOrder3(QString o);
     void setLatitude(double l);
     void setLongitude(double l);
     void setName1(QString n);
