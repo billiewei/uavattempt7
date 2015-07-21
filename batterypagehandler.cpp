@@ -6,12 +6,12 @@ BatteryPageHandler::BatteryPageHandler(QQuickItem *parent):
 
 }
 
-int BatteryPageHandler::percentage(){
+int BatteryPageHandler::percentage() {
     return battery_percent;
 }
 
-void BatteryPageHandler::setPercentage(int p){
-    if(battery_percent != p){
+void BatteryPageHandler::setPercentage(int p) {
+    if(battery_percent != p) {
         battery_percent = p;
         emit percentageChanged();
     }

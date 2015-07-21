@@ -32,7 +32,6 @@ Rectangle {
         id: osmplugin
         name:"osm"
     }
-
     Address {
         id: geocodeAddress
         street: address_page_handler.street
@@ -41,7 +40,6 @@ Rectangle {
         country:  address_page_handler.region
         postalCode:  address_page_handler.zip
     }
-
     MapPolyline {
         line.width: 3
         line.color: 'green'
@@ -50,7 +48,6 @@ Rectangle {
             { latitude: customerlat.text, longitude: customerlong.text }
         ]
     }
-
     Map {
         id: map
         plugin: osmplugin
