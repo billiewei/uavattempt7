@@ -22,5 +22,7 @@
         <file>PaymentPage.qml</file>
         <file>ConfirmationPage.qml</file>
         <file>CustomerTrackPage.qml</file>
+        <file>DroneApproaching.qml</file>
+        <file>ReceivedOrderCheck.qml</file>
     </qresource>
 </RCC>

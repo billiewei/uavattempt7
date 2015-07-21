@@ -25,13 +25,12 @@ Rectangle {
         font.letterSpacing: 2
     }
 
- //extract order 1 information
+    //extract order 1 information
     Text {
         id: order1_click
         text: "0"
         visible: false
     }
-
     Text {
         id: order1_time
         y: order1.y
@@ -46,18 +45,19 @@ Rectangle {
         id: order1
         y: 150
         text:
-              if (vendor_handler.delivery == 1) {
-                  vendor_handler.name1 + "\n" +
-                  vendor_handler.order1 +
-                  "\n\nTotal Price: $" + (vendor_handler.price1).toFixed(2) +
-                  "\nDelivery Fee: $4.00" +
-                  "\nGrand Total: $" + (vendor_handler.price1 *1.08 + 4).toFixed(2) +
-                  "\n\nPaid" +
-                  "\n\nAddress: " + "\n" + vendor_handler.street1 +
-                  "\n" + vendor_handler.city1 + ", " + vendor_handler.state1 + " " + vendor_handler.zip1 +
-                  "\n" + vendor_handler.region1
-              }
-              else {vendor_handler.name1 + " \n\nItems: " } //+ order1_number.text
+
+        if (vendor_handler.delivery == 1) {
+            vendor_handler.name1 + "\n" +
+            vendor_handler.order1 +
+            "\n\nTotal Price: $" + (vendor_handler.price1).toFixed(2) +
+            "\nDelivery Fee: $4.00" +
+            "\nGrand Total: $" + (vendor_handler.price1 *1.08 + 4).toFixed(2) +
+            "\n\nPaid" +
+            "\n\nAddress: " + "\n" + vendor_handler.street1 +
+            "\n" + vendor_handler.city1 + ", " + vendor_handler.state1 + " " + vendor_handler.zip1 +
+            "\n" + vendor_handler.region1
+         }
+        else {vendor_handler.name1 + " \n\nItems: " } //+ order1_number.text
         visible: vendor_handler.valid1
         anchors.right: parent.right
         anchors.rightMargin: 35
@@ -66,7 +66,6 @@ Rectangle {
         font.family: "Avenir"
         font.letterSpacing: 2
         z: 10
-
         MouseArea{
             id: order1_area
             anchors.fill: parent
@@ -77,7 +76,6 @@ Rectangle {
                             vendor_handler.delivery = 0
                        }
         }
-
         Button {
             id: deliverorder1_button
             y: if (vendor_handler.delivery == 1) {order1.y + order1.height - 100}
@@ -119,7 +117,6 @@ Rectangle {
         border.width: 1
         visible: vendor_handler.valid1
     }
-
     Text {
         id: order2_time
         y: order2.y
@@ -179,7 +176,6 @@ Rectangle {
         border.color: "#6E6E6E"
         visible: vendor_handler.valid2
     }
-
     Text {
         id: order3_time
         y: order3.y
@@ -240,8 +236,6 @@ Rectangle {
         border.color: "#6E6E6E"
         visible: vendor_handler.valid3
     }
-
-
     Button {
         id: backButton4
         anchors.horizontalCenter: parent.horizontalCenter
@@ -268,7 +262,6 @@ Rectangle {
         onClicked: {
             pending_order_page.visible = false
             battery_status_page.visible = true
-
             proceed_button.visible = false
             cancel_button.visible = false
             backButton5.visible = true

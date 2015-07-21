@@ -28,13 +28,18 @@ Rectangle {
         font.family: "Avenir"
         font.letterSpacing: 2
     }
+    Plugin {
+        id: osmplugin2
+        name:"osm"
+    }
+
     Map {
         id: tracking_dronelocation_map
         anchors.horizontalCenter: parent.horizontalCenter
         y: dronelocation_title.y + dronelocation_title.height + 50
         width: 400
         height: 400
-        plugin: customer_track_page.osmplugin
+        plugin: osmplugin2
         zoomLevel: (maximumZoomLevel)*0.95
         center {
             latitude: 22.3362535

@@ -4,8 +4,7 @@
 #include <QQuickItem>
 #include <QString>
 
-class VendorHandler : public QQuickItem
-{
+class VendorHandler : public QQuickItem {
     Q_OBJECT
     Q_PROPERTY(int delivery READ delivery WRITE setDelivery NOTIFY deliveryChanged)
     Q_PROPERTY(bool valid1 READ valid1 WRITE setValid1 NOTIFY valid1Changed)
@@ -41,14 +40,8 @@ class VendorHandler : public QQuickItem
 
     Q_PROPERTY(double latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
     Q_PROPERTY(double longitude READ longitude WRITE setLongitude NOTIFY longitudeChanged)
-public:
-    VendorHandler(QQuickItem* parent = 0);
-    Q_INVOKABLE void pass2to1();
-    Q_INVOKABLE void pass3to2();
-    Q_INVOKABLE void reset1();
-    Q_INVOKABLE void reset2();
-    Q_INVOKABLE void reset3();
 
+<<<<<<< HEAD
 signals:
     void deliveryChanged();
     void valid1Changed();
@@ -83,10 +76,51 @@ signals:
     void price1Changed();
     void price2Changed();
     void price3Changed();
+=======
+    public:
+        VendorHandler(QQuickItem* parent = 0);
+        Q_INVOKABLE void pass2to1();
+        Q_INVOKABLE void pass3to2();
+        Q_INVOKABLE void reset1();
+        Q_INVOKABLE void reset2();
+        Q_INVOKABLE void reset3();
+>>>>>>> origin/master
 
+    signals:
+        void deliveryChanged();
+        void valid1Changed();
+        void valid2Changed();
+        void valid3Changed();
+        void latitudeChanged();
+        void longitudeChanged();
+        void name1Changed();
+        void name2Changed();
+        void name3Changed();
+        void street1Changed();
+        void street2Changed();
+        void street3Changed();
+        void city1Changed();
+        void city2Changed();
+        void city3Changed();
+        void state1Changed();
+        void state2Changed();
+        void state3Changed();
+        void region1Changed();
+        void region2Changed();
+        void region3Changed();
+        void time1Changed();
+        void time2Changed();
+        void time3Changed();
+        void zip1Changed();
+        void zip2Changed();
+        void zip3Changed();
+        void price1Changed();
+        void price2Changed();
+        void price3Changed();
 
-public slots:
+    public slots:
 
+<<<<<<< HEAD
 private:
     bool order_valid[3];
     QString order[3];
@@ -174,9 +208,88 @@ private:
     void setPrice1(double p);
     void setPrice2(double p);
     void setPrice3(double p);
+=======
+    private:
+        bool order_valid[3];
+        QString order_name[3];
+        QString order_street[3];
+        QString order_city[3];
+        QString order_state[3];
+        QString order_region[3];
+        QString order_time[3];
+        int order_zip[3];
+        double order_price[3];
+>>>>>>> origin/master
 
+        double vendor_latitude;
+        double vendor_longitude;
+        //0  none
+        //1 - order1
+        //2 - order2
+        //3 - order3
+        int vendor_delivery;
 
+        int delivery();
+        bool valid1();
+        bool valid2();
+        bool valid3();
+        double latitude();
+        double longitude();
+        QString name1();
+        QString name2();
+        QString name3();
+        QString street1();
+        QString street2();
+        QString street3();
+        QString city1();
+        QString city2();
+        QString city3();
+        QString state1();
+        QString state2();
+        QString state3();
+        QString region1();
+        QString region2();
+        QString region3();
+        QString time1();
+        QString time2();
+        QString time3();
+        int zip1();
+        int zip2();
+        int zip3();
+        double price1();
+        double price2();
+        double price3();
 
+        void setDelivery(int d);
+        void setValid1(bool v);
+        void setValid2(bool v);
+        void setValid3(bool v);
+        void setLatitude(double l);
+        void setLongitude(double l);
+        void setName1(QString n);
+        void setName2(QString n);
+        void setName3(QString n);
+        void setStreet1(QString s);
+        void setStreet2(QString s);
+        void setStreet3(QString s);
+        void setCity1(QString c);
+        void setCity2(QString c);
+        void setCity3(QString c);
+        void setState1(QString s);
+        void setState2(QString s);
+        void setState3(QString s);
+        void setRegion1(QString r);
+        void setRegion2(QString r);
+        void setRegion3(QString r);
+        void setTime1(QString t);
+        void setTime2(QString t);
+        void setTime3(QString t);
+        void setZip1(int z);
+        void setZip2(int z);
+        void setZip3(int z);
+        void setPrice1(double p);
+        void setPrice2(double p);
+        void setPrice3(double p);
 };
 
 /**
@@ -251,4 +364,5 @@ private:
         font.letterSpacing: 2
     }
   */
+
 #endif // VENDERHANDLER_H

@@ -10,7 +10,7 @@ MenuPageHandler::MenuPageHandler(QQuickItem *parent):QQuickItem(parent),
 }
 
 void MenuPageHandler::setNum1(int n){
-    if(item1_num != n){
+    if (item1_num != n) {
         item1_num = n;
         setTotal(calculate_total_price());
         setWeight(calculate_total_weight());
@@ -19,7 +19,7 @@ void MenuPageHandler::setNum1(int n){
 }
 
 void MenuPageHandler::setNum2(int n){
-    if(item2_num != n){
+    if (item2_num != n) {
         item2_num = n;
         setTotal(calculate_total_price());
         setWeight(calculate_total_weight());
@@ -28,7 +28,7 @@ void MenuPageHandler::setNum2(int n){
 }
 
 void MenuPageHandler::setNum3(int n){
-    if(item3_num != n){
+    if (item3_num != n) {
         item3_num = n;
         setTotal(calculate_total_price());
         setWeight(calculate_total_weight());
@@ -37,7 +37,7 @@ void MenuPageHandler::setNum3(int n){
 }
 
 void MenuPageHandler::setNum4(int n){
-    if(item4_num != n){
+    if (item4_num != n) {
         item4_num = n;
         setTotal(calculate_total_price());
         setWeight(calculate_total_weight());
@@ -47,14 +47,14 @@ void MenuPageHandler::setNum4(int n){
 
 
 void MenuPageHandler::setTotal(double t){
-    if( abs(total_price - t) > 0.1 ){
+    if ( abs(total_price - t) > 0.1 ) {
         total_price = t;
         emit totalChanged();
     }
 }
 
 void MenuPageHandler::setWeight(int w){
-    if( total_weight != w ){
+    if ( total_weight != w ) {
         total_weight = w;
         emit weightChanged();
     }
@@ -87,15 +87,15 @@ int MenuPageHandler::weight(){
 
 double MenuPageHandler::calculate_total_price(){
     return item1_price * item1_num +
-            item2_price * item2_num +
-            item3_price * item3_num +
-            item4_price * item4_num;
+           item2_price * item2_num +
+           item3_price * item3_num +
+           item4_price * item4_num;
 }
 
 int MenuPageHandler::calculate_total_weight(){
     return item1_weight * item1_num +
-            item2_weight * item2_num +
-            item3_weight * item3_num +
-            item4_weight * item4_num;
+           item2_weight * item2_num +
+           item3_weight * item3_num +
+           item4_weight * item4_num;
 }
 
