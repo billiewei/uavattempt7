@@ -65,7 +65,7 @@ Rectangle {
         id: itemsordereddisplaytext
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.1
-        y: displayaddress.y + displayaddress.height + page.height*0.1
+        y: displayaddress.y + displayaddress.height + page.height*0.08
         text: "ITEMS ORDERED"
         font.family: "Avenir"
         font.pixelSize: 30
@@ -139,17 +139,17 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.1
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.5
+        anchors.bottomMargin: page.height*0.3
         text: "TOTAL:"
         font.family: "Avenir"
-        font.pixelSize: 35
+        font.pixelSize: 30
         font.letterSpacing: 2
     }
     Text {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.7
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.5
+        anchors.bottomMargin: page.height*0.3
         text: "$" + menu_page_handler.total
         wrapMode: Text.WordWrap
         font.family: "Avenir"
@@ -160,19 +160,19 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.1
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.44
+        anchors.bottomMargin: page.height*0.27
         width: 200
         text: "TAX:"
         wrapMode: Text.WordWrap
         font.family: "Avenir"
-        font.pixelSize: 35
+        font.pixelSize: 30
         font.letterSpacing: 2
     }
     Text {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.7
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.44
+        anchors.bottomMargin: page.height*0.27
         width: 200
         text: "$" + (menu_page_handler.total * 0.18).toFixed(2)
         wrapMode: Text.WordWrap
@@ -184,12 +184,12 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.1
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.38
+        anchors.bottomMargin: page.height*0.24
         width: 200
         text: "SHIPPING:"
         wrapMode: Text.WordWrap
         font.family: "Avenir"
-        font.pixelSize: 35
+        font.pixelSize: 30
         font.letterSpacing: 2
     }
     Text {
@@ -197,7 +197,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.7
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.38
+        anchors.bottomMargin: page.height*0.24
         text: if (menu_page_handler.weight > 0) {"$" + "4.00"} else {"$" + "0.00"}
         font.family: "Avenir"
         font.pixelSize: 30
@@ -207,7 +207,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.1
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.32
+        anchors.bottomMargin: page.height*0.19
         width: 200
         text: "GRAND TOTAL:"
         font.family: "Avenir"
@@ -218,18 +218,18 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.7
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.32
+        anchors.bottomMargin: page.height*0.19
         width: 200
         text: if (menu_page_handler.weight > 0) {"$" + (menu_page_handler.total*1.08 + 4.0).toFixed(2)} else {"$0.00"}
         font.family: "Avenir"
-        font.pixelSize: 30
+        font.pixelSize: 35
         font.letterSpacing: 2
     }
     Button {
         id: orderconfirmationButton
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.1
+        anchors.bottomMargin: page.height*0.08
         text: "Place order now"
         onClicked: {
            confirmation_page.visible = false
