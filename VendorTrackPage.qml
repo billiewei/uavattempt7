@@ -326,31 +326,30 @@ Rectangle {
             pending_order_page.visible = true
             delivered_validation.text = ""
             returned_validation.text = ""
-            if(vendor_handler.delivery == 1 & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
-                if(vendor_handler.valid2)
-                    vendor_handler.pass2to1();
-                else
+            if (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y" | delivered_validation.text == "y") {
+                if (vendor_handler.delivery == 1) {
                     vendor_handler.reset1();
+                    if (vendor_handler.valid2) {
+                        vendor_handler.pass2to1()
+                        vendor_handler.reset2()
+                    }
+                    if (vendor_handler.valid3) {
+                        vendor_handler.pass3to2()
+                        vendor_handler.reset3()
+                    }
 
-                if(vendor_handler.valid3)
-                    vendor_handler.pass3to2();
-                else
-                    vendor_handler.reset2();
-                vendor_handler.reset3();
+                }
+                else if (vendor_handler.delivery == 2) {
+                    vendor_handler.reset2()
+                    if (vendor_handler.valid3) {
+                        vendor_handler.pass3to2()
+                        vendor_handler.reset3()}
+                }
+                else if (vendor_handler.delivery == 3) {
+                    vendor_handler.reset3();
+                }
+
             }
-            if(deliver.text == "2" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
-                if(vendor_handler.valid3)
-                    vendor_handler.pass3to2();
-                else
-                    vendor_handler.reset2();
-                vendor_handler.reset3();
-            }
-            if(deliver.text == "3" & (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y")) {
-                vendor_handler.reset3();
-            }
-            //what is this?
-           trackorders.visible = false
-           pendingorders.visible = true     
         }
     }
     Button {
