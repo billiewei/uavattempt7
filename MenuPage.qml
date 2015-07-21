@@ -21,7 +21,7 @@ Rectangle {
         id: availableitemswindowtitle
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.width*0.1
+        anchors.topMargin: page.height*0.03
         text: "AVAILABLE ITEMS"
         font.family: "Avenir"
         font.letterSpacing: 2
@@ -30,12 +30,12 @@ Rectangle {
     Rectangle {
         id: item1
         anchors.horizontalCenter: parent.horizontalCenter
-        y: availableitemswindowtitle.y + availableitemswindowtitle.height + page.height*0.05
+        y: availableitemswindowtitle.y + availableitemswindowtitle.height + page.height*0.03
         anchors.left: parent.left
         anchors.leftMargin: 0
  //       anchors.right: parent.right
  //       anchors.rightMargin: 0
-        height: parent.height*0.13
+        height: parent.height*0.1
         border.color: "#ADADAD"
         border.width: 0.5
         TextField {
@@ -44,7 +44,7 @@ Rectangle {
             anchors.rightMargin: parent? parent.width*0.05 : 25
             anchors.verticalCenter: parent.verticalCenter
             width: page.width*0.15
-            height: page.height*0.1
+            height: page.height*0.07
             validator: IntValidator {bottom: 0; top: 9;}
             placeholderText: "0"
         }
@@ -104,14 +104,14 @@ Rectangle {
         anchors.leftMargin: 0
  //       anchors.right: parent.right
  //       anchors.rightMargin: 0
-        height: page.height*0.13
+        height: page.height*0.1
         TextField {
             id: quantity2
             anchors.right: parent.right
             anchors.rightMargin: page.width*0.05
             anchors.verticalCenter: parent.verticalCenter
             width: page.width*0.15
-            height: page.height*0.1
+            height: page.height*0.07
             validator: IntValidator {bottom: 0; top: 9;}
             placeholderText: "0"
         }
@@ -171,7 +171,7 @@ Rectangle {
         anchors.leftMargin: 0
     //    anchors.right: parent.right
     //    anchors.rightMargin: 0
-        height: page.height*0.13
+        height: page.height*0.1
         border.color: "#ADADAD"
         border.width: 0.5
         TextField {
@@ -180,7 +180,7 @@ Rectangle {
             anchors.rightMargin: page.width*0.05
             anchors.verticalCenter: parent.verticalCenter
             width: page.width*0.15
-            height: page.height*0.1
+            height: page.height*0.07
             validator: IntValidator {bottom: 0; top: 9;}
             placeholderText: "0"
         }
@@ -240,14 +240,14 @@ Rectangle {
         anchors.leftMargin: 0
   //      anchors.right: parent.right
   //      anchors.rightMargin: 0
-        height: page.height*0.13
+        height: page.height*0.1
         TextField {
             id: quantity4
             anchors.right: parent.right
             anchors.rightMargin: page.width*0.05
             anchors.verticalCenter: parent.verticalCenter
             width: page.width*0.15
-            height: page.height*0.1
+            height: page.height*0.07
             validator: IntValidator {bottom: 0; top: 9;}
             placeholderText: "0"
         }
@@ -307,7 +307,7 @@ Rectangle {
         anchors.leftMargin: 0
  //       anchors.right: parent.right
  //       anchors.rightMargin: 0
-        height: page.height*0.13
+        height: page.height*0.1
         border.color: "#ADADAD"
         border.width: 0.5
         Text {
@@ -376,6 +376,7 @@ Rectangle {
     Button {
         id: checkoutButton
         width: backButton1.width
+        height: page.height * 0.08
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
@@ -398,7 +399,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
         height: checkoutButton.height
-        width: page.width*0.7
+        width: backButton1.width
         color: "#D60000"
         radius: 5
         Text {
@@ -418,7 +419,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
         height: checkoutButton.height
-        width: page.width*0.7
+        width: backButton1.width
         color: "#D60000"
         radius: 5
         Text {
@@ -438,6 +439,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + (page.height*0.03)
         text: "Return to homepage"
+        height: checkoutButton.height
         onClicked:{
             menu_page.visible = false
             opening_page.visible = true
@@ -449,6 +451,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: page.height*0.05
         width: backButton1.width
+        height: checkoutButton.height
         text: "Clear all entries"
         onClicked:
             totalweight.text = 0

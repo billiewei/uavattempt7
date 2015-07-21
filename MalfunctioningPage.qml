@@ -8,16 +8,17 @@ import QtQuick.Dialogs 1.2
 Dialog {
     contentItem: Rectangle {
         id: malfunctionrect
-        implicitWidth: 400
-        implicitHeight: 700
+        implicitWidth: 550
+        implicitHeight: 900
         visible: true
         Text {
             id: malfunctioningpagetitle
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 50
+            anchors.topMargin: malfunctionrect.height*.03
             text: "WARNING!"
             font.family: "Avenir"
+            font.pixelSize: 30
             font.letterSpacing: 2
             font.bold: true
             color: "#D60000"
@@ -27,8 +28,9 @@ Dialog {
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             width: malfunctionrect.width * 0.8
-            y: malfunctioningpagetitle.y + malfunctioningpagetitle.height + malfunctionrect.height*.05
+            y: malfunctioningpagetitle.y + malfunctioningpagetitle.height + malfunctionrect.height*.03
             font.family: "Avenir"
+            font.pixelSize: 20
             font.letterSpacing: 2
             wrapMode: Text.WordWrap
             text: "The propeller is malfunctioning or the drone does not have enough power to deliver/return. \n\n Issue is dire. Please land the drone and retrieve it immediately."
@@ -162,23 +164,27 @@ Dialog {
             id: emergency_land_button
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 130
+            anchors.bottomMargin: malfunctionrect.height * 0.23
             width: drone_retrieved_button.width
+            height: malfunctionrect.height*.08
             text: "Land Drone Now"
         }
         Button {
             id: beep_button
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 90
+            anchors.bottomMargin: malfunctionrect.height * 0.13
             width: drone_retrieved_button.width
+            height: malfunctionrect.height*.08
             text: "Beep Drone"
         }
         Button {
             id: drone_retrieved_button
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 50
+            anchors.bottomMargin: malfunctionrect.height * 0.03
+            height: malfunctionrect.height*.08
+            width: malfunctionrect.width * 0.6
             text: "Drone Retrieved"
         }
     }

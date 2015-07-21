@@ -87,12 +87,12 @@ ApplicationWindow {
 
     DroneApproaching {
         id: drone_approaching_page
-        visible: true
+        visible: false
     }
 
     ReceivedOrderCheck {
         id: received_order_check_page
-        visible: true
+        visible: false
     }
 
     DroneLocationPage {

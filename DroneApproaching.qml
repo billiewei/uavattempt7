@@ -9,8 +9,8 @@ Dialog {
     id: droneapproachingmessagedialog
     contentItem: Rectangle {
         id: droneapproachrect
-        implicitWidth: 400
-        implicitHeight: 600
+        implicitWidth: 550
+        implicitHeight: 900
         Plugin {
             id: osmplugin3
             name:"osm"
@@ -47,9 +47,9 @@ Dialog {
             zoomLevel: maximumZoomLevel
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 150
+            anchors.topMargin: droneapproachrect.height*0.35
             width: droneapproachrect.width * 0.8
-            height: droneapproachrect.height * 0.5
+            height: droneapproachrect.height * 0.45
 
             signal resetState()
 
