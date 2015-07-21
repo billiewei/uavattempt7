@@ -376,10 +376,10 @@ Rectangle {
     Button {
         id: checkoutButton
         width: backButton1.width
-        height: page.height * 0.08
+        height: page.height * 0.07
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
+        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.02)*2) + (backButton1.height)
         text: "Checkout"
         visible:
             if (totalweight.text > 400 || totalweight.text == 0) {false}
@@ -397,7 +397,7 @@ Rectangle {
         id: checkoutdenialrectangle
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
+        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.02)*2) + (backButton1.height)
         height: checkoutButton.height
         width: backButton1.width
         color: "#D60000"
@@ -417,7 +417,7 @@ Rectangle {
         id: checkoutdenialrectangle2
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.03)*2) + (backButton1.height)
+        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + ((page.height*0.02)*2) + (backButton1.height)
         height: checkoutButton.height
         width: backButton1.width
         color: "#D60000"
@@ -437,7 +437,7 @@ Rectangle {
         id: backButton1
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + (page.height*0.03)
+        anchors.bottomMargin: (page.height*0.05) + (clearButton.height) + (page.height*0.02)
         text: "Return to homepage"
         height: checkoutButton.height
         onClicked:{

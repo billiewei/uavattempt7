@@ -81,12 +81,12 @@ ApplicationWindow {
 
     MalfunctioningPage {
         id: malfunctioning_page
-        visible: true
+        visible: false
     }
 
     MalfunctioningCustNotification {
         id: malfunctioning_customer_notification
-        visible: true
+        visible: false
     }
 
     DroneApproaching {

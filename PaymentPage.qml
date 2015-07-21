@@ -22,17 +22,17 @@ Rectangle {
         id: paymentWindowtitle
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.width*0.1
+        anchors.topMargin: page.width*0.05
         text: "ENTER PAYMENT INFORMATION"
         font.family: "Avenir"
-        font.pixelSize: 35
+        font.pixelSize: 30
         font.letterSpacing: 2
     }
     RowLayout {
         id: rowLayout1
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.width*0.25
+        anchors.topMargin: page.width*0.2
         width: paymentWindowtitle.width
         Column {
             id: column0
@@ -47,8 +47,8 @@ Rectangle {
             }
             Image {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: page.width*0.15
-                height: page.width*0.15
+                width: page.width*0.1
+                height: page.width*0.1
                 fillMode: Image.PreserveAspectFit
                 source: "amx.png"
             }
@@ -66,8 +66,8 @@ Rectangle {
             }
             Image {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: page.width*0.15
-                height: page.width*0.15
+                width: page.width*0.1
+                height: page.width*0.1
                 fillMode: Image.PreserveAspectFit
                 source: "visa.png"
             }
@@ -85,8 +85,8 @@ Rectangle {
             }
             Image {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: page.width*0.15
-                height: page.width*0.15
+                width: page.width*0.1
+                height: page.width*0.1
                 fillMode: Image.PreserveAspectFit
                 source: "discover.png"
             }
@@ -96,9 +96,9 @@ Rectangle {
         id: cardnumber
         maximumLength: 19
         anchors.horizontalCenter: parent.horizontalCenter
-        y: rowLayout1.y + rowLayout1.height + (page.height*0.05)
-        width: page.width
-        height: page.height*0.1
+        y: rowLayout1.y + rowLayout1.height + (page.height*0.03)
+        width: page.width*0.9
+        height: page.height*0.08
         placeholderText: "Card Number"
         echoMode: TextInput.Password
     }
@@ -108,33 +108,33 @@ Rectangle {
         validator: IntValidator{bottom: 0; top: 9999;}
         anchors.horizontalCenter: parent.horizontalCenter
         echoMode: TextInput.Password
-        y: cardnumber.y + cardnumber.height + (page.height*0.04)
-        width: page.width
-        height: page.height*0.1
+        y: cardnumber.y + cardnumber.height + (page.height*0.03)
+        width: page.width*0.9
+        height: page.height*0.08
         placeholderText: "Security Code"
     }
     TextField {
         id: cardholdername
         anchors.horizontalCenter: parent.horizontalCenter
-        y: cvccode.y + cvccode.height + (page.height*0.04)
-        width: page.width
-        height: page.height*0.1
+        y: cvccode.y + cvccode.height + (page.height*0.03)
+        width: page.width*0.9
+        height: page.height*0.08
         placeholderText: qsTr("Cardholder's Name")
     }
     TextField {
         id: cardexpirationdate
         maximumLength: 7
         anchors.horizontalCenter: parent.horizontalCenter
-        y: cardholdername.y + cardholdername.height + (page.height*0.04)
-        width: page.width
-        height: page.height*0.1
+        y: cardholdername.y + cardholdername.height + (page.height*0.03)
+        width: page.width*0.9
+        height: page.height*0.08
         placeholderText: "MM/YYYY" + "  " + "(Expiration Date)"
     }
     Button {
         id: submitpaymentinfoButton
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: backButton2.height + page.height*0.2
+        anchors.bottomMargin: backButton2.height + page.height*0.07
         text: "Submit and Review Order"
         onClicked:{
             payment_page.visible = false
@@ -145,7 +145,7 @@ Rectangle {
         id: backButton2
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.15
+        anchors.bottomMargin: page.height*0.05
         width: submitpaymentinfoButton.width
         text: "Back"
         onClicked:{

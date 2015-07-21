@@ -12,7 +12,7 @@ Rectangle {
         visible: true
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.height*.25
+        anchors.topMargin: page.height*.2
         width: page.width*.25
         height: page.width*.25
         source: "qrc:/logo.png"
