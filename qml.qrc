@@ -24,5 +24,6 @@
         <file>CustomerTrackPage.qml</file>
         <file>DroneApproaching.qml</file>
         <file>ReceivedOrderCheck.qml</file>
+        <file>MalfunctioningCustNotification.qml</file>
     </qresource>
 </RCC>

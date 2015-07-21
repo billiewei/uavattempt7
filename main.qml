@@ -6,7 +6,6 @@ import QtQuick.Layouts 1.1
 import QtPositioning 5.2
 import QtLocation 5.3
 import QtQml 2.2
-
 import HKUST 1.0
 
 ApplicationWindow {
@@ -65,7 +64,7 @@ ApplicationWindow {
         id: pending_order_page
         visible: false
     }
-      // Battery Status Window (vendor side)
+    // Battery Status Window (vendor side)
     BatteryStatusPage{
         id: battery_status_page
         visible: false
@@ -82,7 +81,12 @@ ApplicationWindow {
 
     MalfunctioningPage {
         id: malfunctioning_page
-        visible: false
+        visible: true
+    }
+
+    MalfunctioningCustNotification {
+        id: malfunctioning_customer_notification
+        visible: true
     }
 
     DroneApproaching {
