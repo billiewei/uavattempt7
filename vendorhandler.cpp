@@ -110,7 +110,7 @@ bool VendorHandler::valid3() {
     return order_valid[2];
 }
 
-<<<<<<< HEAD
+
 QString VendorHandler::order1(){
     return order[0];
 }
@@ -123,10 +123,9 @@ QString VendorHandler::order3(){
     return order[2];
 }
 
-double VendorHandler::latitude(){
-=======
+
 double VendorHandler::latitude() {
->>>>>>> origin/master
+
     return vendor_latitude;
 }
 
