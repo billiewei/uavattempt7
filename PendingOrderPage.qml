@@ -49,7 +49,7 @@ Rectangle {
         if (vendor_handler.delivery == 1) {
             vendor_handler.name1 + "\n" +
             vendor_handler.order1 +
-            "\n\nTotal Price: $" + (vendor_handler.price1).toFixed(2) +
+            "Total Price: $" + (vendor_handler.price1).toFixed(2) +
             "\nDelivery Fee: $4.00" +
             "\nGrand Total: $" + (vendor_handler.price1 *1.08 + 4).toFixed(2) +
             "\n\nPaid" +
@@ -134,7 +134,7 @@ Rectangle {
               if (vendor_handler.delivery == 2){
               vendor_handler.name2 + "\n" +
               vendor_handler.order2 +
-              "\n\nTotal Price: $" + (vendor_handler.price2).toFixed(2) +
+              "Total Price: $" + (vendor_handler.price2).toFixed(2) +
               "\nDelivery Fee: $4.00" +
               "\nGrand Total: $" + (vendor_handler.price2 * 1.08 + 4).toFixed(2) +
               "\n\nPaid" +
@@ -192,7 +192,7 @@ Rectangle {
         text: if (vendor_handler.delivery == 3){
               vendor_handler.name3 + "\n" +
               vendor_handler.order3 +
-              "\n\nTotal Price: $" + vendor_handler.price3 +
+              "Total Price: $" + vendor_handler.price3 +
               "\nDelivery Fee: $4.00" +
               "\nGrand Total: $" + (vendor_handler.price3 * 1.08 + 4) +
               "\n\nPaid" +
