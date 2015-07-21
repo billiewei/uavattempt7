@@ -10,7 +10,6 @@ Dialog {
         id: malfunctionrect
         implicitWidth: 400
         implicitHeight: 700
-        visible: true
         Text {
             id: malfunctioningpagetitle
             anchors.horizontalCenter: parent.horizontalCenter
