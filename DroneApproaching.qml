@@ -9,8 +9,8 @@ Dialog {
     id: droneapproachingmessagedialog
     contentItem: Rectangle {
         id: droneapproachrect
-        implicitWidth: 550
-        implicitHeight: 900
+        implicitWidth: 400
+        implicitHeight: 600
         Plugin {
             id: osmplugin3
             name:"osm"
@@ -47,9 +47,9 @@ Dialog {
             zoomLevel: maximumZoomLevel
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: droneapproachrect.height * 0.35
+            anchors.topMargin: 150
             width: droneapproachrect.width * 0.8
-            height: droneapproachrect.height * 0.45
+            height: droneapproachrect.height * 0.5
 
             signal resetState()
 
@@ -122,7 +122,7 @@ Dialog {
             Component {
                 id: pointDelegate3
                 MapCircle {
-                    radius: 5000/map.zoomLevel
+                    radius: 5000/map3.zoomLevel
                     color: "#F666FF"
                     opacity: 0.5
                     center {
@@ -138,7 +138,7 @@ Dialog {
             }
         }
         Text {
-            text: "ORDER APPROACHING \n \n Please wait outside to retrieve your items. For your safety, please keep all parts of your body away from the drone."
+            text: "ORDER APPROACHING \n \nPlease wait outside to retrieve your items. For your safety, please keep all parts of your body away from the drone."
             color: "#000"
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter

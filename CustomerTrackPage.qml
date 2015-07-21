@@ -54,8 +54,8 @@ Rectangle {
         zoomLevel: maximumZoomLevel
         anchors.horizontalCenter: parent.horizontalCenter
         y: 100
-        width: page.width * 0.6
-        height: page.width *0.6
+        width: page.width * 1.2
+        height: page.width
 
         signal resetState()
 

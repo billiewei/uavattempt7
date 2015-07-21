@@ -1,50 +1,185 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.3
+import QtQuick.Window 2.1
+import QtPositioning 5.2
+import QtLocation 5.3
+import QtQuick.Dialogs 1.2
 
-Rectangle {
-    width: parent? parent.width : 500
-    height: parent? parent.height : 800
-    visible: true
-    Image {
-        id: logowarn
+Dialog {
+    contentItem: Rectangle {
+        id: malfunctionrect
+        implicitWidth: 400
+        implicitHeight: 700
         visible: true
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        anchors.topMargin: page.height*.25
-        width: parent? parent.width*.4 : 200
-        height: parent? parent.width*.4 : 200
-        source: "qrc:/logo.png"
-        asynchronous : true
-    }
-    Text {
-        id: malfunctioningpagetitle
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: logowarn.y + logowarn.height + page.height*.05
-        text: "WARNING!"
-        font.family: "Avenir"
-        font.letterSpacing: 2
-        font.bold: true
-        color: "#D60000"
-    }
-    Text {
-        id: malfunctioning_warning
-        anchors.horizontalCenter: parent.horizontalCenter
-        horizontalAlignment: Text.AlignHCenter
-        width: page.width
-        y: malfunctioningpagetitle.y + malfunctioningpagetitle.height + page.height*.05
-        font.family: "Avenir"
-        font.letterSpacing: 2
-        wrapMode: Text.WordWrap
-        text: "The propeller is malfunctioning or the drone does not have enough power to deliver/return. \n\n Issue is dire. \n \n Please land the drone and retrieve it immediately."
-    }
-    Button {
-        id: malfunctioning_landing
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: malfunctioning_warning.y + malfunctioning_warning.height + page.width*.12
-        width: page.width*.5
-        text: "Proceed"
-        onClicked:
-            page.state = "dronelocationwindowstate"
+        Text {
+            id: malfunctioningpagetitle
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 50
+            text: "WARNING!"
+            font.family: "Avenir"
+            font.letterSpacing: 2
+            font.bold: true
+            color: "#D60000"
+        }
+        Text {
+            id: malfunctioning_warning
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+            width: malfunctionrect.width * 0.8
+            y: malfunctioningpagetitle.y + malfunctioningpagetitle.height + malfunctionrect.height*.05
+            font.family: "Avenir"
+            font.letterSpacing: 2
+            wrapMode: Text.WordWrap
+            text: "The propeller is malfunctioning or the drone does not have enough power to deliver/return. \n\n Issue is dire. Please land the drone and retrieve it immediately."
+        }
+        Plugin {
+            id: osmplugin4
+            name:"osm"
+        }
+        Address {
+            id: geocodeAddress4
+            street: address_page_handler.street
+            city:  address_page_handler.city
+            state:  address_page_handler.state
+            country:  address_page_handler.region
+            postalCode:  address_page_handler.zip
+        }
+        Text {
+            id: customerlat4
+            text: ""
+            visible: false
+        }
+        Text {
+            id: customerlong4
+            text: ""
+            visible: false
+        }
+        MapPolyline {
+            line.width: 3
+            line.color: 'green'
+            path: [
+                { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
+                { latitude: customerlat4.text, longitude: customerlong4.text }
+            ]
+        }
+        Map {
+            id: map4
+            plugin: osmplugin4
+            zoomLevel: maximumZoomLevel
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: malfunctioning_warning.y + malfunctioning_warning.height + 20
+            width: malfunctionrect.width * 0.8
+            height: map4.width * 0.8
+
+            signal resetState()
+
+            center {
+                latitude: 22.336400
+                longitude: 114.265466
+            }
+
+            gesture.flickDeceleration: 3000
+            gesture.enabled: true
+
+            // HOME
+            MapCircle {
+                id: homecoordinates3
+                center {
+                    latitude: 22.336400
+                    longitude: 114.265466
+                }
+
+                radius: if (map4.zoomLevel < 13) {200}
+                        else {20}
+
+                color: "#FF4747"
+                border.width: 1
+                border.color: "#242424"
+                opacity: 0.6
+            }
+
+            Slider {
+                id: zoomSlider4;
+                opacity: 1
+                maximumValue: 20;
+                minimumValue: 10;
+                visible: parent.visible
+                z: map4.z + 3
+                anchors {
+                    bottom: parent.bottom;
+                    bottomMargin: 15; rightMargin: 30; leftMargin: 30
+                    left: parent.left
+                }
+                width: parent.width - anchors.rightMargin - anchors.leftMargin
+
+                value: map4.zoomLevel
+
+                Binding {
+                    target: zoomSlider4; property: "value"; value: 12
+                }
+
+                onValueChanged: {
+                    map4.zoomLevel = value
+                    map4.state=""
+                    map4.resetState()
+                }
+            }
+
+            GeocodeModel {
+                id: geocodeModel4
+                plugin: osmplugin4
+                autoUpdate: true
+                query: geocodeAddress4
+                onLocationsChanged:
+                {
+                    map4.center.latitude = get(0).coordinate.latitude
+                    map4.center.longitude = get(0).coordinate.longitude
+                    customerlat4.text = get(0).coordinate.latitude
+                    customerlong4.text = get(0).coordinate.longitude
+                }
+            }
+
+            Component {
+                id: pointDelegate4
+                MapCircle {
+                    radius: 5000/map4.zoomLevel
+                    color: "#F666FF"
+                    opacity: 0.5
+                    center {
+                        latitude: customerlat4.text
+                        longitude: customerlong4.text
+                    }
+                }
+            }
+
+            MapItemView {
+                model: geocodeModel4
+                delegate: pointDelegate4
+            }
+        }
+        Button {
+            id: emergency_land_button
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 130
+            width: drone_retrieved_button.width
+            text: "Land Drone Now"
+        }
+        Button {
+            id: beep_button
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 90
+            width: drone_retrieved_button.width
+            text: "Beep Drone"
+        }
+        Button {
+            id: drone_retrieved_button
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 50
+            text: "Drone Retrieved"
+        }
     }
 }
-
