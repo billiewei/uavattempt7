@@ -324,11 +324,9 @@ Rectangle {
         onClicked: {
             vendor_track_page.visible = false
             pending_order_page.visible = true
-            delivered_validation.text = ""
-            returned_validation.text = ""
             if (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y" | delivered_validation.text == "y") {
                 if (vendor_handler.delivery == 1) {
-                    vendor_handler.reset1();
+                    vendor_handler.reset1()
                     if (vendor_handler.valid2) {
                         vendor_handler.pass2to1()
                         vendor_handler.reset2()
@@ -346,10 +344,12 @@ Rectangle {
                         vendor_handler.reset3()}
                 }
                 else if (vendor_handler.delivery == 3) {
-                    vendor_handler.reset3();
+                    vendor_handler.reset3()
                 }
 
             }
+            delivered_validation.text = ""
+            returned_validation.text = ""
         }
     }
     Button {
