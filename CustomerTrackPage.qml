@@ -204,6 +204,8 @@ Rectangle {
     TextField {
         id: orderrecievedvalidation
         y: display_distancecustside.y + display_distancecustside.height + 20
+        height: page.height * 0.035
+        width: page.width * 0.4
         anchors.left: enroute.right
         anchors.right: enroutevalidation.left
         placeholderText: "Test Y or N"
@@ -230,8 +232,9 @@ Rectangle {
     TextField {
         id: enroutevalidation
         y: orderrecieved.y + orderrecieved.height + 20
+        height: page.height * 0.035
+        width: page.width * 0.4
         anchors.left: enroute.right
-      //  anchors.right: enroutevalidation.left
         placeholderText: "Test Y or N"
     }
     Image {
@@ -255,6 +258,8 @@ Rectangle {
     TextField {
         id: deliveredvalidation2
         y: enroute.y + enroute.height + 20
+        height: page.height * 0.035
+        width: page.width * 0.4
         anchors.left: enroute.right
         anchors.right: enroutevalidation.left
         placeholderText: "Test Y or N"

@@ -226,6 +226,8 @@ Rectangle {
         id: delivered_validation
         y: delivered.y
         x: delivered.x + delivered.width + 70
+        height: page.height * 0.035
+        width: page.width * 0.4
         placeholderText: "Test Y or N"
     }
     Image {
@@ -252,6 +254,8 @@ Rectangle {
         id: returned_validation
         y: returned.y
         x: returned.x + returned.width + 70
+        height: page.height * 0.035
+        width: page.width * 0.4
         placeholderText: "Test Y or N"
     }
     Image {
