@@ -119,7 +119,8 @@ Rectangle {
     Button {
         id: proceed_button
         anchors.horizontalCenter: parent.horizontalCenter
-        y: batteryinfo.y + batteryinfo.height + 50
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: page.height * 0.2
         visible: battery_green.visible & (vendor_handler.delivery != 0)
         text: "Proceed"
         onClicked: {
@@ -133,7 +134,8 @@ Rectangle {
     Rectangle {
         id: batterydenialrectangle
         anchors.horizontalCenter: parent.horizontalCenter
-        y: proceed_button.y
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: page.height * 0.2
         width: page.width * .6
         height: proceed_button.height
         color: "#D60000"
@@ -150,7 +152,8 @@ Rectangle {
     Button {
         id: backButton5
         anchors.horizontalCenter: parent.horizontalCenter
-        y: rectangle1.y + rectangle1.height + 150
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: page.height * 0.1
         text: "Go Back"
         onClicked: {
             battery_status_page.visible = false
