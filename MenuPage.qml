@@ -53,7 +53,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "Egg Tart"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -63,7 +63,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "100"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -71,7 +71,7 @@ Rectangle {
         Text {
             x: itemweight1.x + itemweight1.width + (page.width*0.02)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "g"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -80,7 +80,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.4
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "$"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -90,7 +90,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "7.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -120,7 +120,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "Pineapple Bun"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -130,7 +130,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "150"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -138,7 +138,7 @@ Rectangle {
         Text {
             x: itemweight2.x + itemweight2.width + (page.width*0.02)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "g"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -147,7 +147,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.4
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "$"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -157,7 +157,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "6.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -189,7 +189,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "Iced Coffee"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -199,7 +199,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "200"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -207,7 +207,7 @@ Rectangle {
         Text {
             x: itemweight3.x + itemweight3.width + (page.width*0.02)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "g"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -216,7 +216,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.4
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "$"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -226,7 +226,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "9.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -256,7 +256,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "Milk Tea"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -266,7 +266,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "160"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -274,7 +274,7 @@ Rectangle {
         Text {
             x: itemweight4.x + itemweight4.width + (page.width*0.02)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "g"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -283,7 +283,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.4
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "$"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -293,7 +293,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "8.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -315,7 +315,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.19
+            anchors.topMargin: parent.height*0.16
             text: "Total Weight:"
             font.family: "Avenir"
             style: Text.Normal
@@ -326,7 +326,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.05
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.19
+            anchors.bottomMargin: parent.height*0.16
             text: "Total Price:"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -335,7 +335,7 @@ Rectangle {
             id: maxweighttext
             x: totalweight.x + totalweight.width + page.width*0.02
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.17
+            anchors.topMargin: parent.height*0.14
             text: "/ 400 g"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -345,7 +345,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.4
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: "$"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
@@ -360,7 +360,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.4
             anchors.top: parent.top
-            anchors.topMargin: parent.height*0.17
+            anchors.topMargin: parent.height*0.14
             text: (quantity1.text*itemweight1.text) + (quantity2.text*itemweight2.text) + (quantity3.text*itemweight3.text) + (quantity4.text*itemweight4.text)
         }
         Text {
@@ -369,7 +369,7 @@ Rectangle {
             font.pixelSize: page.height*.029
             x: dollarsign5.x + dollarsign5.width + page.width*0.02
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height*0.17
+            anchors.bottomMargin: parent.height*0.14
             text: (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
         }
     }
