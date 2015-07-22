@@ -1,10 +1,11 @@
 #include "menupagehandler.h"
 
 MenuPageHandler::MenuPageHandler(QQuickItem *parent):QQuickItem(parent),
-    item1_weight(100), item1_num(0), item1_price(2.15),
-    item2_weight(100), item2_num(0), item2_price(2.2),
-    item3_weight(200), item3_num(0), item3_price(5.0),
-    item4_weight(100), item4_num(0), item4_price(3.0),
+    // Item weights and prices for calculation
+    item1_weight(100), item1_num(0), item1_price(7.0),
+    item2_weight(150), item2_num(0), item2_price(6.0),
+    item3_weight(200), item3_num(0), item3_price(9.0),
+    item4_weight(160), item4_num(0), item4_price(8.0),
     total_price(0), total_weight(0){
 
 }

@@ -327,6 +327,7 @@ Rectangle {
             if (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y" | delivered_validation.text == "y") {
                 if (vendor_handler.delivery == 1) {
                     vendor_handler.reset1()
+                    vendor_handler.delivery = 0
                     if (vendor_handler.valid2) {
                         vendor_handler.pass2to1()
                         vendor_handler.reset2()
@@ -339,12 +340,14 @@ Rectangle {
                 }
                 else if (vendor_handler.delivery == 2) {
                     vendor_handler.reset2()
+                    vendor_handler.delivery = 0
                     if (vendor_handler.valid3) {
                         vendor_handler.pass3to2()
                         vendor_handler.reset3()}
                 }
                 else if (vendor_handler.delivery == 3) {
                     vendor_handler.reset3()
+                    vendor_handler.delivery = 0
                 }
 
             }
