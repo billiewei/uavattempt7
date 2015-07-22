@@ -17,7 +17,6 @@ Rectangle {
         source: "qrc:/logo.png"
         asynchronous : true
     }
-
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -156,21 +155,8 @@ Rectangle {
         onClicked: {
             battery_status_page.visible = false
             pending_order_page.visible = true
-            backButton5.visible = false
             proceed_button.visible = true
             cancel_button.visible = true
-        }
-    }
-    Button {
-        id: cancel_button
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: proceed_button.y + proceed_button.height + 40
-        text: "Cancel"
-        width: if (backButton5.visible == true) {backButton5.width}
-               else {proceed_button.width}
-        onClicked:{
-            battery_status_page.visible = false
-            pending_order_page.visible = true
         }
     }
 }

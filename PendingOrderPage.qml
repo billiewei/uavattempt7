@@ -25,7 +25,6 @@ Rectangle {
         font.letterSpacing: 2
     }
 
-    //extract order 1 information
     Text {
         id: order1_click
         text: "0"
@@ -87,9 +86,19 @@ Rectangle {
             onClicked: {
                 pending_order_page.visible = false
                 battery_status_page.visible = true
-                //backButton5.visible = false
+                backButton5.visible = true
             }
         }
+    }
+    Text {
+        id: nopendingorders
+        visible: if (vendor_handler.valid1) {false} else {true}
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 100
+        text: "There are currently no pending orders."
+        font.family: "Avenir"
+        font.letterSpacing: 2
     }
     Rectangle {
         id: order1_beforeline
