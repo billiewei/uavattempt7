@@ -10,17 +10,18 @@ Rectangle {
     Image {
         visible: true
         anchors.right: parent.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: page.width*0.05
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
-        width: 50
-        height: 50
+        anchors.bottomMargin: page.width*0.05
+        width: page.width*.10
+        height: page.width*.10
         source: "qrc:/logo.png"
         asynchronous : true
     }
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 50
+        anchors.topMargin: page.height * 0.03
+        anchors.top: parent.top
         text: "TRACK ORDER"
         font.family: "Avenir"
         font.letterSpacing: 2
@@ -32,10 +33,9 @@ Rectangle {
     Item {
         id: tracking_drone
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 120
-        width: page.width * 1.15
-        height: page.width * 0.9
-        z: 10
+        y: page.height * 0.08
+        width: page.width * 0.8
+        height: page.width * 0.6
 
         Text {
             id: targetlatitude
@@ -317,7 +317,7 @@ Rectangle {
         id: view_other_orders
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.width * 0.4
+        anchors.bottomMargin: page.height * 0.12
         visible: true
         text: "View other orders"
         width: cancelreturn.width
@@ -355,7 +355,8 @@ Rectangle {
     Button {
         id: cancelreturn
         anchors.horizontalCenter: parent.horizontalCenter
-        y: view_other_orders.y + view_other_orders.height + 40
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: page.height * 0.03
         visible: if (returned_validation.text == "Y") {false} else {true}
         text: "Cancel Order and Return"
         onClicked: {

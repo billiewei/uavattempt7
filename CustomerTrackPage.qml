@@ -11,11 +11,11 @@ Rectangle {
     Image {
         visible: true
         anchors.right: parent.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: page.width*0.05
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
-        width: 50
-        height: 50
+        anchors.bottomMargin: page.width*0.05
+        width: page.width*.10
+        height: page.width*.10
         source: "qrc:/logo.png"
         asynchronous : true
     }
@@ -23,7 +23,7 @@ Rectangle {
         id: customertrackWindowtitle
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: 50
+        anchors.topMargin: page.height * 0.05
         text: "TRACK YOUR ORDER"
         font.family: "Avenir"
         font.letterSpacing: 2
@@ -53,9 +53,9 @@ Rectangle {
         plugin: osmplugin
         zoomLevel: maximumZoomLevel
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 100
-        width: page.width * 1.2
-        height: page.width
+        y: page.height * 0.1
+        width: page.width * 0.8
+        height: page.width * 0.6
 
         signal resetState()
 
@@ -281,7 +281,7 @@ Rectangle {
     Button {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 80
+        anchors.bottomMargin: page.height * 0.05
         text: "Place another order"
         onClicked:{
             customer_track_page.visible = false
