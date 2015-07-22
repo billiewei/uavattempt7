@@ -24,6 +24,16 @@ Rectangle {
         font.family: "Avenir"
         font.letterSpacing: 2
     }
+    Text {
+        id: nopendingorders
+        visible: if (vendor_handler.valid1) {false} else {true}
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 100
+        text: "There are currently no pending orders."
+        font.family: "Avenir"
+        font.letterSpacing: 2
+    }
 
     Text {
         id: order1_click
@@ -68,12 +78,13 @@ Rectangle {
         MouseArea{
             id: order1_area
             anchors.fill: parent
-            onClicked: if (vendor_handler.delivery != 1) {
-                           vendor_handler.delivery = 1
-                       }
-                       else if (vendor_handler.delivery == 1) {
-                            vendor_handler.delivery = 0
-                       }
+            onClicked:
+                if (vendor_handler.delivery != 1) {
+                   vendor_handler.delivery = 1
+                }
+                else if (vendor_handler.delivery == 1) {
+                    vendor_handler.delivery = 0
+                }
         }
         Button {
             id: deliverorder1_button
@@ -89,16 +100,6 @@ Rectangle {
                 backButton5.visible = true
             }
         }
-    }
-    Text {
-        id: nopendingorders
-        visible: if (vendor_handler.valid1) {false} else {true}
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        anchors.topMargin: 100
-        text: "There are currently no pending orders."
-        font.family: "Avenir"
-        font.letterSpacing: 2
     }
     Rectangle {
         id: order1_beforeline
@@ -250,9 +251,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 240
-        visible: (vendor_handler.delivery == 0)
         text: "Return to homepage"
-        z:0
         onClicked:{
             pending_order_page.visible = false
             opening_page.visible = true
@@ -266,8 +265,6 @@ Rectangle {
         y: backButton4.y + backButton4.height + page.height*0.05
         width: backButton4.width
         text: "View Battery Status"
-        visible: (vendor_handler.delivery == 0)
-
         onClicked: {
             pending_order_page.visible = false
             battery_status_page.visible = true

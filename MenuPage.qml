@@ -54,7 +54,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
             anchors.topMargin: parent.height*0.19
-            text: "Water Balloon"
+            text: "Egg Tart"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -91,7 +91,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
             anchors.topMargin: parent.height*0.19
-            text: "2.15"
+            text: "7.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -121,7 +121,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
             anchors.topMargin: parent.height*0.19
-            text: "Okra"
+            text: "Pineapple Bun"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -131,7 +131,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.05
             anchors.bottom: parent.bottom
             anchors.bottomMargin: parent.height*0.17
-            text: "100"
+            text: "150"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -158,7 +158,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
             anchors.topMargin: parent.height*0.19
-            text: "2.20"
+            text: "6.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -227,7 +227,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
             anchors.topMargin: parent.height*0.19
-            text: "5.00"
+            text: "9.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -257,7 +257,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.05
             anchors.top: parent.top
             anchors.topMargin: parent.height*0.19
-            text: "Mangoes"
+            text: "Milk Tea"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -267,7 +267,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.05
             anchors.bottom: parent.bottom
             anchors.bottomMargin: parent.height*0.17
-            text: "100"
+            text: "160"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }
@@ -294,7 +294,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.43
             anchors.top: parent.top
             anchors.topMargin: parent.height*0.19
-            text: "3.00"
+            text: "8.00"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
         }

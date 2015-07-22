@@ -95,8 +95,6 @@ Rectangle {
         y: 400
         anchors.left: parent.left
         anchors.leftMargin: page.width * 0.15
-  //    anchors.right: parent.right
-  //    anchors.rightMargin: page.height * 0.15
         wrapMode: Text.WordWrap
         font.letterSpacing: 2
         visible: true
@@ -124,9 +122,6 @@ Rectangle {
         visible: battery_green.visible & (vendor_handler.delivery != 0)
         text: "Proceed"
         onClicked: {
-     //       order1_click.text = "0"
-     //       order2_click.text = "0"
-     //       order3_click.text = "0"
             battery_status_page.visible = false
             vendor_track_page.visible = true
         }

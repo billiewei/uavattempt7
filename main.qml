@@ -10,7 +10,7 @@ import HKUST 1.0
 
 ApplicationWindow {
     id: page
-    title: qsTr("UAV Control App")
+    title: qsTr("Kee WahWah Bakery")
     width: 500
     height: 800
     visible: true

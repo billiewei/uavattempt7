@@ -13,14 +13,22 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: page.height*.2
-        width: page.width*.25
-        height: page.width*.25
+        width: page.width*.3
+        height: page.width*.3
         source: "qrc:/logo.png"
         asynchronous : true
     }
+    Text {
+        text: "KEE WAHWAH BAKERY"
+        anchors.horizontalCenter: parent.horizontalCenter
+        y:logo.y + logo.height + 50
+        font.family: "Avenir"
+        font.pixelSize: page.height*0.02
+        font.letterSpacing: 2
+    }
     Button {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: logo.y + logo.height + 100
+        y: logo.y + logo.height + 125
         width: userloginButton.width
         id: vendorButton
         text: "Vendor Login"

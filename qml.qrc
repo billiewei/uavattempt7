@@ -8,8 +8,6 @@
         <file>discover.png</file>
         <file>amx.png</file>
         <file>map.png</file>
-        <file>logo.png</file>
-        <file>logo.jpg</file>
         <file>OpeningPage.qml</file>
         <file>AboutPage.qml</file>
         <file>PendingOrderPage.qml</file>
@@ -25,5 +23,6 @@
         <file>DroneApproaching.qml</file>
         <file>ReceivedOrderCheck.qml</file>
         <file>MalfunctioningCustNotification.qml</file>
+        <file>logo.png</file>
     </qresource>
 </RCC>
