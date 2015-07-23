@@ -1,0 +1,255 @@
+import QtQuick 2.0
+import QtQuick.Controls 1.3
+import QtQuick.Window 2.2
+import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.1
+import QtPositioning 5.2
+import QtLocation 5.3
+import QtQml 2.2
+import HKUST 1.0
+
+Rectangle {
+    width: parent? parent.width : 400
+    height: parent? parent.height : 900
+    visible: true
+    color: "#FAFAFA"
+    TextField {
+        id: currentbatterypercentage
+        anchors.horizontalCenter: parent.horizontalCenter
+        validator: IntValidator {bottom: 0; top: 100;}
+        maximumLength: 3
+        font.pixelSize: page.height*0.015
+        font.letterSpacing: 2
+        placeholderText: "BatteryTesting"
+        y: 800
+    }
+    Text {
+        id: manualcontroltitletxt
+        text: "UAV MANUAL CONTROL INTERFACE"
+        font.pixelSize: page.height*0.015
+        font.letterSpacing: 2
+        anchors.top: parent.top
+        anchors.topMargin: page.height*0.02
+        anchors.left: parent.left
+        anchors.leftMargin: page.width*0.06
+    }
+    Label {
+        id: batterytextlabel
+        text: currentbatterypercentage.text + "%"
+        y: manualcontroltitletxt.y
+        anchors.right: parent.right
+        anchors.rightMargin: page.width*0.06
+        font.letterSpacing: 2
+        font.pixelSize: page.height*0.015
+    }
+    Rectangle {
+        color: "#000"
+        border.width: 0
+        width: page.width*0.01
+        anchors.right: parent.right
+        anchors.rightMargin: page.width*0.175
+        y: manualcontroltitletxt.y + 2
+        height: remainingbatteryoutline.height - 4
+    }
+    Rectangle {
+        id: remainingbatteryoutline
+        anchors.right: parent.right
+        anchors.rightMargin: page.width*0.18
+        y: manualcontroltitletxt.y
+        height: batterytextlabel.height
+        width: remainingbatteryoutline.height*3
+        border.width: 2
+        border.color: "#000"
+        radius: 3
+    }
+    Rectangle {
+        id: remainingbatteryfill
+        x: remainingbatteryoutline.x + 1
+        y: remainingbatteryoutline.y + 2
+        radius: 2
+        height: batterytextlabel.height - 3
+        width: (remainingbatteryoutline.width - 2)* (currentbatterypercentage.text/100)
+        color: if (currentbatterypercentage.text >= 85) {"#65E01F"}
+               else if (currentbatterypercentage.text >= 60) {"#FF790A"}
+               else if (currentbatterypercentage.text < 60) {"#D60000"}
+    }
+    Rectangle {
+        id: toprowrectangle
+        color: "#E6E6E6"
+        height: armingstatelabel.height + page.height*0.04
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: page.height*0.05
+        width: page.width*0.9
+        radius: 5
+        Label {
+            id: armingstatelabel
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.02
+            text: if (armingstatetoggle.checked == false) {"Arming State:  OFF"}
+                  else {"Arming State:  ON"}
+            font.letterSpacing: 2
+            font.pixelSize: page.height*0.015
+        }
+        Switch {
+            id: armingstatetoggle
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.02
+            checked: false
+            height: armingstatelabel.height
+        }
+    }
+    Rectangle {
+        id: consolerectangle
+        y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
+        width: page.width*0.9
+        height: page.height*0.2
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: "#000"
+        radius: 5
+    }
+    Rectangle {
+        id: controlsliders
+        y: consolerectangle.y + consolerectangle.height + page.height*0.02
+        width: page.width*0.9
+        height: page.height*0.3
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: "#E6E6E6"
+        radius: 5
+
+        // THROTTLE
+        Label {
+            text: "Throttle"
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.03
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            font.pixelSize: page.height*0.015
+            font.letterSpacing: 2
+        }
+        Slider {
+            id: throttleslider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.03
+            tickmarksEnabled: true
+            updateValueWhileDragging: true
+            value: 0.0
+            minimumValue : 0.0
+            maximumValue: 100.0
+            stepSize: 5.0
+        }
+        Text {
+            text: throttleslider.value
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.03
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+        }
+
+        // YAW
+        Label {
+            text: "Yaw"
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.1
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            font.pixelSize: page.height*0.015
+            font.letterSpacing: 2
+        }
+        Slider {
+            id: yawslider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.1
+            tickmarksEnabled: true
+            updateValueWhileDragging: true
+            value: 0.0
+            minimumValue : -180.0
+            maximumValue: 180.0
+            stepSize: 10.0
+        }
+        Text {
+            text: yawslider.value
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.1
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+        }
+
+        // PITCH
+        Label {
+            text: "Pitch"
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.17
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            font.pixelSize: page.height*0.015
+            font.letterSpacing: 2
+        }
+        Slider {
+            id: pitchslider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.17
+            tickmarksEnabled: true
+            updateValueWhileDragging: true
+            value: 0.0
+            minimumValue : -90.0
+            maximumValue: 90.0
+            stepSize: 10.0
+        }
+        Text {
+            text: pitchslider.value
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.17
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+        }
+
+        Label {
+            text: "Roll"
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.24
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            font.pixelSize: page.height*0.015
+            font.letterSpacing: 2
+        }
+        Slider {
+            id: rollslider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.24
+            tickmarksEnabled: true
+            updateValueWhileDragging: true
+            value: 0.0
+            minimumValue : -90.0
+            maximumValue: 90.0
+            stepSize: 10.0
+        }
+        Text {
+            text: rollslider.value
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.24
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+        }
+
+    }
+    Rectangle {
+        id: flightmode
+        y: controlsliders.y + controlsliders.height + page.height*0.02
+        width: page.width*0.9
+        height: page.height*0.25
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: "#E6E6E6"
+        radius: 5
+    }
+}
+

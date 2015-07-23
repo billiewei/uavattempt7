@@ -6,11 +6,7 @@ SOURCES += main.cpp \
     addresspagehandler.cpp \
     menupagehandler.cpp \
     batterypagehandler.cpp \
-    vendorhandler.cpp \
-    mavserialport.cpp \
-    mainwindow.cpp \
-    console.cpp \
-    settingsdialog.cpp
+    vendorhandler.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,7 +26,6 @@ HEADERS += \
     mavlink/v1.0/mavlink_types.h \
     mavlink/v1.0/checksum.h \
     mavlink/v1.0/mavlink_conversions.h \
-    mavlink/v1.0/protocol.h \
     mavlink/v1.0/common/mavlink_msg_battery_status.h \
     mavlink/v1.0/common/common.h \
     mavlink/v1.0/common/mavlink_msg_actuator_control_target.h \
@@ -178,8 +173,4 @@ HEADERS += \
     mavlink/v1.0/pixhawk/mavlink.h \
     mavlink/v1.0/pixhawk/pixhawk.h \
     mavlink/v1.0/pixhawk/testsuite.h \
-    mavlink/v1.0/pixhawk/version.h \
-    console.h \
-    MainWindow.h \
-    mavserialport.h \
-    settingsdialog.h
+    mavlink/v1.0/pixhawk/version.h

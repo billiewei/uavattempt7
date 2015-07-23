@@ -46,76 +46,9 @@ ApplicationWindow {
         }
     }
 
-    OpeningPage {
-        id: opening_page
-        visible: true
-    }
-
     AboutPage {
         id: about_page
         visible: false
-    }
-
-    VendorHandler{
-        id: vendor_handler
-    }
-
-    PendingOrderPage{
-        id: pending_order_page
-        visible: false
-    }
-    // Battery Status Window (vendor side)
-    BatteryStatusPage{
-        id: battery_status_page
-        visible: false
-        BatteryPageHandler {
-            id: battery_page_handler
-            percentage: 100
-        }
-    }
-
-    VendorTrackPage {
-        id: vendor_track_page
-        visible: false
-    }
-
-    MalfunctioningPage {
-        id: malfunctioning_page
-        visible: false
-    }
-
-    MalfunctioningCustNotification {
-        id: malfunctioning_customer_notification
-        visible: false
-    }
-
-    DroneApproaching {
-        id: drone_approaching_page
-        visible: false
-    }
-
-    ReceivedOrderCheck {
-        id: received_order_check_page
-        visible: false
-    }
-
-    DroneLocationPage {
-        id: drone_location_page
-        visible: false
-    }
-
-    MenuPage{
-        id: menu_page
-        visible: false
-        //need a menu_page_handler
-        MenuPageHandler{
-            id: menu_page_handler
-            num1: 0
-            num2: 0
-            num3: 0
-            num4: 0
-            total: 0
-        }
     }
 
     AddressPage {
@@ -134,9 +67,14 @@ ApplicationWindow {
         }
     }
 
-    PaymentPage {
-        id: payment_page
+    // Battery Status Window (vendor side)
+    BatteryStatusPage{
+        id: battery_status_page
         visible: false
+        BatteryPageHandler {
+            id: battery_page_handler
+            percentage: 100
+        }
     }
 
     ConfirmationPage{
@@ -148,6 +86,75 @@ ApplicationWindow {
         id: customer_track_page
         visible: false
     }
+
+    DroneApproaching {
+        id: drone_approaching_page
+        visible: false
+    }
+
+    DroneLocationPage {
+        id: drone_location_page
+        visible: false
+    }
+
+    MalfunctioningCustNotification {
+        id: malfunctioning_customer_notification
+        visible: false
+    }
+
+    MalfunctioningPage {
+        id: malfunctioning_page
+        visible: false
+    }
+
+    ManualControlPage {
+        id: manual_control_page
+        visible: true
+    }
+
+    MenuPage{
+        id: menu_page
+        visible: false
+        //need a menu_page_handler
+        MenuPageHandler{
+            id: menu_page_handler
+            num1: 0
+            num2: 0
+            num3: 0
+            num4: 0
+            total: 0
+        }
+    }
+
+    OpeningPage {
+        id: opening_page
+        visible: false
+    }
+
+    PaymentPage {
+        id: payment_page
+        visible: false
+    }
+
+    PendingOrderPage{
+        id: pending_order_page
+        visible: false
+    }
+
+    ReceivedOrderCheck {
+        id: received_order_check_page
+        visible: false
+    }
+
+    VendorHandler{
+        id: vendor_handler
+    }
+
+    VendorTrackPage {
+        id: vendor_track_page
+        visible: false
+    }
+
 }
 
 
