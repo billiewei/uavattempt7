@@ -24,5 +24,12 @@
         <file>ReceivedOrderCheck.qml</file>
         <file>MalfunctioningCustNotification.qml</file>
         <file>logo.png</file>
+        <file>images/logo.png</file>
+        <file>images/safety.png</file>
+        <file>images/application-exit.png</file>
+        <file>images/clear.png</file>
+        <file>images/connect.png</file>
+        <file>images/disconnect.png</file>
+        <file>images/settings.png</file>
     </qresource>
 </RCC>

@@ -6,7 +6,11 @@ SOURCES += main.cpp \
     addresspagehandler.cpp \
     menupagehandler.cpp \
     batterypagehandler.cpp \
-    vendorhandler.cpp
+    vendorhandler.cpp \
+    mavserialport.cpp \
+    mainwindow.cpp \
+    console.cpp \
+    settingsdialog.cpp
 
 RESOURCES += qml.qrc
 
@@ -174,4 +178,8 @@ HEADERS += \
     mavlink/v1.0/pixhawk/mavlink.h \
     mavlink/v1.0/pixhawk/pixhawk.h \
     mavlink/v1.0/pixhawk/testsuite.h \
-    mavlink/v1.0/pixhawk/version.h
+    mavlink/v1.0/pixhawk/version.h \
+    console.h \
+    MainWindow.h \
+    mavserialport.h \
+    settingsdialog.h
