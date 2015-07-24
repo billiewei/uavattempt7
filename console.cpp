@@ -32,27 +32,64 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
-#include <QQmlApplicationEngine>
+#include "console.h"
 
-#include "addresspagehandler.h"
-#include "batterypagehandler.h"
-#include "menupagehandler.h"
-#include "vendorhandler.h"
-#include "manualcontrolhandler.h"
+#include <QScrollBar>
 
-int main(int argc, char *argv[])
+#include <QtCore/QDebug>
+
+Console::Console(QWidget *parent)
+    : QPlainTextEdit(parent)
+    , localEchoEnabled(false)
 {
-    QApplication app(argc, argv);
+    document()->setMaximumBlockCount(100);
+    QPalette p = palette();
+    p.setColor(QPalette::Base, Qt::black);
+    p.setColor(QPalette::Text, Qt::green);
+    setPalette(p);
+}
 
-    qmlRegisterType<AddressPageHandler>("HKUST",1,0,"AddressPageHandler");
-    qmlRegisterType<MenuPageHandler>("HKUST",1,0,"MenuPageHandler");
-    qmlRegisterType<VendorHandler>("HKUST",1,0,"VendorHandler");
-    qmlRegisterType<BatteryPageHandler>("HKUST",1,0,"BatteryPageHandler");
-    qmlRegisterType<ManualControlHandler>("HKUST",1,0,"ManualControlHandler");
+void Console::putData(const QByteArray &data)
+{
+    insertPlainText(QString(data));
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    QScrollBar *bar = verticalScrollBar();
+    bar->setValue(bar->maximum());
+}
 
-    return app.exec();
+void Console::setLocalEchoEnabled(bool set)
+{
+    localEchoEnabled = set;
+}
+
+void Console::keyPressEvent(QKeyEvent *e)
+{
+    switch (e->key()) {
+    case Qt::Key_Backspace:
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+    case Qt::Key_Up:
+    case Qt::Key_Down:
+        break;
+    default:
+        if (localEchoEnabled)
+            QPlainTextEdit::keyPressEvent(e);
+        emit getData(e->text().toLocal8Bit());
+    }
+}
+
+void Console::mousePressEvent(QMouseEvent *e)
+{
+    Q_UNUSED(e)
+    setFocus();
+}
+
+void Console::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    Q_UNUSED(e)
+}
+
+void Console::contextMenuEvent(QContextMenuEvent *e)
+{
+    Q_UNUSED(e)
 }

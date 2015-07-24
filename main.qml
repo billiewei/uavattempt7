@@ -110,6 +110,9 @@ ApplicationWindow {
     ManualControlPage {
         id: manual_control_page
         visible: true
+        ManualControlHandler{
+            id: manual_control_handler
+        }
     }
 
     MenuPage{

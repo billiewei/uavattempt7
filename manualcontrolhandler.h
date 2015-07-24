@@ -6,6 +6,7 @@
 
 #include <QMainWindow>
 #include <QHBoxLayout>
+#include <QPlainTextEdit>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QGroupBox>
@@ -15,43 +16,45 @@
 #include <QPushButton>
 #include <QRadioButton>
 
+#include "mavserialport.h"
+
+class Console;
+class MavSerialPort;
+
 class ManualControlHandler : public QQuickItem {
 
     Q_OBJECT
-//    Q_PROPERTY(QString armingstate READ armingstate WRITE onSetArming NOTIFY armingStateChanged)
 
-//    serial = new MavSerialPort(this);
+    // Registers the item "log" as a QML property
+    Q_PROPERTY(QString log READ log WRITE setLog NOTIFY logChanged)
 
     public:
-        enum ARM_STATE {DISARMED = 0, ARMED = 1} arm_state;
+        ManualControlHandler(QQuickItem* parent = 0);
+        QString log();
+        void setLog(QString l);
+
     public slots:
+
     private:
-        QRadioButton* armingstatetoggle;
+        MavSerialPort* serial;
+        QString m_log;
 
-        /** Manual control sliders */
-        int throttle_control;
-        int yaw_control;
-        int pitch_control;
-        int roll_control;
-
-        QSlider* throttleSlider;
-        QSlider* yawSlider;
-        QSlider* pitchSlider;
-        QSlider* rollSlider;
-        QLabel* throttleValue;
-        QLabel* yawValue;
-        QLabel* pitchValue;
-        QLabel* rollValue;
+      //  void initSerialConnections();
 
     private slots:
-        void onSetArming();
+
+     //   void openSerialPort();
+     //   void closeSerialPort();
 
     signals:
-        void armingStateChanged(ARM_STATE s);
+        void logChanged();
+
+        /**
         void throttleChanged();
         void yawChanged();
         void pitchChanged();
         void rollChanged();
+        */
 };
 
 #endif // MANUALCONTROLHANDLER

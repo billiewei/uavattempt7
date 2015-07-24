@@ -1,13 +1,16 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick widgets \
+    serialport
 
 SOURCES += main.cpp \
     addresspagehandler.cpp \
     menupagehandler.cpp \
     batterypagehandler.cpp \
     vendorhandler.cpp \
-    manualcontrolhandler.cpp
+    manualcontrolhandler.cpp \
+    mavserialport.cpp \
+    console.cpp
 
 RESOURCES += qml.qrc
 
@@ -175,4 +178,12 @@ HEADERS += \
     mavlink/v1.0/pixhawk/pixhawk.h \
     mavlink/v1.0/pixhawk/testsuite.h \
     mavlink/v1.0/pixhawk/version.h \
-    manualcontrolhandler.h
+    manualcontrolhandler.h \
+    mavlink/v1.0/mavlink_msg_test_uorb.h \
+    mavlink/v1.0/mavlink_helpers.h \
+    mavlink/v1.0/mavlink_types.h \
+    mavlink/v1.0/checksum.h \
+    mavlink/v1.0/mavlink_conversions.h \
+    mavlink/v1.0/protocol.h \
+    mavserialport.h \
+    console.h

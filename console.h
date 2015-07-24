@@ -32,27 +32,34 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
-#include <QQmlApplicationEngine>
+#ifndef CONSOLE_H
+#define CONSOLE_H
 
-#include "addresspagehandler.h"
-#include "batterypagehandler.h"
-#include "menupagehandler.h"
-#include "vendorhandler.h"
-#include "manualcontrolhandler.h"
+#include <QPlainTextEdit>
 
-int main(int argc, char *argv[])
+class Console : public QPlainTextEdit
 {
-    QApplication app(argc, argv);
+    Q_OBJECT
 
-    qmlRegisterType<AddressPageHandler>("HKUST",1,0,"AddressPageHandler");
-    qmlRegisterType<MenuPageHandler>("HKUST",1,0,"MenuPageHandler");
-    qmlRegisterType<VendorHandler>("HKUST",1,0,"VendorHandler");
-    qmlRegisterType<BatteryPageHandler>("HKUST",1,0,"BatteryPageHandler");
-    qmlRegisterType<ManualControlHandler>("HKUST",1,0,"ManualControlHandler");
+signals:
+    void getData(const QByteArray &data);
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+public:
+    explicit Console(QWidget *parent = 0);
 
-    return app.exec();
-}
+    void putData(const QByteArray &data);
+
+    void setLocalEchoEnabled(bool set);
+
+protected:
+    virtual void keyPressEvent(QKeyEvent *e);
+    virtual void mousePressEvent(QMouseEvent *e);
+    virtual void mouseDoubleClickEvent(QMouseEvent *e);
+    virtual void contextMenuEvent(QContextMenuEvent *e);
+
+private:
+    bool localEchoEnabled;
+
+};
+
+#endif // CONSOLE_H

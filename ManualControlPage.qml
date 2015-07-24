@@ -1,10 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.3
+import QtQuick.Controls.Styles 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtPositioning 5.2
 import QtLocation 5.3
+import QtQuick.Particles 2.0
 import QtQml 2.2
 import HKUST 1.0
 
@@ -95,17 +97,23 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.02
             checked: false
-            height: armingstatelabel.height
         }
     }
-    Rectangle {
+    TextArea {
         id: consolerectangle
         y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
         width: page.width*0.9
         height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
-        color: "#000"
-        radius: 5
+        text: manual_control_handler.log
+        onTextChanged: append(text);
+        backgroundVisible: true
+        wrapMode: TextEdit.Wrap
+        style: TextAreaStyle {
+                textColor: "#00D604"
+                selectedTextColor: "#fff"
+                backgroundColor: "#000"
+        }
     }
     Rectangle {
         id: controlsliders
@@ -131,7 +139,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
-            tickmarksEnabled: true
+            tickmarksEnabled: false
             updateValueWhileDragging: true
             value: 0.0
             minimumValue : 0.0
@@ -161,7 +169,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: page.height*0.1
-            tickmarksEnabled: true
+            tickmarksEnabled: false
             updateValueWhileDragging: true
             value: 0.0
             minimumValue : -180.0
@@ -191,7 +199,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: page.height*0.17
-            tickmarksEnabled: true
+            tickmarksEnabled: false
             updateValueWhileDragging: true
             value: 0.0
             minimumValue : -90.0
@@ -220,7 +228,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: page.height*0.24
-            tickmarksEnabled: true
+            tickmarksEnabled: false
             updateValueWhileDragging: true
             value: 0.0
             minimumValue : -90.0
