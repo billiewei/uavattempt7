@@ -3,19 +3,6 @@
 
 #include <QtCore/QtGlobal>
 #include <QQuickItem>
-
-#include <QMainWindow>
-#include <QHBoxLayout>
-#include <QPlainTextEdit>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QGroupBox>
-#include <QComboBox>
-#include <QSlider>
-#include <QLabel>
-#include <QPushButton>
-#include <QRadioButton>
-
 #include "mavserialport.h"
 
 class Console;
@@ -34,14 +21,20 @@ class ManualControlHandler : public QQuickItem {
         void setLog(QString l);
 
     public slots:
+        void readData();
+        void writeFlightLog();
 
     private:
         MavSerialPort* serial;
         QString m_log;
 
+        void initSerialPort();
+        void initSerialConnections();
+
+
       //  void initSerialConnections();
 
-    private slots:
+    //slots:
 
      //   void openSerialPort();
      //   void closeSerialPort();

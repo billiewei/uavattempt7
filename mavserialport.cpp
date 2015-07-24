@@ -293,11 +293,6 @@ void MavSerialPort::cmd_do_set_home(){
 void MavSerialPort::heartbeat_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_HEARTBEAT\n";
     mavlink_msg_heartbeat_decode(&message, &heartbeat);
-
-    qDebug() << "base mode: " << heartbeat.base_mode;
-    qDebug() << "custom mode: " << heartbeat.custom_mode;
-    qDebug() << "system status: " << heartbeat.system_status;
-
 }
 
 //1
@@ -309,7 +304,7 @@ void MavSerialPort::sys_status_handler(){
 
 //24
 void MavSerialPort::gps_raw_int_handler(){
-    qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT\n";
+   // qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT\n";
     mavlink_msg_gps_raw_int_decode(&message, &gps_raw_int);
 }
 
@@ -340,7 +335,6 @@ void MavSerialPort::global_position_int_handler(){
 void MavSerialPort::mission_current_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_MISSION_CURRENT\n";
     mavlink_msg_mission_current_decode(&message, &mission_current);
-
 }
 
 //74
@@ -351,11 +345,8 @@ void MavSerialPort::vfr_hud_handler(){
 }
 //81
 void MavSerialPort::manual_setpoint_handler(){
-     qDebug() << "MAVLINK_MSG_ID_MANUAL_SETPOINT\n";
+   //  qDebug() << "MAVLINK_MSG_ID_MANUAL_SETPOINT\n";
      mavlink_msg_manual_setpoint_decode(&message,&manual_setpoint);
-     qDebug() << "time_boot_ms: " << manual_setpoint.time_boot_ms <<'\n';
-     qDebug() << "roll: "<< manual_setpoint.roll << '\n';
-     qDebug() << "roll: "<< manual_setpoint.roll << '\n';
 
 }
 
@@ -370,14 +361,12 @@ void MavSerialPort::attitude_target_handler(){
 void MavSerialPort::position_target_local_ned_handler(){
    // qDebug() << "MAVLINK_MSG_ID_POSITION_TARGET_LOCAL_END\n";
     mavlink_msg_position_target_local_ned_decode(&message, &position_target_local_ned);
-
 }
 
 //87
 void MavSerialPort::position_target_global_int_handler(){
    // qDebug() << "MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT\n";
     mavlink_msg_position_target_global_int_decode(&message, &position_target_global_int);
-
 }
 
 //105
@@ -385,16 +374,19 @@ void MavSerialPort::highres_imu_handler(){
   //  qDebug() << "MAVLINK_MSG_HIGHRES_IMU";
     mavlink_msg_highres_imu_decode(&message, &highres_imu);
     emit IMUChanged();
-
-  //  qDebug() << "imu: " << highres_imu.xgyro << " " << highres_imu.ygyro << "  " << highres_imu.zgyro << endl;
 }
 
 
 //147
 void MavSerialPort::battery_status_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_BATTERY_STATUS\n";
     mavlink_msg_battery_status_decode(&message, &battery_status);
-    qDebug() << "MAVLINK_MSG_ID_BATTERY_STATUS";
+   // qDebug() << "MAVLINK_MSG_ID_BATTERY_STATUS";
+}
+//253
+void MavSerialPort::statustext_handler(){
+    mavlink_msg_statustext_decode(&message, &statustext);
+    emit flightLogReady();
+    qDebug() << statustext.text;
 }
 
 void MavSerialPort::mavRead(QByteArray* ba){
@@ -484,6 +476,10 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
         battery_status_handler();
         break;
 
+    //253
+    case MAVLINK_MSG_ID_STATUSTEXT:
+        statustext_handler();
+        break;
     default:
         qDebug() << "new message:" << (int)message.msgid;
         break;

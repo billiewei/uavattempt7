@@ -106,7 +106,8 @@ Rectangle {
         height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
         text: manual_control_handler.log
-        onTextChanged: append(text);
+        //onTextChanged: append(text);
+        //need to do something here
         backgroundVisible: true
         wrapMode: TextEdit.Wrap
         style: TextAreaStyle {

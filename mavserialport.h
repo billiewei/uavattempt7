@@ -49,6 +49,8 @@ public:
     inline void highres_imu_handler();
     //147
     inline void battery_status_handler();
+    //253
+    inline void statustext_handler();
 
     static int packageDrops;
     static uint8_t msgReceived;
@@ -76,7 +78,6 @@ public:
     mavlink_manual_setpoint_t manual_setpoint;
     //83
     mavlink_attitude_target_t attitude_target;
-
     //85
     mavlink_position_target_local_ned_t position_target_local_ned;
     //87
@@ -85,6 +86,8 @@ public:
     mavlink_highres_imu_t highres_imu;
     //147
     mavlink_battery_status_t battery_status;
+    //253
+    mavlink_statustext_t statustext;
 
 signals:
     void timeChanged();
@@ -93,6 +96,8 @@ signals:
     void batteryChanged();
     void IMUChanged();
     void attitudeChanged();
+
+    void flightLogReady();
 
 public slots:
     /** Set Mode */
