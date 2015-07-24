@@ -21,15 +21,12 @@ Rectangle {
         font.pixelSize: page.height*0.015
         font.letterSpacing: 2
         placeholderText: "BatteryTesting"
-        y: 800
     }
     Text {
         id: manualcontroltitletxt
-        text: "UAV MANUAL CONTROL INTERFACE"
-        font.pixelSize: page.height*0.015
-        font.letterSpacing: 2
+        text: "UAV Manual Control"
         anchors.top: parent.top
-        anchors.topMargin: page.height*0.02
+        anchors.topMargin: page.height*0.01
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.06
     }
@@ -66,8 +63,8 @@ Rectangle {
         id: remainingbatteryfill
         x: remainingbatteryoutline.x + 1
         y: remainingbatteryoutline.y + 2
-        radius: 2
-        height: batterytextlabel.height - 3
+        radius: 1
+        height: batterytextlabel.height - 5
         width: (remainingbatteryoutline.width - 2)* (currentbatterypercentage.text/100)
         color: if (currentbatterypercentage.text >= 85) {"#65E01F"}
                else if (currentbatterypercentage.text >= 60) {"#FF790A"}
@@ -79,7 +76,7 @@ Rectangle {
         height: armingstatelabel.height + page.height*0.04
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.height*0.05
+        anchors.topMargin: page.height*0.04
         width: page.width*0.9
         radius: 5
         Label {
@@ -90,8 +87,6 @@ Rectangle {
             anchors.topMargin: page.height*0.02
             text: if (armingstatetoggle.checked == false) {"Arming State:  OFF"}
                   else {"Arming State:  ON"}
-            font.letterSpacing: 2
-            font.pixelSize: page.height*0.015
         }
         Switch {
             id: armingstatetoggle
@@ -107,7 +102,7 @@ Rectangle {
         id: consolerectangle
         y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
         width: page.width*0.9
-        height: page.height*0.2
+        height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
         color: "#000"
         radius: 5
@@ -245,11 +240,92 @@ Rectangle {
         id: flightmode
         y: controlsliders.y + controlsliders.height + page.height*0.02
         width: page.width*0.9
-        height: page.height*0.25
-
+        height: page.height*0.35
         anchors.horizontalCenter: parent.horizontalCenter
         color: "#E6E6E6"
         radius: 5
+        GroupBox {
+            id: returnbox
+            title: "Return"
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.03
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.03
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.01
+            height: flightmode.height*0.2
+            RowLayout {
+                anchors.fill: parent
+                spacing: 10
+                ExclusiveGroup { id: returnGroup }
+                RadioButton {
+                    id: return_on_button
+                    text: "Return On";
+                    exclusiveGroup: returnGroup;
+                }
+                RadioButton {
+                    id: other_modes_button
+                    text: "Other Modes";
+                    exclusiveGroup: returnGroup;
+                }
+            }
+        }
+        GroupBox {
+            id: modebox
+            title: "Mode"
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.03
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.03
+            y: returnbox.y + returnbox.height + page.height*0.01
+            width: returnbox.width
+            enabled: other_modes_button.checked
+            height: flightmode.height*0.2
+            RowLayout {
+                anchors.fill: parent
+                ExclusiveGroup { id: modeGroup }
+                RadioButton { text: "Manual"; exclusiveGroup: modeGroup }
+                RadioButton { id: assist_button; text: "Assist"; exclusiveGroup: modeGroup }
+                RadioButton { id: auto_button; text: "Auto"; exclusiveGroup: modeGroup }
+            }
+        }
+        GroupBox {
+            id: assistbox
+            title: "Assist"
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.03
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.03
+            y: modebox.y + modebox.height + page.height*0.01
+            width: returnbox.width
+            enabled: assist_button.checked
+            height: flightmode.height*0.2
+            RowLayout {
+                anchors.fill: parent
+                ExclusiveGroup { id: assistGroup }
+                RadioButton { text: "Alt Control"; exclusiveGroup: assistGroup }
+                RadioButton { text: "Pos Control"; exclusiveGroup: assistGroup }
+            }
+        }
+        GroupBox {
+            id: autobox
+            title: "Auto"
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.03
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.03
+            y: assistbox.y + assistbox.height + page.height*0.01
+            width: returnbox.width
+            enabled: auto_button.checked
+            height: flightmode.height*0.2
+            RowLayout {
+                anchors.fill: parent
+                ExclusiveGroup { id: autoGroup }
+                RadioButton { text: "Mission"; exclusiveGroup: autoGroup }
+                RadioButton { text: "Loiter"; exclusiveGroup: autoGroup }
+            }
+        }
+
     }
 }
 
