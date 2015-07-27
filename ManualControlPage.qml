@@ -8,13 +8,17 @@ import QtPositioning 5.2
 import QtLocation 5.3
 import QtQuick.Particles 2.0
 import QtQml 2.2
-import HKUST 1.0
 
 Rectangle {
     width: parent? parent.width : 400
     height: parent? parent.height : 900
     visible: true
     color: "#FAFAFA"
+
+    function writeFlightLog(s){
+        consolerectangle.append(s)
+    }
+
     TextField {
         id: currentbatterypercentage
         anchors.horizontalCenter: parent.horizontalCenter
@@ -105,9 +109,10 @@ Rectangle {
         width: page.width*0.9
         height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
-        text: manual_control_handler.log
+        text: "Bille, Erin & Eva \n"
         //onTextChanged: append(text);
         //need to do something here
+        //manual_control_handler.onLogChanged: text.append(manual_control_handler.log)
         backgroundVisible: true
         wrapMode: TextEdit.Wrap
         style: TextAreaStyle {

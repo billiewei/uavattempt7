@@ -13,7 +13,10 @@ QString ManualControlHandler::log(){
 }
 
 void ManualControlHandler::setLog(QString l){
-    m_log = l;
+    if(m_log.compare(l)){
+        m_log = l;
+        emit logChanged();
+    }
 }
 
 void ManualControlHandler::initSerialPort(){

@@ -112,6 +112,18 @@ ApplicationWindow {
         visible: true
         ManualControlHandler{
             id: manual_control_handler
+            log: "hello world"
+            /**
+            qrc:/main.qml:116: TypeError: Property 'append' of object QQuickRectangle(0x7fabadb5b170) is not a function
+            [sdlog2] log dir: /fs/microsd/log/sess192
+            qrc:/main.qml:116: TypeError: Property 'append' of object QQuickRectangle(0x7fabadb5b170) is not a function
+            [sdlog2] starting: log001.px4log
+            the signal is Received
+            the function append is wrongly used
+            qrc:/main.qml:124: TypeError: Cannot call method 'append' of undefined
+            */       
+            onLogChanged: manual_control_page.writeFlightLog(log)
+            //onLogChanged: manual_control_page
         }
     }
 
