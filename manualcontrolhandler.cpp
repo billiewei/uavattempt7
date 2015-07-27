@@ -8,6 +8,7 @@ ManualControlHandler::ManualControlHandler(QQuickItem* parent):
     initSerialPort();
     initSerialConnections();
 }
+
 QString ManualControlHandler::log(){
     return m_log;
 }
@@ -18,6 +19,7 @@ void ManualControlHandler::setLog(QString l){
         emit logChanged();
     }
 }
+
 
 void ManualControlHandler::initSerialPort(){
     //note that apple products use absolute address
@@ -38,7 +40,7 @@ void ManualControlHandler::initSerialPort(){
 
 void ManualControlHandler::initSerialConnections(){
     connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-  //  connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
+    //connect(console, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
     connect(serial, SIGNAL(flightLogReady()), this, SLOT(writeFlightLog()));
 }
 

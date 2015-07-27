@@ -6,6 +6,8 @@ import QtQuick.Layouts 1.1
 import QtPositioning 5.2
 import QtLocation 5.3
 import QtQml 2.2
+import QtQuick.Particles 2.0
+import QtQml 2.2
 import HKUST 1.0
 
 ApplicationWindow {
