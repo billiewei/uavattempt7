@@ -106,10 +106,10 @@ public slots:
     void setThrust(float t);
     void setQuaternion(float roll, float pitch, float yaw);
 
-    void setX(int16_t t);
-    void setY(int16_t t);
-    void setZ(int16_t t);
-    void setR(int16_t t);
+    void setX(int t);
+    void setY(int t);
+    void setZ(int t);
+    void setR(int t);
 
     /** Set Mode */
     void set_mode_disarm();

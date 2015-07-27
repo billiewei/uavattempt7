@@ -35,28 +35,32 @@ void ManualControlHandler::setLog(QString l){
 void ManualControlHandler::setX(int x){
     if(m_x != x){
         m_x = x;
-        emit xChanged();
+ //       serial->setX(int16_t(x));
+        emit xChanged(x);
     }
 }
 
 void ManualControlHandler::setY(int y){
     if(m_y != y){
         m_y = y;
-        emit yChanged();
+   //     serial->setY(int16_t(y));
+        emit yChanged(y);
     }
 }
 
 void ManualControlHandler::setZ(int z){
     if(m_z != z){
         m_z = z;
-        emit zChanged();
+   //     serial->setZ(int16_t(z));
+        emit zChanged(z);
     }
 }
 
 void ManualControlHandler::setR(int r){
     if(m_r != r){
         m_r = r;
-        emit rChanged();
+   //     serial->setR(int16_t(r));
+        emit rChanged(r);
     }
 }
 
@@ -80,6 +84,11 @@ void ManualControlHandler::initSerialPort(){
 void ManualControlHandler::initSerialConnections(){
     connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
     connect(serial, SIGNAL(flightLogReady()), this, SLOT(writeFlightLog()));
+
+    connect(this, SIGNAL(xChanged(int)), serial, SLOT(setX(int)));
+    connect(this, SIGNAL(yChanged(int)), serial, SLOT(setY(int)));
+    connect(this, SIGNAL(zChanged(int)), serial, SLOT(setZ(int)));
+    connect(this, SIGNAL(rChanged(int)), serial, SLOT(setR(int)));
 }
 
 void ManualControlHandler::readData(){

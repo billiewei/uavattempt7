@@ -28,22 +28,24 @@ class ManualControlHandler : public QQuickItem {
         int z() const;
         int r() const;
         void setLog(QString l);
-        void setX(int x);
-        void setY(int y);
-        void setZ(int z);
-        void setR(int r);
+
 
     public slots:
         void readData();
         void writeFlightLog();
         void setArmed(bool armed);
 
+        void setX(int x);
+        void setY(int y);
+        void setZ(int z);
+        void setR(int r);
+
     signals:
         void logChanged();
-        void xChanged();
-        void yChanged();
-        void zChanged();
-        void rChanged();
+        void xChanged(int x);
+        void yChanged(int y);
+        void zChanged(int z);
+        void rChanged(int r);
 
     private:
         MavSerialPort* serial;

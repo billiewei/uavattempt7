@@ -37,20 +37,20 @@ void MavSerialPort::setQuaternion(float roll, float pitch, float yaw){
 
 }
 
-void MavSerialPort::setX(int16_t t){
-    x = t;
+void MavSerialPort::setX(int t){
+    x = (int16_t)t;
 }
 
-void MavSerialPort::setY(int16_t t){
-    y = t;
+void MavSerialPort::setY(int t){
+    y = (int16_t)t;
 }
 
-void MavSerialPort::setZ(int16_t t){
-    z = t;
+void MavSerialPort::setZ(int t){
+    z = (int16_t)t;
 }
 
-void MavSerialPort::setR(int16_t t){
-    r = t;
+void MavSerialPort::setR(int t){
+    r = (int16_t)t;
 }
 
 //11

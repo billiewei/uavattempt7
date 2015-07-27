@@ -55,6 +55,7 @@ Rectangle {
         y: manualcontroltitletxt.y + 2
         height: remainingbatteryoutline.height - 4
     }
+
     Rectangle {
         id: remainingbatteryoutline
         anchors.right: parent.right
@@ -66,6 +67,7 @@ Rectangle {
         border.color: "#000"
         radius: 3
     }
+
     Rectangle {
         id: remainingbatteryfill
         x: remainingbatteryoutline.x + 1
@@ -159,8 +161,8 @@ Rectangle {
                     color: "gray"
                     radius: 8
                 }
-
             }
+            onValueChanged: manual_control_handler.setX(value)
 
         }
         Text {
@@ -200,8 +202,8 @@ Rectangle {
                     color: "gray"
                     radius: 8
                 }
-
             }
+            onValueChanged: manual_control_handler.setY(value)
 
         }
         Text {
@@ -241,8 +243,8 @@ Rectangle {
                     color: "gray"
                     radius: 8
                 }
-
             }
+            onValueChanged: manual_control_handler.setZ(value)
 
         }
         Text {
@@ -282,8 +284,8 @@ Rectangle {
                     color: "gray"
                     radius: 8
                 }
-
             }
+            onValueChanged: manual_control_handler.setR(value)
 
         }
         Text {
