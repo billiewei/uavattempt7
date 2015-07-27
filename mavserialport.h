@@ -1,13 +1,15 @@
 #ifndef MAVSERIALPORT_H
 #define MAVSERIALPORT_H
 
-#include <QtSerialPort/QtSerialPort>
+#include <QSerialPort>
 #include <QByteArray>
 #include <QString>
 #include <QDebug>
+#include <QTimer>
 
 #include "mavlink/v1.0/common/mavlink.h"
 #include "mavlink/v1.0/pixhawk/mavlink.h"
+#include "px4_custom_mode.h"
 
 
 class MavSerialPort: public QSerialPort {
@@ -17,7 +19,9 @@ public:
     MavSerialPort(QObject* parent);
 
     void mavRead(QByteArray* ba);
+
     void mavDecode(mavlink_message_t &message);
+
 
     //0
     inline void heartbeat_handler();
@@ -88,19 +92,29 @@ public:
     mavlink_statustext_t statustext;
 
 signals:
+    void heartbeatReceived();
     void timeChanged();
     void localChanged();
     void globalChanged();
     void batteryChanged();
     void IMUChanged();
     void attitudeChanged();
-
     void flightLogReady();
 
 public slots:
+    /** react to control sliders */
+    void setThrust(float t);
+    void setQuaternion(float roll, float pitch, float yaw);
+
+    void setX(int16_t t);
+    void setY(int16_t t);
+    void setZ(int16_t t);
+    void setR(int16_t t);
+
     /** Set Mode */
     void set_mode_disarm();
     void set_mode_arm();
+    void set_mode_offboard(bool on);
     void set_mode_return();
     void set_mode_manual();
     void set_mode_assist_altctl();
@@ -114,8 +128,8 @@ public slots:
     void send_manual_control();
     //81
     void send_manual_setpoint();
-    //83
-    void send_attitude_target();
+    //82
+    void send_set_attitude_target();
     //84
     void send_position_target_local_ned();
     //177
@@ -137,9 +151,9 @@ public slots:
     //24 MAV_CMD_NAV_TAKEOFF_LOCAL
     void cmd_nav_takeoff_local();
     //31 MAV_CMD_NAV_LOITER_TO_ALT
-//    void cmd_nav_loiter_to_alt();
+    //void cmd_nav_loiter_to_alt();
     //80 MAV_CMD_NAV_ROI
- //   void cmd_nav_loi();
+    //void cmd_nav_loi();
     //176 MAV_CMD_DO_SET_MODE
     void cmd_do_set_mode();//MAV_MODE mode);
     //178 MAV_CMD_DO_CHANGE_SPEED
@@ -147,13 +161,23 @@ public slots:
     //179 MAV_CMD_DO_SET_HOME
     void cmd_do_set_home();
     //185 MAV_CMD_DO_FLIGHTTERMINATION
- //   void cmd_do_flighttermination();
+    //void cmd_do_flighttermination();
 
 private:
+    QTimer* timer;
     uint8_t system_id;//ID of the sending system
     uint8_t component_id;//ID of the sending component
     uint8_t target_system;//ID of receiving system. px4 by default is 1
     uint8_t target_component;//ID of receiving component. 0 for all component
+    float q[4];
+    int16_t x;
+    int16_t y;
+    int16_t z;
+    int16_t r;
+
+    //for testing
+    // will get information from the slider bar
+    float thrust; ///< Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
 
     //76
     void send_command_long(uint16_t CMD_ID, uint8_t confirmation, float f1, float f2, float f3, float f4, float f5, float f6, float f7);

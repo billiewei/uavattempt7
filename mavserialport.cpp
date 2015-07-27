@@ -6,11 +6,52 @@ uint8_t MavSerialPort::msgReceived = false;
 
 MavSerialPort::MavSerialPort(QObject* parent):
     QSerialPort(parent),system_id(0),component_id(0),
-    target_system(1),target_component(0)
-{
+    target_system(1),target_component(0),
+    x(0), y(0), z(0), r(0){
+
+    thrust = 0.05;
+
+    timer = new QTimer(this);
+  //  connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
+    connect(timer, SIGNAL(timeout()),this, SLOT(send_manual_control()));
+    timer->start(200);
+}
+
+void MavSerialPort::setThrust(float t){
+    thrust = t;
+}
+
+void MavSerialPort::setQuaternion(float roll, float pitch, float yaw){
+
+    /**
+     * we take input roll(-225 to 225), pitch(-225 to 225) and yaw (0 to 90)
+     * need transform them into
+     * @param roll the roll angle in radians
+     * @param pitch the pitch angle in radians
+     * @param yaw the yaw angle in radians
+     * @param quaternion a [w, x, y, z] ordered quaternion (null-rotation being 1 0 0 0)
+     */
+
+     mavlink_euler_to_quaternion(roll*3.14159/1800, pitch*3.14159/1800, yaw*3.14159/180, q);
+     qDebug() << q[0] << " " << q[1] << " " << q[2] << " " << q[3];
 
 }
 
+void MavSerialPort::setX(int16_t t){
+    x = t;
+}
+
+void MavSerialPort::setY(int16_t t){
+    y = t;
+}
+
+void MavSerialPort::setZ(int16_t t){
+    z = t;
+}
+
+void MavSerialPort::setR(int16_t t){
+    r = t;
+}
 
 //11
 void MavSerialPort::send_set_mode(){
@@ -26,20 +67,20 @@ void MavSerialPort::send_manual_control(){
     mavlink_message_t msg;
     uint8_t buffer[2048];
 
-    int16_t x = 1000; ///< X-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to forward(1000)-backward(-1000) movement on a joystick and the pitch of a vehicle.
-    int16_t y = 200; ///< Y-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to left(-1000)-right(1000) movement on a joystick and the roll of a vehicle.
-    int16_t z = 350; ///< Z-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a separate slider movement with maximum being 1000 and minimum being -1000 on a joystick and the thrust of a vehicle.
-    int16_t r = -900; ///< R-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a twisting of the joystick, with counter-clockwise being 1000 and clockwise being -1000, and the yaw of a vehicle.
-    uint16_t buttons = 1; ///< A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
-    uint8_t target = 0; ///< The system to be controlled.
+    ///< X-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to forward(1000)-backward(-1000) movement on a joystick and the pitch of a vehicle.
+    ///< Y-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to left(-1000)-right(1000) movement on a joystick and the roll of a vehicle.
+    ///< Z-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a separate slider movement with maximum being 1000 and minimum being -1000 on a joystick and the thrust of a vehicle.
+    ///< R-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a twisting of the joystick, with counter-clockwise being 1000 and clockwise being -1000, and the yaw of a vehicle.
 
-    mavlink_msg_manual_control_pack(0, 0, &msg, target, x, y, z, r, buttons);
+    uint16_t buttons = 0b0000000000000000; ///< A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
+
+
+    mavlink_msg_manual_control_pack(0, 0, &msg, target_system, x, y, z, r, buttons);
     int size = mavlink_msg_to_send_buffer(buffer, &msg);
 
     QByteArray ba((char*)buffer,size);
 
     write(ba);
-     qDebug() << "send out manual control\n";
 }
 //76
 void MavSerialPort::send_command_long(uint16_t CMD_ID, uint8_t confirmation, float f1, float f2, float f3, float f4, float f5, float f6, float f7){
@@ -60,7 +101,6 @@ void MavSerialPort::send_manual_setpoint(){
 
     mavlink_message_t msg;
     uint8_t buffer[2048];
-//    char* buffer;
 
 //todo: timestamp
     uint32_t time_boot_ms = 100000; ///< Timestamp in milliseconds since system boot
@@ -70,10 +110,6 @@ void MavSerialPort::send_manual_setpoint(){
     float thrust = 0.2; ///< Collective thrust, normalized to 0 .. 1
     uint8_t mode_switch = 0; ///< Flight mode switch position, 0.. 255
     uint8_t manual_override_switch = 0; ///< Override mode switch position, 0.. 255
-  //  mavlink_msg_manual_setpoint_send(0, time_boot_ms, roll, pitch, yaw, thrust, mode_switch, manual_override_switch);
-
-    //system_id = 0
-    //component_id = 0 //COMP_ID_ALL
     mavlink_msg_manual_setpoint_pack(0,0, &msg, time_boot_ms, roll, pitch, yaw, thrust, mode_switch, manual_override_switch);
 
 
@@ -90,24 +126,23 @@ void MavSerialPort::send_manual_setpoint(){
 
     qDebug() << "send out manual setpoint\n";
 }
-//83
-void MavSerialPort::send_attitude_target(){
+//82
+void MavSerialPort::send_set_attitude_target(){
     mavlink_message_t msg;
     uint8_t buffer[2048];
 
 
     uint32_t time_boot_ms = 1000000; ///< Timestamp in milliseconds since system boot
-    float q[4] = {1.1,0.0,0.0,0.0}; ///< Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
+   // float q[4] = {1,0.0,0.0,0.0}; ///< Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
     float body_roll_rate = 0; ///< Body roll rate in radians per second
     float body_pitch_rate = 0; ///< Body roll rate in radians per second
     float body_yaw_rate = 0; ///< Body roll rate in radians per second
-    float thrust = 0.5; ///< Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
+
     uint8_t type_mask = 0;///< Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 7: reserved, bit 8: attitude
 
     //uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-//    uint32_t time_boot_ms, uint8_t type_mask, const float *q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
-
-    mavlink_msg_attitude_target_pack(system_id, component_id, &msg, time_boot_ms,type_mask, q, body_roll_rate, body_pitch_rate, body_yaw_rate, thrust);
+    //uint32_t time_boot_ms, uint8_t type_mask, const float *q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
+    mavlink_msg_set_attitude_target_pack(system_id, component_id, &msg, time_boot_ms, target_system, target_component, type_mask, q, body_roll_rate, body_pitch_rate, body_yaw_rate, thrust);
 
     int size = mavlink_msg_to_send_buffer(buffer, &msg);
     QByteArray ba((char*)buffer,size);
@@ -237,46 +272,62 @@ void MavSerialPort::cmd_do_set_mode(){//MAV_MODE mode){
 }
 
 /** Set Mode */
+void MavSerialPort::set_mode_offboard(bool on){
+    if(on){
+        send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_OFFBOARD,0,0,0,0,0);
+    }
+    else{
+        // for safety concern
+        // need to go throught the main_state_transition
+        send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_PREFLIGHT,0,0,0,0,0,0);
+    }
+}
+
 void MavSerialPort::set_mode_disarm(){
     send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_PREFLIGHT,0,0,0,0,0,0);
+    //preflight mode is all zeros
     qDebug() << "MODE_PREFLIGHT";
 }
 
 void MavSerialPort::set_mode_arm(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_MANUAL_ARMED,0,0,0,0,0,0);
+    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED,0,0,0,0,0,0);
+    //as long as the arm flag is on
     qDebug() << "MODE_MANUAL_ARMED";
 }
 
 void MavSerialPort::set_mode_return(){
-    send_command_long(MAV_CMD_NAV_RETURN_TO_LAUNCH,0,0,0,0,0,0,0,0);
+    send_command_long(MAV_CMD_DO_SET_MODE,0,0,0,0,0,0,0,0);
     qDebug() << "SEND RETURN TO LAUNCH";
 
 }
 
 void MavSerialPort::set_mode_manual(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_MANUAL_ARMED,0,0,0,0,0,0);
-    qDebug() << "MODE_MANUAL_ARMED";
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_MANUAL,0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_MANUAL";
 
 }
 
 void MavSerialPort::set_mode_assist_altctl(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_STABILIZE_ARMED,0,0,0,0,0,0);
-    qDebug() << "MODE_STABILIZE_ARMED";
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_ALTCTL,0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_ALTCTL";
 }
 
 void MavSerialPort::set_mode_assist_posctl(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_STABILIZE_ARMED,0,0,0,0,0,0);
-    qDebug() << "MODE_STABILIZE_ARMED";
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_POSCTL,0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_POSCTL";
 }
 
 void MavSerialPort::set_mode_auto_mission(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_AUTO_ARMED,0,0,0,0,0,0);
-    qDebug() << "MODE_AUTO_ARMED";
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO";
+    //this is auto_mission
+    //Need to figure out how to do the sub mode
 }
 
 void MavSerialPort::set_mode_auto_loiter(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_PREFLIGHT,0,0,0,0,0,0);
-    qDebug() << "MODE_AUTO_ARMED";
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO";
+    //cannot do AUTO_LOITER and AUTO_RTL so far
 }
 
 //178 MAV_CMD_DO_CHANGE_SPEED
@@ -293,18 +344,25 @@ void MavSerialPort::cmd_do_set_home(){
 void MavSerialPort::heartbeat_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_HEARTBEAT\n";
     mavlink_msg_heartbeat_decode(&message, &heartbeat);
+    emit heartbeatReceived();
+
+ //   qDebug() << "base mode: " << heartbeat.base_mode;
+ //   qDebug() << "custom mode: " << heartbeat.custom_mode;
+ //   qDebug() << "system status: " << heartbeat.system_status;
+
 }
 
 //1
 void MavSerialPort::sys_status_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_SYS_STATUS\n";
     mavlink_msg_sys_status_decode(&message, &sys_status);
+
     emit batteryChanged();
 }
 
 //24
 void MavSerialPort::gps_raw_int_handler(){
-   // qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT\n";
+  //  qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT\n";
     mavlink_msg_gps_raw_int_decode(&message, &gps_raw_int);
 }
 
@@ -335,6 +393,7 @@ void MavSerialPort::global_position_int_handler(){
 void MavSerialPort::mission_current_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_MISSION_CURRENT\n";
     mavlink_msg_mission_current_decode(&message, &mission_current);
+
 }
 
 //74
@@ -347,6 +406,9 @@ void MavSerialPort::vfr_hud_handler(){
 void MavSerialPort::manual_setpoint_handler(){
    //  qDebug() << "MAVLINK_MSG_ID_MANUAL_SETPOINT\n";
      mavlink_msg_manual_setpoint_decode(&message,&manual_setpoint);
+  //   qDebug() << "time_boot_ms: " << manual_setpoint.time_boot_ms <<'\n';
+  //   qDebug() << "roll: "<< manual_setpoint.roll << '\n';
+  //   qDebug() << "roll: "<< manual_setpoint.roll << '\n';
 
 }
 
@@ -361,12 +423,14 @@ void MavSerialPort::attitude_target_handler(){
 void MavSerialPort::position_target_local_ned_handler(){
    // qDebug() << "MAVLINK_MSG_ID_POSITION_TARGET_LOCAL_END\n";
     mavlink_msg_position_target_local_ned_decode(&message, &position_target_local_ned);
+
 }
 
 //87
 void MavSerialPort::position_target_global_int_handler(){
    // qDebug() << "MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT\n";
     mavlink_msg_position_target_global_int_decode(&message, &position_target_global_int);
+
 }
 
 //105
@@ -379,14 +443,16 @@ void MavSerialPort::highres_imu_handler(){
 
 //147
 void MavSerialPort::battery_status_handler(){
+  //  qDebug() << "MAVLINK_MSG_ID_BATTERY_STATUS\n";
     mavlink_msg_battery_status_decode(&message, &battery_status);
-   // qDebug() << "MAVLINK_MSG_ID_BATTERY_STATUS";
 }
+
 //253
 void MavSerialPort::statustext_handler(){
     mavlink_msg_statustext_decode(&message, &statustext);
-    emit flightLogReady();
+    qDebug() << statustext.severity;
     qDebug() << statustext.text;
+    emit flightLogReady();
 }
 
 void MavSerialPort::mavRead(QByteArray* ba){
@@ -480,6 +546,7 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
     case MAVLINK_MSG_ID_STATUSTEXT:
         statustext_handler();
         break;
+
     default:
         qDebug() << "new message:" << (int)message.msgid;
         break;

@@ -130,7 +130,6 @@ Rectangle {
 
         // X: Back-Forward
         Label {
-            id: back_forward_label
             text: "Back-Forward"
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
