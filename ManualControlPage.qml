@@ -130,6 +130,7 @@ Rectangle {
 
         // X: Back-Forward
         Label {
+            id: back_forward_label
             text: "Back-Forward"
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
@@ -140,7 +141,8 @@ Rectangle {
         }
         Slider {
             id: x_slider
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: back_forward_label.width + page.width*0.03
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             tickmarksEnabled: false
@@ -149,6 +151,16 @@ Rectangle {
             minimumValue : -1000
             maximumValue: 1000
             stepSize: 5.0
+            style: SliderStyle {
+                groove: Rectangle {
+                    implicitWidth: controlsliders.width*0.6
+                    implicitHeight: 8
+                    color: "gray"
+                    radius: 8
+                }
+
+            }
+
         }
         Text {
             text: x_slider.value
@@ -170,7 +182,8 @@ Rectangle {
         }
         Slider {
             id: y_slider
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: back_forward_label.width + page.width*0.03
             anchors.top: parent.top
             anchors.topMargin: page.height*0.1
             tickmarksEnabled: false
@@ -179,6 +192,16 @@ Rectangle {
             minimumValue : -1000
             maximumValue: 1000
             stepSize: 5
+            style: SliderStyle {
+                groove: Rectangle {
+                    implicitWidth: controlsliders.width*0.6
+                    implicitHeight: 8
+                    color: "gray"
+                    radius: 8
+                }
+
+            }
+
         }
         Text {
             text: y_slider.value
@@ -200,7 +223,8 @@ Rectangle {
         }
         Slider {
             id: z_slider
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: back_forward_label.width + page.width*0.03
             anchors.top: parent.top
             anchors.topMargin: page.height*0.17
             tickmarksEnabled: false
@@ -209,6 +233,16 @@ Rectangle {
             minimumValue : 0
             maximumValue: 1000
             stepSize: 10
+            style: SliderStyle {
+                groove: Rectangle {
+                    implicitWidth: controlsliders.width*0.6
+                    implicitHeight: 8
+                    color: "gray"
+                    radius: 8
+                }
+
+            }
+
         }
         Text {
             text: z_slider.value
@@ -230,7 +264,8 @@ Rectangle {
         }
         Slider {
             id: r_slider
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: back_forward_label.width + page.width*0.03
             anchors.top: parent.top
             anchors.topMargin: page.height*0.24
             tickmarksEnabled: false
@@ -239,6 +274,16 @@ Rectangle {
             minimumValue : -1000
             maximumValue: 1000
             stepSize: 5
+            style: SliderStyle {
+                groove: Rectangle {
+                    implicitWidth: controlsliders.width*0.6
+                    implicitHeight: 8
+                    color: "gray"
+                    radius: 8
+                }
+
+            }
+
         }
         Text {
             text: r_slider.value
