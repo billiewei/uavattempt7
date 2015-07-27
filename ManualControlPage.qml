@@ -102,6 +102,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.02
             checked: false
+            onCheckedChanged: manual_control_handler.setArmed(checked)
         }
     }
     TextArea {

@@ -9,7 +9,6 @@ ManualControlHandler::ManualControlHandler(QQuickItem* parent):
 }
 
 QString ManualControlHandler::log() const{
-
     return m_log;
 }
 
@@ -90,5 +89,14 @@ void ManualControlHandler::readData(){
 
 void ManualControlHandler::writeFlightLog(){
     setLog(QString(serial->statustext.text));
+}
+
+void ManualControlHandler::setArmed(bool armed){
+    if (armed) {
+        serial->set_mode_arm();
+    }
+    else {
+        serial->set_mode_disarm();
+    }
 }
 

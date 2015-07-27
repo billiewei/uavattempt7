@@ -3,6 +3,10 @@
 
 #include <QtCore/QtGlobal>
 #include <QQuickItem>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
+#include <QLabel>
 #include "mavserialport.h"
 
 class ManualControlHandler : public QQuickItem {
@@ -32,6 +36,7 @@ class ManualControlHandler : public QQuickItem {
     public slots:
         void readData();
         void writeFlightLog();
+        void setArmed(bool armed);
 
     signals:
         void logChanged();
