@@ -12,9 +12,15 @@ MavSerialPort::MavSerialPort(QObject* parent):
     thrust = 0.05;
 
     timer = new QTimer(this);
-  //  connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
+  //connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
     connect(timer, SIGNAL(timeout()),this, SLOT(send_manual_control()));
-    timer->start(200);
+
+     timer->start(200);
+
+}
+
+void MavSerialPort::stopTimer(){
+    timer->stop();
 }
 
 void MavSerialPort::setThrust(float t){
@@ -450,8 +456,6 @@ void MavSerialPort::battery_status_handler(){
 //253
 void MavSerialPort::statustext_handler(){
     mavlink_msg_statustext_decode(&message, &statustext);
-    qDebug() << statustext.severity;
-    qDebug() << statustext.text;
     emit flightLogReady();
 }
 

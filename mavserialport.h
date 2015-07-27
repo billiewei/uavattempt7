@@ -22,6 +22,8 @@ public:
 
     void mavDecode(mavlink_message_t &message);
 
+    void stopTimer();
+
 
     //0
     inline void heartbeat_handler();

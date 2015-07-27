@@ -77,6 +77,7 @@ void ManualControlHandler::initSerialPort(){
        qDebug() << "serial port is open now";
     }else {
        qDebug() << "serial port open fails";
+       serial->stopTimer();
        serial->close();
     }
 }
