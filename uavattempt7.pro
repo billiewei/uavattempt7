@@ -186,4 +186,5 @@ HEADERS += \
     mavlink/v1.0/mavlink_conversions.h \
     mavlink/v1.0/protocol.h \
     mavserialport.h \
-    console.h
+    console.h \
+    px4_custom_mode.h

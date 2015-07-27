@@ -131,6 +131,7 @@ Rectangle {
 
         // X: Back-Forward
         Label {
+            id:back_forward_label
             text: "Back-Forward"
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
@@ -142,7 +143,7 @@ Rectangle {
         Slider {
             id: x_slider
             anchors.left: parent.left
-            anchors.leftMargin: back_forward_label.width + page.width*0.03
+            anchors.leftMargin: back_forward_label.width + page.width*0.05
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             tickmarksEnabled: false
@@ -183,7 +184,7 @@ Rectangle {
         Slider {
             id: y_slider
             anchors.left: parent.left
-            anchors.leftMargin: back_forward_label.width + page.width*0.03
+            anchors.leftMargin: back_forward_label.width + page.width*0.05
             anchors.top: parent.top
             anchors.topMargin: page.height*0.1
             tickmarksEnabled: false
@@ -224,7 +225,7 @@ Rectangle {
         Slider {
             id: z_slider
             anchors.left: parent.left
-            anchors.leftMargin: back_forward_label.width + page.width*0.03
+            anchors.leftMargin: back_forward_label.width + page.width*0.05
             anchors.top: parent.top
             anchors.topMargin: page.height*0.17
             tickmarksEnabled: false
@@ -265,7 +266,7 @@ Rectangle {
         Slider {
             id: r_slider
             anchors.left: parent.left
-            anchors.leftMargin: back_forward_label.width + page.width*0.03
+            anchors.leftMargin: back_forward_label.width + page.width*0.05
             anchors.top: parent.top
             anchors.topMargin: page.height*0.24
             tickmarksEnabled: false
