@@ -298,118 +298,151 @@ Rectangle {
 
     }
     Rectangle {
-        id: flightmode
-        y: controlsliders.y + controlsliders.height + page.height*0.02
-        width: page.width*0.9
-        height: page.height*0.35
-        anchors.horizontalCenter: parent.horizontalCenter
-        color: "#E6E6E6"
-        radius: 5
-        GroupBox {
-            id: returnbox
-            title: "Return"
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.03
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.03
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.01
-            height: flightmode.height*0.2
-            RowLayout {
-                anchors.fill: parent
-                spacing: 10
-                ExclusiveGroup { id: returnGroup }
-                RadioButton {
-                    id: return_on_button
-                    text: "Return On";
-                    exclusiveGroup: returnGroup;
-                    onCheckedChanged: manual_control_handler.setFlightMode(0)
+            id: flightmode
+            y: controlsliders.y + controlsliders.height + page.height*0.02
+            width: page.width*0.9
+            height: page.height*0.35
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "#E6E6E6"
+            radius: 5
+            GroupBox {
+                id: returnbox
+                title: "Return"
+                anchors.left: parent.left
+                anchors.leftMargin: page.width*0.03
+                anchors.right: parent.right
+                anchors.rightMargin: page.width*0.03
+                anchors.top: parent.top
+                anchors.topMargin: page.height*0.01
+                height: flightmode.height*0.2
+                RowLayout {
+                    anchors.fill: parent
+                    spacing: 10
+                    ExclusiveGroup { id: returnGroup }
+                    RadioButton {
+                        id: return_on_button
+                        text: "Return On";
+                        checked: false
+                        exclusiveGroup: returnGroup;
+                        onCheckedChanged:
+                            if (checked == true) {manual_control_handler.setFlightMode(0)}
+                    }
+                    RadioButton {
+                        id: other_modes_button
+                        text: "Other Modes";
+                        checked: true
+                        exclusiveGroup: returnGroup;
+                        onCheckedChanged: {
+                            if (checked == true) {
+                                manual_button.checked = true
+                                manual_control_handler.setFlightMode(0);
+                            }
+                        }
+                    }
                 }
-                RadioButton {
-                    id: other_modes_button
-                    text: "Other Modes";
-                    exclusiveGroup: returnGroup;
+            }
+            GroupBox {
+                id: modebox
+                title: "Mode"
+                anchors.left: parent.left
+                anchors.leftMargin: page.width*0.03
+                anchors.right: parent.right
+                anchors.rightMargin: page.width*0.03
+                y: returnbox.y + returnbox.height + page.height*0.01
+                width: returnbox.width
+                enabled: other_modes_button.checked
+                height: flightmode.height*0.2
+                RowLayout {
+                    anchors.fill: parent
+                    ExclusiveGroup { id: modeGroup }
+                    RadioButton {
+                        id: manual_button
+                        text: "Manual";
+                        exclusiveGroup: modeGroup;
+                        checked: true
+                        onCheckedChanged:
+                            if (checked == true) {manual_control_handler.setFlightMode(1)}
+                    }
+                    RadioButton {
+                        id: assist_button;
+                        text: "Assist";
+                        checked: false
+                        exclusiveGroup: modeGroup;
+                        onCheckedChanged: if (checked == true) {
+                            alt_control_button.checked = true
+                            manual_control_handler.setFlightMode(2)}
+                    }
+                    RadioButton {
+                        id: auto_button;
+                        text: "Auto";
+                        exclusiveGroup: modeGroup;
+                        checked: false;
+                        onCheckedChanged: if (checked == true) {
+                            mission_button.checked = true
+                            manual_control_handler.setFlightMode(4)
+                        }
+                    }
+                }
+            }
+            GroupBox {
+                id: assistbox
+                title: "Assist"
+                anchors.right: parent.right
+                anchors.rightMargin: page.width*0.03
+                anchors.left: parent.left
+                anchors.leftMargin: page.width*0.03
+                y: modebox.y + modebox.height + page.height*0.01
+                width: returnbox.width
+                enabled: assist_button.checked
+                height: flightmode.height*0.2
+                RowLayout {
+                    anchors.fill: parent
+                    ExclusiveGroup { id: assistGroup }
+                    RadioButton {
+                        id: alt_control_button
+                        text: "Alt Control";
+                        checked: false
+                        exclusiveGroup: assistGroup;
+                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(2)}
+                    }
+                    RadioButton {
+                        id: pos_control_button
+                        text: "Pos Control";
+                        checked: false
+                        exclusiveGroup: assistGroup;
+                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(3)}
+                    }
+                }
+            }
+            GroupBox {
+                id: autobox
+                title: "Auto"
+                anchors.left: parent.left
+                anchors.leftMargin: page.width*0.03
+                anchors.right: parent.right
+                anchors.rightMargin: page.width*0.03
+                y: assistbox.y + assistbox.height + page.height*0.01
+                width: returnbox.width
+                enabled: auto_button.checked
+                height: flightmode.height*0.2
+                RowLayout {
+                    anchors.fill: parent
+                    ExclusiveGroup { id: autoGroup }
+                    RadioButton {
+                        id: mission_button
+                        text: "Mission";
+                        checked: false;
+                        exclusiveGroup: autoGroup;
+                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(4)}
+                    }
+                    RadioButton {
+                        text: "Loiter";
+                        checked: false;
+                        exclusiveGroup: autoGroup
+                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(5)}
+                    }
                 }
             }
         }
-        GroupBox {
-            id: modebox
-            title: "Mode"
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.03
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.03
-            y: returnbox.y + returnbox.height + page.height*0.01
-            width: returnbox.width
-            enabled: other_modes_button.checked
-            height: flightmode.height*0.2
-            RowLayout {
-                anchors.fill: parent
-                ExclusiveGroup { id: modeGroup }
-                RadioButton {
-                    text: "Manual";
-                    exclusiveGroup: modeGroup;
-                    onCheckedChanged: manual_control_handler.setFlightMode(1)
-                }
-                RadioButton {
-                    id: assist_button;
-                    text: "Assist";
-                    exclusiveGroup: modeGroup;
-                }
-                RadioButton { id: auto_button; text: "Auto"; exclusiveGroup: modeGroup }
-            }
-        }
-        GroupBox {
-            id: assistbox
-            title: "Assist"
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.03
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.03
-            y: modebox.y + modebox.height + page.height*0.01
-            width: returnbox.width
-            enabled: assist_button.checked
-            height: flightmode.height*0.2
-            RowLayout {
-                anchors.fill: parent
-                ExclusiveGroup { id: assistGroup }
-                RadioButton {
-                    text: "Alt Control";
-                    exclusiveGroup: assistGroup;
-                    onCheckedChanged: manual_control_handler.setFlightMode(2)}
-                RadioButton {
-                    text: "Pos Control";
-                    exclusiveGroup: assistGroup;
-                    onCheckedChanged: manual_control_handler.setFlightMode(3)}
-            }
-        }
-        GroupBox {
-            id: autobox
-            title: "Auto"
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.03
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.03
-            y: assistbox.y + assistbox.height + page.height*0.01
-            width: returnbox.width
-            enabled: auto_button.checked
-            height: flightmode.height*0.2
-            RowLayout {
-                anchors.fill: parent
-                ExclusiveGroup { id: autoGroup }
-                RadioButton {
-                    text: "Mission";
-                    exclusiveGroup: autoGroup;
-                    onCheckedChanged: manual_control_handler.setFlightMode(4)
-                }
-                RadioButton {
-                    text: "Loiter";
-                    exclusiveGroup: autoGroup
-                    onCheckedChanged: manual_control_handler.setFlightMode(5)
-                }
-            }
-        }
-
-    }
 }
 

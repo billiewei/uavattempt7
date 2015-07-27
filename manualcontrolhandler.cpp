@@ -111,25 +111,30 @@ void ManualControlHandler::setArmed(bool armed){
 
 // Controls flight modes
 void ManualControlHandler::setFlightMode(int m){
-    if (0) {serial->set_mode_return();}
-    else if (1) {
+    switch (m){
+    case 0:
+        serial->set_mode_return();
+        qDebug() <<"*********MODE SET TO RETURN*********";
+        break;
+    case 1:
         serial->set_mode_manual();
-        qDebug() << "Mode has been set to manual.";
-    }
-    else if (2) {
+        qDebug() << "*********MODE SET TO MANUAL*********";
+        break;
+    case 2:
         serial->set_mode_assist_altctl();
-        qDebug() << "Mode has been set to alt control.";
-    }
-    else if (3) {
+        qDebug() << "*********MODE SET TO ASSIST ALTCTL*********";
+        break;
+    case 3:
         serial->set_mode_assist_posctl();
-        qDebug() << "Mode has been set to pos control.";
-    }
-    else if (4) {
+        qDebug() << "*********MODE SET TO ASSIST POSTCTL*********";
+        break;
+    case 4:
         serial->set_mode_auto_mission();
-        qDebug() << "Mode has been set to auto mission.";
-    }
-    else if (5) {
+        qDebug() << "*********MODE SET TO AUTO MISSION*********";
+        break;
+    case 5:
         serial->set_mode_auto_loiter();
-        qDebug() << "Mode has been set to auto loiter.";
+        qDebug() << "*********MODE SET TO AUTO LOITER*********";
+        break;
     }
 }
