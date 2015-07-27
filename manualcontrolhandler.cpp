@@ -84,7 +84,6 @@ void ManualControlHandler::initSerialPort(){
 void ManualControlHandler::initSerialConnections(){
     connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
     connect(serial, SIGNAL(flightLogReady()), this, SLOT(writeFlightLog()));
-
     connect(this, SIGNAL(xChanged(int)), serial, SLOT(setX(int)));
     connect(this, SIGNAL(yChanged(int)), serial, SLOT(setY(int)));
     connect(this, SIGNAL(zChanged(int)), serial, SLOT(setZ(int)));
@@ -109,3 +108,27 @@ void ManualControlHandler::setArmed(bool armed){
     }
 }
 
+// Controls flight modes
+void ManualControlHandler::setFlightMode(int m){
+    if (0) {serial->set_mode_return();}
+    else if (1) {
+        serial->set_mode_manual();
+        qDebug() << "Mode has been set to manual.";
+    }
+    else if (2) {
+        serial->set_mode_assist_altctl();
+        qDebug() << "Mode has been set to alt control.";
+    }
+    else if (3) {
+        serial->set_mode_assist_posctl();
+        qDebug() << "Mode has been set to pos control.";
+    }
+    else if (4) {
+        serial->set_mode_auto_mission();
+        qDebug() << "Mode has been set to auto mission.";
+    }
+    else if (5) {
+        serial->set_mode_auto_loiter();
+        qDebug() << "Mode has been set to auto loiter.";
+    }
+}

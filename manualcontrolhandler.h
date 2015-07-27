@@ -34,6 +34,7 @@ class ManualControlHandler : public QQuickItem {
         void readData();
         void writeFlightLog();
         void setArmed(bool armed);
+        void setFlightMode(int m);
 
         void setX(int x);
         void setY(int y);

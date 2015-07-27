@@ -323,6 +323,7 @@ Rectangle {
                     id: return_on_button
                     text: "Return On";
                     exclusiveGroup: returnGroup;
+                    onCheckedChanged: manual_control_handler.setFlightMode(0)
                 }
                 RadioButton {
                     id: other_modes_button
@@ -345,8 +346,16 @@ Rectangle {
             RowLayout {
                 anchors.fill: parent
                 ExclusiveGroup { id: modeGroup }
-                RadioButton { text: "Manual"; exclusiveGroup: modeGroup }
-                RadioButton { id: assist_button; text: "Assist"; exclusiveGroup: modeGroup }
+                RadioButton {
+                    text: "Manual";
+                    exclusiveGroup: modeGroup;
+                    onCheckedChanged: manual_control_handler.setFlightMode(1)
+                }
+                RadioButton {
+                    id: assist_button;
+                    text: "Assist";
+                    exclusiveGroup: modeGroup;
+                }
                 RadioButton { id: auto_button; text: "Auto"; exclusiveGroup: modeGroup }
             }
         }
@@ -364,8 +373,14 @@ Rectangle {
             RowLayout {
                 anchors.fill: parent
                 ExclusiveGroup { id: assistGroup }
-                RadioButton { text: "Alt Control"; exclusiveGroup: assistGroup }
-                RadioButton { text: "Pos Control"; exclusiveGroup: assistGroup }
+                RadioButton {
+                    text: "Alt Control";
+                    exclusiveGroup: assistGroup;
+                    onCheckedChanged: manual_control_handler.setFlightMode(2)}
+                RadioButton {
+                    text: "Pos Control";
+                    exclusiveGroup: assistGroup;
+                    onCheckedChanged: manual_control_handler.setFlightMode(3)}
             }
         }
         GroupBox {
@@ -382,8 +397,16 @@ Rectangle {
             RowLayout {
                 anchors.fill: parent
                 ExclusiveGroup { id: autoGroup }
-                RadioButton { text: "Mission"; exclusiveGroup: autoGroup }
-                RadioButton { text: "Loiter"; exclusiveGroup: autoGroup }
+                RadioButton {
+                    text: "Mission";
+                    exclusiveGroup: autoGroup;
+                    onCheckedChanged: manual_control_handler.setFlightMode(4)
+                }
+                RadioButton {
+                    text: "Loiter";
+                    exclusiveGroup: autoGroup
+                    onCheckedChanged: manual_control_handler.setFlightMode(5)
+                }
             }
         }
 
