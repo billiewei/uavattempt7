@@ -1,7 +1,9 @@
 #include "addresspagehandler.h"
 
 AddressPageHandler::AddressPageHandler(QQuickItem* parent):
-    QQuickItem(parent)
+    QQuickItem(parent), m_name(""), m_street(""),
+    m_city(""), m_state(""), m_region(""), m_email(""),
+    m_zip(0), m_phone(0)
 {
 
 }
@@ -39,43 +41,58 @@ int AddressPageHandler::phone() {
 }
 
 void AddressPageHandler::setName(QString n) {
-    m_name = n;
-    qDebug() << "address name is changed";
-    emit nameChanged();
+    if( m_name.compare(n)){
+        m_name = n;
+        emit nameChanged();
+    }
 }
 
 void AddressPageHandler::setStreet(QString s) {
-    m_street = s;
-    emit streetChanged();
+    if( m_street.compare(s)){
+        m_street = s;
+        emit streetChanged();
+    }
 }
 
 void AddressPageHandler::setCity(QString c) {
-    m_city = c;
-    emit cityChanged();
+    if(m_city.compare(c)){
+        m_city = c;
+        emit cityChanged();
+    }
 }
 
 void AddressPageHandler::setState(QString s) {
-    m_state = s;
-    emit stateChanged();
+    if(m_state.compare(s)){
+        m_state = s;
+        emit stateChanged();
+    }
 }
 
 void AddressPageHandler::setRegion(QString r) {
-    m_region = r;
-    emit regionChanged();
+    if( m_region.compare(r) ){
+        m_region = r;
+        emit regionChanged();
+    }
 }
 
 void AddressPageHandler::setEmail(QString e) {
-    m_email = e;
-    emit emailChanged();
+    if( m_email.compare(e)){
+        m_email = e;
+        emit emailChanged();
+    }
 }
 
 void AddressPageHandler::setZip(int z) {
-    m_zip = z;
-    emit zipChanged();
+    if(m_zip != z){
+        m_zip = z;
+        emit zipChanged();
+    }
 }
 
 void AddressPageHandler::setPhone(int p) {
-    m_phone = p;
-    emit phoneChanged();
+    if( m_phone != p){
+        m_phone = p;
+        emit phoneChanged();
+    }
 }
 

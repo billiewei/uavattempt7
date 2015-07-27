@@ -57,13 +57,6 @@ ApplicationWindow {
         //need a address_page_handler
         AddressPageHandler{
             id: address_page_handler
-            name:""
-            street:""
-            city:""
-            state:""
-            email:""
-            zip:0
-            phone:0
         }
     }
 

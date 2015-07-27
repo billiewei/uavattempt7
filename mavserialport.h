@@ -6,7 +6,6 @@
 #include <QString>
 #include <QDebug>
 
-
 #include "mavlink/v1.0/common/mavlink.h"
 #include "mavlink/v1.0/pixhawk/mavlink.h"
 
@@ -19,7 +18,6 @@ public:
 
     void mavRead(QByteArray* ba);
     void mavDecode(mavlink_message_t &message);
-
 
     //0
     inline void heartbeat_handler();

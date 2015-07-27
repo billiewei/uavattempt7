@@ -109,10 +109,7 @@ Rectangle {
         width: page.width*0.9
         height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "Bille, Erin & Eva \n"
-        //onTextChanged: append(text);
-        //need to do something here
-        //manual_control_handler.onLogChanged: text.append(manual_control_handler.log)
+        text: "Here is the flight log... ..."
         backgroundVisible: true
         wrapMode: TextEdit.Wrap
         style: TextAreaStyle {
@@ -130,9 +127,9 @@ Rectangle {
         color: "#E6E6E6"
         radius: 5
 
-        // THROTTLE
+        // X: Back-Forward
         Label {
-            text: "Throttle"
+            text: "Back-Forward"
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             anchors.left: parent.left
@@ -141,88 +138,89 @@ Rectangle {
             font.letterSpacing: 2
         }
         Slider {
-            id: throttleslider
+            id: x_slider
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             tickmarksEnabled: false
             updateValueWhileDragging: true
-            value: 0.0
-            minimumValue : 0.0
-            maximumValue: 100.0
+            value: 0
+            minimumValue : -1000
+            maximumValue: 1000
             stepSize: 5.0
         }
         Text {
-            text: throttleslider.value
+            text: x_slider.value
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             anchors.right: parent.right
             anchors.rightMargin: page.width*0.06
         }
 
-        // YAW
+        // Y: Left-Right
+        Label {
+            text: "Left-Right"
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.1
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            font.pixelSize: page.height*0.015
+            font.letterSpacing: 2
+        }
+        Slider {
+            id: y_slider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.1
+            tickmarksEnabled: false
+            updateValueWhileDragging: true
+            value: 0
+            minimumValue : -1000
+            maximumValue: 1000
+            stepSize: 5
+        }
+        Text {
+            text: y_slider.value
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.1
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+        }
+
+        // Z: Throttle
+        Label {
+            text: "Throttle"
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.17
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            font.pixelSize: page.height*0.015
+            font.letterSpacing: 2
+        }
+        Slider {
+            id: z_slider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.17
+            tickmarksEnabled: false
+            updateValueWhileDragging: true
+            value: 0
+            minimumValue : 0
+            maximumValue: 1000
+            stepSize: 10
+        }
+        Text {
+            text: z_slider.value
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.17
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+        }
+
+        //R: yaw
         Label {
             text: "Yaw"
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.1
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
-            font.pixelSize: page.height*0.015
-            font.letterSpacing: 2
-        }
-        Slider {
-            id: yawslider
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.1
-            tickmarksEnabled: false
-            updateValueWhileDragging: true
-            value: 0.0
-            minimumValue : -180.0
-            maximumValue: 180.0
-            stepSize: 10.0
-        }
-        Text {
-            text: yawslider.value
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.1
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
-        }
-
-        // PITCH
-        Label {
-            text: "Pitch"
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.17
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
-            font.pixelSize: page.height*0.015
-            font.letterSpacing: 2
-        }
-        Slider {
-            id: pitchslider
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.17
-            tickmarksEnabled: false
-            updateValueWhileDragging: true
-            value: 0.0
-            minimumValue : -90.0
-            maximumValue: 90.0
-            stepSize: 10.0
-        }
-        Text {
-            text: pitchslider.value
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.17
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
-        }
-
-        Label {
-            text: "Roll"
-            anchors.top: parent.top
             anchors.topMargin: page.height*0.24
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.06
@@ -230,19 +228,19 @@ Rectangle {
             font.letterSpacing: 2
         }
         Slider {
-            id: rollslider
+            id: r_slider
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: page.height*0.24
             tickmarksEnabled: false
             updateValueWhileDragging: true
-            value: 0.0
-            minimumValue : -90.0
-            maximumValue: 90.0
-            stepSize: 10.0
+            value: 0
+            minimumValue : -1000
+            maximumValue: 1000
+            stepSize: 5
         }
         Text {
-            text: rollslider.value
+            text: r_slider.value
             anchors.top: parent.top
             anchors.topMargin: page.height*0.24
             anchors.right: parent.right
