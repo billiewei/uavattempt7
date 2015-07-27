@@ -8,6 +8,7 @@ import QtPositioning 5.2
 import QtLocation 5.3
 import QtQuick.Particles 2.0
 import QtQml 2.2
+import HKUST 1.0
 
 Rectangle {
     width: parent? parent.width : 400

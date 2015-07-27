@@ -5,7 +5,6 @@
 #include <QQuickItem>
 #include "mavserialport.h"
 
-
 class ManualControlHandler : public QQuickItem {
 
     Q_OBJECT

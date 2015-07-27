@@ -9,6 +9,7 @@ ManualControlHandler::ManualControlHandler(QQuickItem* parent):
 }
 
 QString ManualControlHandler::log() const{
+
     return m_log;
 }
 
