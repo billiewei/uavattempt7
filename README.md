@@ -15,13 +15,9 @@ Please note that the tracking and battery features will not work unless you have
 - Qt Creator: http://www.qt.io/download/
 - [MAVLink header files](https://drive.google.com/file/d/0B8rkAqI6SATGRUM4b3RRdE5KbEk/view?usp=sharing)
 
-### Requirements for Real Flight Testing
-- Android SDK: https://developer.android.com/sdk/index.html
-- Android NDK: https://developer.android.com/ndk/index.html
-- Qt Creator: http://www.qt.io/download/
-- [MAVLink header files](https://drive.google.com/file/d/0B8rkAqI6SATGRUM4b3RRdE5KbEk/view?usp=sharing)
+### Additional Requirements for Real Flight Testing
 - CP210x USB to UART Bridge VCP Driver
-- USB Driver: download [here](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx)
+- USB Driver Software: download [here](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx)
 - UAV Setup
 	- Frame
 	- Firmware
