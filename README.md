@@ -20,7 +20,7 @@ Please note that the tracking and battery features will not work unless you have
 - USB Driver Software: download [here](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx)
 - UAV Setup
 	- UAV Frame, sensors, batteries, etc.
-	- Firmware Code: 
+	- Firmware Code: https://github.com/13rianK/Firmware
 	- Pixhawk PX4: https://pixhawk.org/choice
 - Optional:
 	- Android Device [Tablet, phone, etc.]
