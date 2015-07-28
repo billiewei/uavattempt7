@@ -2,7 +2,9 @@
 
 ManualControlHandler::ManualControlHandler(QQuickItem* parent):
     QQuickItem(parent), m_log(""),
-    m_x(0), m_y(0), m_z(0), m_r(0){
+    m_x(0), m_y(0), m_z(0), m_r(0),
+    m_voltage(0),
+    m_latitude(0), m_longitude(0), m_height(0){
     serial = new MavSerialPort(this);
     initSerialPort();
     initSerialConnections();
@@ -25,6 +27,22 @@ int ManualControlHandler::r() const{
     return m_r;
 }
 
+int ManualControlHandler::voltage() const{
+    return m_voltage;
+}
+
+double ManualControlHandler::latitude() const{
+    return m_latitude;
+}
+
+double ManualControlHandler::longitude() const{
+    return m_longitude;
+}
+
+double ManualControlHandler::height() const{
+    return m_height;
+}
+
 void ManualControlHandler::setLog(QString l){
     if(m_log.compare(l)){
         m_log = l;
@@ -35,7 +53,6 @@ void ManualControlHandler::setLog(QString l){
 void ManualControlHandler::setX(int x){
     if(m_x != x){
         m_x = x;
- //       serial->setX(int16_t(x));
         emit xChanged(x);
     }
 }
@@ -43,7 +60,6 @@ void ManualControlHandler::setX(int x){
 void ManualControlHandler::setY(int y){
     if(m_y != y){
         m_y = y;
-   //     serial->setY(int16_t(y));
         emit yChanged(y);
     }
 }
@@ -51,7 +67,6 @@ void ManualControlHandler::setY(int y){
 void ManualControlHandler::setZ(int z){
     if(m_z != z){
         m_z = z;
-   //     serial->setZ(int16_t(z));
         emit zChanged(z);
     }
 }
@@ -59,8 +74,35 @@ void ManualControlHandler::setZ(int z){
 void ManualControlHandler::setR(int r){
     if(m_r != r){
         m_r = r;
-   //     serial->setR(int16_t(r));
         emit rChanged(r);
+    }
+}
+
+void ManualControlHandler::setVoltage(int v){
+    if(m_voltage != v){
+        m_voltage = v;
+        emit voltageChanged(v);
+    }
+}
+
+void ManualControlHandler::setLatitude(double l){
+    if(abs(m_latitude - l) > 0.001){
+        m_latitude = l;
+        emit latitudeChanged(l);
+    }
+}
+
+void ManualControlHandler::setLongitude(double l){
+    if(abs(m_longitude - l) > 0.001){
+        m_longitude = l;
+        emit longitudeChanged(l);
+    }
+}
+
+void ManualControlHandler::setHeight(double h){
+    if(abs(m_height - h) > 0.001){
+        m_height = h;
+        emit heightChanged(h);
     }
 }
 
@@ -85,6 +127,8 @@ void ManualControlHandler::initSerialPort(){
 void ManualControlHandler::initSerialConnections(){
     connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
     connect(serial, SIGNAL(flightLogReady()), this, SLOT(writeFlightLog()));
+    connect(serial,SIGNAL(batteryChanged(int)),this, SLOT(setVoltage(int)));
+    connect(serial, SIGNAL(globalChanged()), this, SLOT(updateLocation()));
     connect(this, SIGNAL(xChanged(int)), serial, SLOT(setX(int)));
     connect(this, SIGNAL(yChanged(int)), serial, SLOT(setY(int)));
     connect(this, SIGNAL(zChanged(int)), serial, SLOT(setZ(int)));
@@ -107,6 +151,12 @@ void ManualControlHandler::setArmed(bool armed){
     else {
         serial->set_mode_disarm();
     }
+}
+
+void ManualControlHandler::updateLocation(){
+    setLatitude(serial->latitude());
+    setLongitude(serial->longitude());
+    setHeight(serial->relative_altitude());
 }
 
 // Controls flight modes

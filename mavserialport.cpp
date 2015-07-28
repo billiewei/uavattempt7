@@ -14,9 +14,7 @@ MavSerialPort::MavSerialPort(QObject* parent):
     timer = new QTimer(this);
   //connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
     connect(timer, SIGNAL(timeout()),this, SLOT(send_manual_control()));
-
-     timer->start(200);
-
+    timer->start(200);
 }
 
 void MavSerialPort::stopTimer(){
@@ -57,6 +55,30 @@ void MavSerialPort::setZ(int t){
 
 void MavSerialPort::setR(int t){
     r = (int16_t)t;
+}
+
+void MavSerialPort::setLat(int32_t l){
+    lat = l / 10000000;
+}
+
+void MavSerialPort::setLon(int32_t l){
+    lon = l / 10000000;
+}
+
+void MavSerialPort::setAlt(int32_t a){
+    relative_alt = a / 1000;
+}
+
+double MavSerialPort::latitude() const{
+    return lat;
+}
+
+double MavSerialPort::longitude() const{
+    return lon;
+}
+
+double MavSerialPort::relative_altitude() const{
+    return relative_alt;
 }
 
 //11
@@ -363,7 +385,7 @@ void MavSerialPort::sys_status_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_SYS_STATUS\n";
     mavlink_msg_sys_status_decode(&message, &sys_status);
 
-    emit batteryChanged();
+    emit batteryChanged(sys_status.voltage_battery);
 }
 
 //24
@@ -392,6 +414,9 @@ void MavSerialPort::local_position_ned_handler(){
 void MavSerialPort::global_position_int_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_GLOBAL_POSITION_INT\n";
     mavlink_msg_global_position_int_decode(&message, &global_position_int);
+    setLat(global_position_int.lat);
+    setLon(global_position_int.lon);
+    setAlt(global_position_int.relative_alt);
     emit globalChanged();
 }
 
@@ -488,7 +513,7 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
 
     //24
     case MAVLINK_MSG_ID_GPS_RAW_INT:
-        gps_raw_int_handler();
+ //       gps_raw_int_handler();
         break;
 
     //30

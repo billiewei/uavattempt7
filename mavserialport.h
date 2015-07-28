@@ -24,6 +24,9 @@ public:
 
     void stopTimer();
 
+    double latitude() const;
+    double longitude() const;
+    double relative_altitude() const;
 
     //0
     inline void heartbeat_handler();
@@ -94,11 +97,13 @@ public:
     mavlink_statustext_t statustext;
 
 signals:
-    void heartbeatReceived();
+    void heartbeatReceived();//message #0 HEARTBEAT
+    void batteryChanged(int v);//message #1 SYS_STATUS
+
     void timeChanged();
     void localChanged();
     void globalChanged();
-    void batteryChanged();
+
     void IMUChanged();
     void attitudeChanged();
     void flightLogReady();
@@ -112,6 +117,10 @@ public slots:
     void setY(int t);
     void setZ(int t);
     void setR(int t);
+
+    void setLat(int32_t l);
+    void setLon(int32_t l);
+    void setAlt(int32_t a);
 
     /** Set Mode */
     void set_mode_disarm();
@@ -171,6 +180,12 @@ private:
     uint8_t component_id;//ID of the sending component
     uint8_t target_system;//ID of receiving system. px4 by default is 1
     uint8_t target_component;//ID of receiving component. 0 for all component
+    /** global position int
+     * filtered global position with GPS and accelerometers
+     */
+    double lat; //correct latitude
+    double lon; //correct longitude
+    double relative_alt; //correct altitude above ground in meter
     float q[4];
     int16_t x;
     int16_t y;
@@ -183,7 +198,6 @@ private:
 
     //76
     void send_command_long(uint16_t CMD_ID, uint8_t confirmation, float f1, float f2, float f3, float f4, float f5, float f6, float f7);
-
 };
 
 //< sample code for using mavlink library
