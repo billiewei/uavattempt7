@@ -198,5 +198,9 @@ void ManualControlHandler::setFlightMode(int m){
         serial->set_mode_auto_loiter();
         qDebug() << "*********MODE SET TO AUTO LOITER*********";
         break;
+    case 6:
+        serial->set_mode_offboard();
+        qDebug() << "*********MODE SET TO OFFBOARD*********";
+        break;
     }
 }

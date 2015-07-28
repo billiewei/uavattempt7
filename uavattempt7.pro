@@ -14,6 +14,11 @@ SOURCES += main.cpp \
 
 RESOURCES += qml.qrc
 
+#TEMPLATE = subdirs
+#SUBDIRS += tinyxml.pro
+#SUBDIRS += helper.pro
+#CONFIG += qtc_runnable
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 

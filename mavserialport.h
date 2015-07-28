@@ -19,9 +19,7 @@ public:
     MavSerialPort(QObject* parent);
 
     void mavRead(QByteArray* ba);
-
     void mavDecode(mavlink_message_t &message);
-
     void stopTimer();
 
     double latitude() const;
@@ -59,8 +57,8 @@ public:
     //253
     inline void statustext_handler();
 
-    static int packageDrops;
-    static uint8_t msgReceived;
+    static int packageDrops; //do we need this?
+    static uint8_t msgReceived; // do we need this?
 
     mavlink_message_t message;
     mavlink_status_t status;
@@ -106,6 +104,7 @@ signals:
 
     void IMUChanged();
     void attitudeChanged();
+
     void flightLogReady();
 
 public slots:
@@ -125,7 +124,7 @@ public slots:
     /** Set Mode */
     void set_mode_disarm();
     void set_mode_arm();
-    void set_mode_offboard(bool on);
+    void set_mode_offboard();
     void set_mode_return();
     void set_mode_manual();
     void set_mode_assist_altctl();

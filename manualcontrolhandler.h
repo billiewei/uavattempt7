@@ -61,7 +61,6 @@ class ManualControlHandler : public QQuickItem {
         void setLongitude(double l);
         void setHeight(double h);
 
-
     signals:
         void logChanged();
         void xChanged(int x);
@@ -88,7 +87,6 @@ class ManualControlHandler : public QQuickItem {
 
         void initSerialPort();
         void initSerialConnections();
-
 };
 
 #endif // MANUALCONTROLHANDLER

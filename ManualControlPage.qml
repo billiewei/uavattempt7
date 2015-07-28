@@ -29,7 +29,7 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.m_battery //currentbatterypercentage.text + "%"
+        text: manual_control_handler.voltage //currentbatterypercentage.text + "%"
         y: manualcontroltitletxt.y
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.06
@@ -72,10 +72,10 @@ Rectangle {
     Rectangle {
         id: toprowrectangle
         color: "#E6E6E6"
-        height: armingstatelabel.height + page.height*0.04
+        height: armingstatelabel.height + offboardlabel.height + page.height*0.03
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.height*0.04
+        anchors.topMargin: page.height*0.05
         width: page.width*0.9
         radius: 5
         Label {
@@ -83,7 +83,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.06
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.02
+            anchors.topMargin: page.height*0.01
             text: if (armingstatetoggle.checked == false) {"Arming State:  OFF"}
                   else {"Arming State:  ON"}
         }
@@ -92,14 +92,33 @@ Rectangle {
             anchors.right: parent.right
             anchors.rightMargin: page.width*0.06
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.02
+            anchors.topMargin: page.height*0.01
             checked: false
             onCheckedChanged: manual_control_handler.setArmed(checked)
+        }
+        Label {
+            id: offboardlabel
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.06
+            anchors.top: armingstatelabel.bottom
+            anchors.topMargin: page.height*0.01
+            text: if (offboardtoggle.checked == false) {"Offboard:  OFF"}
+                  else {"Offboard:  ON"}
+        }
+        Switch {
+            id: offboardtoggle
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.06
+            anchors.top: armingstatetoggle.bottom
+            anchors.topMargin: page.height*0.01
+            checked: false
+            onCheckedChanged: if(checked) {manual_control_handler.setFlightMode(6)}
+                              else {manual_control_handler.setFlightMode(1)}
         }
     }
     TextArea {
         id: consolerectangle
-        y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
+        y: toprowrectangle.y + toprowrectangle.height + page.height*0.01
         width: page.width*0.9
         height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
@@ -153,7 +172,7 @@ Rectangle {
                 }
             }
             onValueChanged: manual_control_handler.setX(value)
-
+            onPressedChanged: value = 0
         }
         Text {
             text: x_slider.value
@@ -194,7 +213,7 @@ Rectangle {
                 }
             }
             onValueChanged: manual_control_handler.setY(value)
-
+            onPressedChanged: value = 0
         }
         Text {
             text: y_slider.value
@@ -224,7 +243,7 @@ Rectangle {
             updateValueWhileDragging: true
             value: 0
             minimumValue : 0
-            maximumValue: 1000
+            maximumValue: 2000
             stepSize: 10
             style: SliderStyle {
                 groove: Rectangle {
@@ -276,7 +295,7 @@ Rectangle {
                 }
             }
             onValueChanged: manual_control_handler.setR(value)
-
+            onPressedChanged: value = 0
         }
         Text {
             text: r_slider.value

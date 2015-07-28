@@ -118,7 +118,6 @@ void MavSerialPort::send_command_long(uint16_t CMD_ID, uint8_t confirmation, flo
     mavlink_msg_command_long_pack(system_id, component_id, &msg, target_system, target_component,
                                   CMD_ID, confirmation, f1, f2, f3, f4, f5, f6, f7);
 
-
     int size = mavlink_msg_to_send_buffer(buffer, &msg);
     QByteArray ba((char*)buffer,size);
     write(ba);
@@ -300,15 +299,8 @@ void MavSerialPort::cmd_do_set_mode(){//MAV_MODE mode){
 }
 
 /** Set Mode */
-void MavSerialPort::set_mode_offboard(bool on){
-    if(on){
-        send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_OFFBOARD,0,0,0,0,0);
-    }
-    else{
-        // for safety concern
-        // need to go throught the main_state_transition
-        send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_PREFLIGHT,0,0,0,0,0,0);
-    }
+void MavSerialPort::set_mode_offboard(){
+     send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_OFFBOARD,0,0,0,0,0);
 }
 
 void MavSerialPort::set_mode_disarm(){
@@ -320,11 +312,12 @@ void MavSerialPort::set_mode_disarm(){
 void MavSerialPort::set_mode_arm(){
     send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED,0,0,0,0,0,0);
     //as long as the arm flag is on
-    qDebug() << "MODE_MANUAL_ARMED";
+    qDebug() << "MODE_FLAG_SAFETY_ARMED";
 }
 
 void MavSerialPort::set_mode_return(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,0,0,0,0,0,0,0);
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
+  // send_command_long(MAV_CMD_DO_SET_MODE,0,0,0,0,0,0,0,0);
     qDebug() << "SEND RETURN TO LAUNCH";
 
 }
