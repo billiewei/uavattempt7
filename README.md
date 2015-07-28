@@ -9,8 +9,9 @@ Please follow the steps below if you wish to run, modify, and/or improve upon th
 - Android SDK
 - Android NDK
 - Qt Creator
+- CP210x USB to UART Bridge VCP Driver
 - USB Driver
-	- We used the version here ()
+	- We used the version [here](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx) (CP210x USB to UART Bridge VCP Drivers)
 - MAVLink header files
 	- Download [here](https://drive.google.com/file/d/0B8rkAqI6SATGRUM4b3RRdE5KbEk/view?usp=sharing)
 
