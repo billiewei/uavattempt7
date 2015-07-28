@@ -1,10 +1,10 @@
 #include "manualcontrolhandler.h"
+#include <cmath>
 
 ManualControlHandler::ManualControlHandler(QQuickItem* parent):
     QQuickItem(parent), m_log(""),
     m_x(0), m_y(0), m_z(0), m_r(0),
-    m_voltage(0), m_current(0),
-    m_latitude(0), m_longitude(0), m_height(0){
+    m_voltage(0), m_latitude(0), m_longitude(0), m_height(0){
     serial = new MavSerialPort(this);
     initSerialPort();
     initSerialConnections();
@@ -30,11 +30,6 @@ int ManualControlHandler::r() const{
 int ManualControlHandler::voltage() const{
     return m_voltage;
 }
-
-int ManualControlHandler::current() const{
-    return m_current;
-}
-
 
 double ManualControlHandler::latitude() const{
     return m_latitude;
@@ -83,25 +78,21 @@ void ManualControlHandler::setR(int r){
     }
 }
 
+inline double ManualControlHandler::m_time() const{
+    return 3 * std::log((m_voltage - 14.8)/1.9);
+}
+
+inline double ManualControlHandler::m_battery() const{
+    qDebug() << "Battery levels should have been updated";
+    return ((m_voltage/1000) * m_time()) + (1.9 * std::exp(-m_time()/3));
+}
+
 void ManualControlHandler::setVoltage(int v){
-    if(m_voltage != v){
+    if (m_voltage != v) {
         m_voltage = v;
         emit voltageChanged(v);
     }
 }
-
-void ManualControlHandler::setCurrent(int i){
-    if(m_current != i){
-        m_current = i;
-        emit currentChanged(i);
-    }
-}
-
-void ManualControlHandler::setBattery(int v, int i){
-    setVoltage(v);
-    setCurrent(i);
-}
-
 
 void ManualControlHandler::setLatitude(double l){
     if(abs(m_latitude - l) > 0.00000001){
@@ -148,7 +139,7 @@ void ManualControlHandler::initSerialPort(){
 void ManualControlHandler::initSerialConnections(){
     connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
     connect(serial, SIGNAL(flightLogReady()), this, SLOT(writeFlightLog()));
-    connect(serial,SIGNAL(batteryChanged(int, int)),this, SLOT(setBattery(int,int)));
+    connect(serial, SIGNAL(batteryChanged(int)), this, SLOT(setVoltage(int)));
     connect(serial, SIGNAL(globalChanged()), this, SLOT(updateLocation()));
     connect(this, SIGNAL(xChanged(int)), serial, SLOT(setX(int)));
     connect(this, SIGNAL(yChanged(int)), serial, SLOT(setY(int)));

@@ -98,7 +98,7 @@ public:
 
 signals:
     void heartbeatReceived();//message #0 HEARTBEAT
-    void batteryChanged(int v, int i); //message #1 SYS_STATUS
+    void batteryChanged(int v); //message #1 SYS_STATUS
 
     void timeChanged();
     void localChanged();

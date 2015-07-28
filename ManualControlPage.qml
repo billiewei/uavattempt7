@@ -19,16 +19,6 @@ Rectangle {
     function writeFlightLog(s){
         consolerectangle.append(s)
     }
-
-    TextField {
-        id: currentbatterypercentage
-        anchors.horizontalCenter: parent.horizontalCenter
-        validator: IntValidator {bottom: 0; top: 100;}
-        maximumLength: 3
-        font.pixelSize: page.height*0.015
-        font.letterSpacing: 2
-        placeholderText: "BatteryTesting"
-    }
     Text {
         id: manualcontroltitletxt
         text: "UAV Manual Control"
@@ -39,7 +29,7 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.voltage //currentbatterypercentage.text + "%"
+        text: manual_control_handler.m_battery //currentbatterypercentage.text + "%"
         y: manualcontroltitletxt.y
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.06
