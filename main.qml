@@ -104,7 +104,7 @@ ApplicationWindow {
 
     ManualControlPage {
         id: manual_control_page
-        visible: true
+        visible: false
         ManualControlHandler{
             id: manual_control_handler
             log: "hello world"
@@ -138,7 +138,7 @@ ApplicationWindow {
 
     OpeningPage {
         id: opening_page
-        visible: false
+        visible: true
     }
 
     PaymentPage {

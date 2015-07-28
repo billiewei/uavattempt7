@@ -104,15 +104,17 @@ void ManualControlHandler::setBattery(int v, int i){
 
 
 void ManualControlHandler::setLatitude(double l){
-    if(abs(m_latitude - l) > 0.001){
+    if(abs(m_latitude - l) > 0.00000001){
         m_latitude = l;
+        qDebug() << "latitude" << l;
         emit latitudeChanged(l);
     }
 }
 
 void ManualControlHandler::setLongitude(double l){
-    if(abs(m_longitude - l) > 0.001){
+    if(abs(m_longitude - l) > 0.00000001){
         m_longitude = l;
+        qDebug() << "longitude" << l;
         emit longitudeChanged(l);
     }
 }
@@ -120,6 +122,7 @@ void ManualControlHandler::setLongitude(double l){
 void ManualControlHandler::setHeight(double h){
     if(abs(m_height - h) > 0.001){
         m_height = h;
+        qDebug() << "height" << h;
         emit heightChanged(h);
     }
 }

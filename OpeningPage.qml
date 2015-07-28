@@ -53,11 +53,11 @@ Rectangle {
         visible: true
         y: userloginButton.y + userloginButton.height + 30
         width: userloginButton.width
-        id: aboutButton
-        text: "About"
+        id: manualControlButton
+        text: "Manual Control"
         onClicked: {
             opening_page.visible = false
-            about_page.visible = true
+            manual_control_page.visible = true
         }
     }
 }

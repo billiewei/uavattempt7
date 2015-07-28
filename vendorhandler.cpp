@@ -1,7 +1,7 @@
 #include "vendorhandler.h"
 
 VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
-  vendor_latitude(22.3362536), vendor_longitude(114.2629409), vendor_delivery(0)
+  vendor_latitude(22.3349168), vendor_longitude(114.2631638), vendor_delivery(0)
 {   order_valid[0] = true;
     order_valid[1] = false;
     order_valid[2] = false;
@@ -11,13 +11,13 @@ VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
     order_name[0] = "Vinh N.";
     order_name[1] = "";
     order_name[2] = "";
-    order_street[0] = "Hong Fung House";
+    order_street[0] = "HKUST Lee Shau Kee Business Building";
     order_street[1] = "";
     order_street[2] = "";
     order_city[0] = "";
     order_city[1] = "";
     order_city[2] = "";
-    order_state[0] = "";
+    order_state[0] = "Hong Kong";
     order_state[1] = "";
     order_state[2] = "";
     order_region[0] = "Hong Kong";
@@ -26,7 +26,7 @@ VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
     order_time[0] = "08:23";
     order_time[1] = "";
     order_time[2] = "";
-    order_zip[0] = 0;
+    order_zip[0] = 999077;
     order_zip[1] = 0;
     order_zip[2] = 0;
     order_price[0] = 10;
