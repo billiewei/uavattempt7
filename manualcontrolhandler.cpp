@@ -3,7 +3,7 @@
 ManualControlHandler::ManualControlHandler(QQuickItem* parent):
     QQuickItem(parent), m_log(""),
     m_x(0), m_y(0), m_z(0), m_r(0),
-    m_voltage(0),
+    m_voltage(0), m_current(0),
     m_latitude(0), m_longitude(0), m_height(0){
     serial = new MavSerialPort(this);
     initSerialPort();
@@ -30,6 +30,11 @@ int ManualControlHandler::r() const{
 int ManualControlHandler::voltage() const{
     return m_voltage;
 }
+
+int ManualControlHandler::current() const{
+    return m_current;
+}
+
 
 double ManualControlHandler::latitude() const{
     return m_latitude;
@@ -85,6 +90,19 @@ void ManualControlHandler::setVoltage(int v){
     }
 }
 
+void ManualControlHandler::setCurrent(int i){
+    if(m_current != i){
+        m_current = i;
+        emit currentChanged(i);
+    }
+}
+
+void ManualControlHandler::setBattery(int v, int i){
+    setVoltage(v);
+    setCurrent(i);
+}
+
+
 void ManualControlHandler::setLatitude(double l){
     if(abs(m_latitude - l) > 0.001){
         m_latitude = l;
@@ -127,7 +145,7 @@ void ManualControlHandler::initSerialPort(){
 void ManualControlHandler::initSerialConnections(){
     connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
     connect(serial, SIGNAL(flightLogReady()), this, SLOT(writeFlightLog()));
-    connect(serial,SIGNAL(batteryChanged(int)),this, SLOT(setVoltage(int)));
+    connect(serial,SIGNAL(batteryChanged(int, int)),this, SLOT(setBattery(int,int)));
     connect(serial, SIGNAL(globalChanged()), this, SLOT(updateLocation()));
     connect(this, SIGNAL(xChanged(int)), serial, SLOT(setX(int)));
     connect(this, SIGNAL(yChanged(int)), serial, SLOT(setY(int)));

@@ -385,7 +385,7 @@ void MavSerialPort::sys_status_handler(){
   //  qDebug() << "MAVLINK_MSG_ID_SYS_STATUS\n";
     mavlink_msg_sys_status_decode(&message, &sys_status);
 
-    emit batteryChanged(sys_status.voltage_battery);
+    emit batteryChanged(sys_status.voltage_battery, sys_status.current_battery);
 }
 
 //24
@@ -568,7 +568,7 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
 
     //147
     case MAVLINK_MSG_ID_BATTERY_STATUS:
-        battery_status_handler();
+       // battery_status_handler();
         break;
 
     //253

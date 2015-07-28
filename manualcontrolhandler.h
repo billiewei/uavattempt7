@@ -24,6 +24,7 @@ class ManualControlHandler : public QQuickItem {
 
     // battery estimation
     Q_PROPERTY(int voltage READ voltage WRITE setVoltage NOTIFY voltageChanged)
+    Q_PROPERTY(int current READ current WRITE setCurrent NOTIFY currentChanged)
 
     // GPS for map
     Q_PROPERTY(double latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
@@ -38,6 +39,7 @@ class ManualControlHandler : public QQuickItem {
         int z() const;
         int r() const;
         int voltage() const;
+        int current() const;
         double latitude() const;
         double longitude() const;
         double height() const;
@@ -54,7 +56,9 @@ class ManualControlHandler : public QQuickItem {
         void setY(int y);
         void setZ(int z);
         void setR(int r);
+        void setBattery(int v, int i);
         void setVoltage(int v);
+        void setCurrent(int i);
         void setLatitude(double l);
         void setLongitude(double l);
         void setHeight(double h);
@@ -67,6 +71,7 @@ class ManualControlHandler : public QQuickItem {
         void zChanged(int z);
         void rChanged(int r);
         void voltageChanged(int v);
+        void currentChanged(int i);
         void latitudeChanged(double l);
         void longitudeChanged(double l);
         void heightChanged(double h);
@@ -78,7 +83,8 @@ class ManualControlHandler : public QQuickItem {
         int m_y;
         int m_z;
         int m_r;
-        int m_voltage;
+        int m_voltage; //unit: mV
+        int m_current; //unit: mA
 
         double m_latitude;
         double m_longitude;

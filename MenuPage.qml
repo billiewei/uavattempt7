@@ -455,12 +455,11 @@ Rectangle {
         width: backButton1.width
         height: checkoutButton.height
         text: "Clear all entries"
-        onClicked:
-            totalweight.text = 0
-            ,quantity1.text = 0
-            ,quantity2.text = 0
-            ,quantity3.text = 0
-            ,quantity4.text = 0
-
+        onClicked:{
+            quantity1.text = 0
+            quantity2.text = 0
+            quantity3.text = 0
+            quantity4.text = 0
+        }
     }
 }

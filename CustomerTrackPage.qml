@@ -41,14 +41,7 @@ Rectangle {
         country:  address_page_handler.region
         postalCode:  address_page_handler.zip
     }
-    MapPolyline {
-        line.width: 3
-        line.color: 'green'
-        path: [
-            { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
-            { latitude: customerlat.text, longitude: customerlong.text }
-        ]
-    }
+
     Map {
         id: map
         plugin: osmplugin
@@ -83,6 +76,15 @@ Rectangle {
             border.width: 1
             border.color: "#242424"
             opacity: 0.6
+        }
+
+        MapPolyline {
+            line.width: 3
+            line.color: 'green'
+            path: [
+                { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
+                { latitude: customerlat.text, longitude: customerlong.text }
+            ]
         }
 
         Slider {
