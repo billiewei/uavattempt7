@@ -5,9 +5,13 @@ This repository contains the code for the UAV (unmanned aerial vehicle) control 
 
 Please follow the steps below if you wish to run, modify, and/or improve upon the project.
 
-## Requirements
+### Requirements
 - Android SDK
 - Android NDK
 - Qt Creator
 - USB Driver
+	- We used the version here ()
 - MAVLink header files
+	- Download [here](https://drive.google.com/file/d/0B8rkAqI6SATGRUM4b3RRdE5KbEk/view?usp=sharing)
+
+###Installation
