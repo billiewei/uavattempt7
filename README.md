@@ -19,10 +19,9 @@ Please note that the tracking and battery features will not work unless you have
 - CP210x USB to UART Bridge VCP Driver
 - USB Driver Software: download [here](https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx)
 - UAV Setup
-	- Frame
-	- Firmware
-	- Pixhawk
-    - Battery
+	- UAV Frame, sensors, batteries, etc.
+	- Firmware Code: 
+	- Pixhawk PX4: https://pixhawk.org/choice
 - Optional:
 	- Android Device [Tablet, phone, etc.]
 
