@@ -29,7 +29,7 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.voltage //currentbatterypercentage.text + "%"
+        text: manual_control_handler.m_battery //currentbatterypercentage.text + "%"
         y: manualcontroltitletxt.y
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.06
@@ -45,7 +45,6 @@ Rectangle {
         y: manualcontroltitletxt.y + 2
         height: remainingbatteryoutline.height - 4
     }
-
     Rectangle {
         id: remainingbatteryoutline
         anchors.right: parent.right
@@ -57,17 +56,16 @@ Rectangle {
         border.color: "#000"
         radius: 3
     }
-
     Rectangle {
         id: remainingbatteryfill
         x: remainingbatteryoutline.x + 1
         y: remainingbatteryoutline.y + 2
         radius: 1
         height: batterytextlabel.height - 5
-        width: (remainingbatteryoutline.width - 2)* (currentbatterypercentage.text/100)
-        color: if (currentbatterypercentage.text >= 85) {"#65E01F"}
-               else if (currentbatterypercentage.text >= 60) {"#FF790A"}
-               else if (currentbatterypercentage.text < 60) {"#D60000"}
+        width: (remainingbatteryoutline.width - 2)* (batterytextlabel.text/100)
+        color: if (batterytextlabel.text >= 85) {"#65E01F"}
+               else if (batterytextlabel.text >= 60) {"#FF790A"}
+               else if (batterytextlabel.text < 60) {"#D60000"}
     }
     Rectangle {
         id: toprowrectangle
