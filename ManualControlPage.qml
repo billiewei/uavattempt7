@@ -33,7 +33,7 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.m_battery() //currentbatterypercentage.text + "%"
+        text: manual_control_handler.voltage//currentbatterypercentage.text + "%"
         y: manual_back_button.y
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.06

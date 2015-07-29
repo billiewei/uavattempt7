@@ -311,15 +311,12 @@ void MavSerialPort::set_mode_disarm(){
 
 void MavSerialPort::set_mode_arm(){
     send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED,0,0,0,0,0,0);
-    //as long as the arm flag is on
     qDebug() << "MODE_FLAG_SAFETY_ARMED";
 }
 
 void MavSerialPort::set_mode_return(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
-  // send_command_long(MAV_CMD_DO_SET_MODE,0,0,0,0,0,0,0,0);
-    qDebug() << "SEND RETURN TO LAUNCH";
-
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO, PX4_CUSTOM_SUB_MODE_AUTO_RTL,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_SUB_MODE_AUTO_RTL";
 }
 
 void MavSerialPort::set_mode_manual(){
@@ -339,16 +336,13 @@ void MavSerialPort::set_mode_assist_posctl(){
 }
 
 void MavSerialPort::set_mode_auto_mission(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO";
-    //this is auto_mission
-    //Need to figure out how to do the sub mode
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO,PX4_CUSTOM_SUB_MODE_AUTO_MISSION,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_SUB_MODE_AUTO_MISSION";
 }
 
 void MavSerialPort::set_mode_auto_loiter(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO";
-    //cannot do AUTO_LOITER and AUTO_RTL so far
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO, PX4_CUSTOM_SUB_MODE_AUTO_LOITER,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_SUB_MODE_AUTO_LOITER";
 }
 
 //178 MAV_CMD_DO_CHANGE_SPEED
