@@ -77,10 +77,10 @@ Rectangle {
         visible: true
         font.family: "Avenir"
         text: {
-           if (rectangle_fill.color = "#65E01F") {
+           if (percentage.text >= 85) {
                "Drone has enough power. Ready for delivery."
            }
-           else if (rectangle_fill.color = "#FF790A") {
+           else if (percentage.text < 85 & percentage.text >= 60) {
                "Drone may not have enough power to finish delivery. Please recharge or replace the battery."
            }
            else {
@@ -88,15 +88,15 @@ Rectangle {
            }
         }
         color:
-            if (rectangle_fill.color = "#65E01F") {"#000"}
-            else {"#E00000"}
+            if (percentage.text >= 85) {"#000"}
+            else if (percentage.text < 60) {"#E00000"}
     }
     Button {
         id: proceed_button
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: page.height * 0.2
-        visible: rectangle_fill.color == "#65E01F" & (vendor_handler.delivery != 0)
+        visible: percentage.text >= 85 & (vendor_handler.delivery != 0)
         text: "Proceed"
         onClicked: {
             battery_status_page.visible = false
@@ -111,7 +111,7 @@ Rectangle {
         width: page.width * .6
         height: proceed_button.height
         color: "#D60000"
-        visible: if (rectangle_fill.color != "#65E01F" || proceed_button.visible == true) {false} else {true}
+        visible: if (percentage.text >= 85 | proceed_button.visible == true) {false} else {true}
         radius: 5
         Text {
             color: "white"
