@@ -47,7 +47,7 @@ Rectangle {
         plugin: osmplugin
         zoomLevel: maximumZoomLevel
         anchors.horizontalCenter: parent.horizontalCenter
-        y: page.height * 0.1
+        y: page.height * 0.08
         width: page.width * 0.8
         height: page.width * 0.6
 
@@ -57,7 +57,6 @@ Rectangle {
             latitude: 22.336400
             longitude: 114.265466
         }
-
         gesture.flickDeceleration: 3000
         gesture.enabled: true
 
@@ -86,46 +85,16 @@ Rectangle {
                 { latitude: customerlat.text, longitude: customerlong.text }
             ]
         }
-
-        Slider {
-            id: zoomSlider;
-            opacity: 1
-            maximumValue: 20;
-            minimumValue: 10;
-            visible: parent.visible
-            z: map.z + 3
-            anchors {
-                bottom: parent.bottom;
-                bottomMargin: 15; rightMargin: 30; leftMargin: 30
-                left: parent.left
-            }
-            width: parent.width - anchors.rightMargin - anchors.leftMargin
-
-            value: map.zoomLevel
-
-            Binding {
-                target: zoomSlider; property: "value"; value: 12
-            }
-
-            onValueChanged: {
-                map.zoomLevel = value
-                map.state=""
-                map.resetState()
-            }
-        }
-
         Text {
             id: customerlat
             text: ""
             visible: false
         }
-
         Text {
             id: customerlong
             text: ""
             visible: false
         }
-
         GeocodeModel {
             id: geocodeModel
             plugin: osmplugin
@@ -139,7 +108,6 @@ Rectangle {
                 customerlong.text = get(0).coordinate.longitude
             }
         }
-
         Component {
             id: pointDelegate
             MapCircle {
@@ -152,12 +120,35 @@ Rectangle {
                 }
             }
         }
-
         MapItemView {
             model: geocodeModel
             delegate: pointDelegate
         }
     }
+    Slider {
+        id: zoomSlider;
+        anchors.right: parent.right
+        anchors.rightMargin: 15
+        anchors.top: parent.top
+        anchors.topMargin: map.y
+        height: map.height
+        orientation: Qt.Vertical
+        maximumValue: 20
+        minimumValue: 2
+        tickmarksEnabled: false
+        updateValueWhileDragging: true
+        visible: true
+        value: map.zoomLevel
+        Binding {
+            target: zoomSlider; property: "value"; value: 12
+        }
+        onValueChanged: {
+            map.zoomLevel = value
+            map.state=""
+            map.resetState()
+        }
+    }
+
     Text {
         id: custtrackorderaddress
         anchors.left: parent.left

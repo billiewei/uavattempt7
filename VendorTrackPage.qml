@@ -42,18 +42,15 @@ Rectangle {
             id: targetlatitude
             visible: false
         }
-
         Text {
             id: targetlongitude
             visible: false
         }
-
         Text {
             id: currentlatitude
             text: vendor_handler.latitude//"22.3362536"
             visible: false
         }
-
         Text {
             id: currentlongitude
             text: vendor_handler.longitude// "114.2629409"

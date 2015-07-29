@@ -66,7 +66,7 @@ Rectangle {
     }
     TextField {
         id: currentcustomerzipcode
-        maximumLength: 5
+        maximumLength: 6
         anchors.right: currentcustomercity.right
         y: currentcustomercity.y + page.height*.08  //0.12
         width: (page.width) * 0.45
