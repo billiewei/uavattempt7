@@ -381,7 +381,7 @@ Rectangle {
                         exclusiveGroup: modeGroup;
                         checked: false;
                         onCheckedChanged: if (checked == true) {
-                            mission_button.checked = true
+                            loiter_button.checked = true
                             manual_control_handler.setFlightMode(4)
                         }
                     }
@@ -439,6 +439,7 @@ Rectangle {
                         onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(4)}
                     }
                     RadioButton {
+                        id: loiter_button
                         text: "Loiter";
                         checked: false;
                         exclusiveGroup: autoGroup
