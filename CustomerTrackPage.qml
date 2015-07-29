@@ -41,7 +41,6 @@ Rectangle {
         country:  address_page_handler.region
         postalCode:  address_page_handler.zip
     }
-
     Map {
         id: map
         plugin: osmplugin
@@ -67,19 +66,16 @@ Rectangle {
                 latitude: 22.336400
                 longitude: 114.265466
             }
-
-            radius: if (map.zoomLevel < 13) {200}
-                    else {20}
-
+            radius: if (map.zoomLevel < 13) {200} else {20}
             color: "#FF4747"
             border.width: 1
             border.color: "#242424"
             opacity: 0.6
         }
-
         MapPolyline {
             line.width: 3
             line.color: 'green'
+            opacity: 0.6
             path: [
                 { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
                 { latitude: customerlat.text, longitude: customerlong.text }
@@ -113,7 +109,7 @@ Rectangle {
             MapCircle {
                 radius: 5000/map.zoomLevel
                 color: "#F666FF"
-                opacity: 0.5
+                opacity: 0.6
                 center {
                     latitude: customerlat.text
                     longitude: customerlong.text
@@ -267,16 +263,6 @@ Rectangle {
         source: if (deliveredvalidation2.text == "Y") {"checkgreen.png"}
                 else if (deliveredvalidation2.text == "N" || deliveredvalidation2.text == ""){"checkgrey.png"}
     }
-
-    // Displays Lat/Long of Destination Address
-    /*Text {
-        anchors.left: parent
-        y: 200 + map.height
-        width: 200
-        text: "Latitude: " + map.center.latitude + '<br>' + "Longitude: "+ map.center.longitude
-        font.family: "Avenir"
-        font.letterSpacing: 2
-    }*/
     Button {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom

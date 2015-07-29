@@ -14,62 +14,58 @@ Rectangle {
     width: parent? parent.width : 400
     height: parent? parent.height : 900
     visible: true
-    color: "#FAFAFA"
+    color: "#FFF"
 
     function writeFlightLog(s){
         consolerectangle.append(s)
     }
-    Text {
-        id: manualcontroltitletxt
-        text: "UAV Manual Control"
+    Button {
+        id: manual_back_button
+        text: "Back"
         anchors.top: parent.top
         anchors.topMargin: page.height*0.01
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.06
+        onClicked: {
+            opening_page.visible = true
+            manual_control_page.visible = false
+        }
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.m_battery //currentbatterypercentage.text + "%"
-        y: manualcontroltitletxt.y
+        text: manual_control_handler.m_battery() //currentbatterypercentage.text + "%"
+        y: manual_back_button.y
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.06
         font.letterSpacing: 2
         font.pixelSize: page.height*0.015
     }
     Rectangle {
-        color: "#000"
-        border.width: 0
-        width: page.width*0.01
-        anchors.right: parent.right
-        anchors.rightMargin: page.width*0.175
-        y: manualcontroltitletxt.y + 2
-        height: remainingbatteryoutline.height - 4
-    }
-    Rectangle {
         id: remainingbatteryoutline
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.18
-        y: manualcontroltitletxt.y
-        height: batterytextlabel.height
+        y: manual_back_button.y
+        height: manual_back_button.height - 8
         width: remainingbatteryoutline.height*3
         border.width: 2
         border.color: "#000"
+        color: "#00000000"
         radius: 3
     }
     Rectangle {
         id: remainingbatteryfill
-        x: remainingbatteryoutline.x + 1
+        x: remainingbatteryoutline.x + 2
         y: remainingbatteryoutline.y + 2
         radius: 1
-        height: batterytextlabel.height - 5
-        width: (remainingbatteryoutline.width - 2)*(batterytextlabel.text/100.0)
+        height: remainingbatteryoutline.height - 4
+        width: (remainingbatteryoutline.width - 4)*(batterytextlabel.text/100.0)
         color: if (batterytextlabel.text >= 85.00) {"#65E01F"}
                else if (batterytextlabel.text >= 60.00) {"#FF790A"}
                else if (batterytextlabel.text < 60.00) {"#D60000"}
     }
     Rectangle {
         id: toprowrectangle
-        color: "#E6E6E6"
+        color: "#F2F2F2"
         height: armingstatelabel.height + offboardlabel.height + page.height*0.03
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -110,23 +106,23 @@ Rectangle {
             anchors.top: armingstatetoggle.bottom
             anchors.topMargin: page.height*0.01
             checked: false
-            onCheckedChanged: if(checked) {manual_control_handler.setFlightMode(6)}
+            onCheckedChanged: if (checked) {manual_control_handler.setFlightMode(6)}
                               else {manual_control_handler.setFlightMode(1)}
         }
     }
     TextArea {
         id: consolerectangle
-        y: toprowrectangle.y + toprowrectangle.height + page.height*0.01
+        y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
         width: page.width*0.9
         height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Here is the flight log... ..."
         backgroundVisible: true
-        wrapMode: TextEdit.Wrap
+        wrapMode: TextEdit.Wrap 
         style: TextAreaStyle {
-                textColor: "#00D604"
+                textColor: "#FFB91F"
                 selectedTextColor: "#fff"
-                backgroundColor: "#000"
+                backgroundColor: "#3A3A50"
         }
     }
     Rectangle {
@@ -135,7 +131,7 @@ Rectangle {
         width: page.width*0.9
         height: page.height*0.3
         anchors.horizontalCenter: parent.horizontalCenter
-        color: "#E6E6E6"
+        color: toprowrectangle.color
         radius: 5
 
         // X: Back-Forward
@@ -310,7 +306,7 @@ Rectangle {
             width: page.width*0.9
             height: page.height*0.35
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "#E6E6E6"
+            color: toprowrectangle.color
             radius: 5
             GroupBox {
                 id: returnbox
