@@ -19,6 +19,24 @@ Rectangle {
     function writeFlightLog(s){
         consolerectangle.append(s)
     }
+
+    function changeFlightMode(){
+        if (return_on_button.checked) {
+            manual_control_handler.setFlightMode(0)
+        }
+        else if (other_modes_button.checked) {
+            if (manual_button.checked) {manual_control_handler.setFlightMode(1)}
+            else if (assist_button.checked) {
+                if (alt_control_button.checked) {manual_control_handler.setFlightMode(2)}
+                else {manual_control_handler.setFlightMode(3)}
+            }
+            else if (auto_button.checked) {
+                if (mission_button.checked) {manual_control_handler.setFlightMode(4)}
+                else {manual_control_handler.setFlightMode(5)}
+            }
+        }
+    }
+
     Button {
         id: manual_back_button
         text: "Back"
@@ -31,6 +49,19 @@ Rectangle {
             manual_control_page.visible = false
         }
     }
+    Button {
+        id: vendor_track_drone
+        text: "Track Drone"
+        anchors.top: parent.top
+        anchors.topMargin: page.height*0.01
+        anchors.left: parent.left
+        anchors.leftMargin: manual_back_button.x + manual_back_button.width + page.width*0.03
+        onClicked: {
+            manual_control_page.visible = true
+            vendor_track_page.visible = true
+        }
+    }
+
     Label {
         id: batterytextlabel
         text: manual_control_handler.voltage//currentbatterypercentage.text + "%"
@@ -323,24 +354,18 @@ Rectangle {
                     spacing: 10
                     ExclusiveGroup { id: returnGroup }
                     RadioButton {
-                        id: return_on_button
+                        id: return_on_button;
                         text: "Return On";
-                        checked: false
+                        checked: false;
                         exclusiveGroup: returnGroup;
-                        onCheckedChanged:
-                            if (checked == true) {manual_control_handler.setFlightMode(0)}
+                        onCheckedChanged: changeFlightMode();
                     }
                     RadioButton {
                         id: other_modes_button
                         text: "Other Modes";
                         checked: true
                         exclusiveGroup: returnGroup;
-                        onCheckedChanged: {
-                            if (checked == true) {
-                                manual_button.checked = true
-                                manual_control_handler.setFlightMode(0);
-                            }
-                        }
+                        onCheckedChanged: changeFlightMode();
                     }
                 }
             }
@@ -359,31 +384,25 @@ Rectangle {
                     anchors.fill: parent
                     ExclusiveGroup { id: modeGroup }
                     RadioButton {
-                        id: manual_button
+                        id: manual_button;
                         text: "Manual";
                         exclusiveGroup: modeGroup;
                         checked: true
-                        onCheckedChanged:
-                            if (checked == true) {manual_control_handler.setFlightMode(1)}
+                        onCheckedChanged: changeFlightMode();
                     }
                     RadioButton {
                         id: assist_button;
                         text: "Assist";
                         checked: false
                         exclusiveGroup: modeGroup;
-                        onCheckedChanged: if (checked == true) {
-                            alt_control_button.checked = true
-                            manual_control_handler.setFlightMode(2)}
+                        onCheckedChanged: changeFlightMode();
                     }
                     RadioButton {
                         id: auto_button;
                         text: "Auto";
                         exclusiveGroup: modeGroup;
                         checked: false;
-                        onCheckedChanged: if (checked == true) {
-                            loiter_button.checked = true
-                            manual_control_handler.setFlightMode(4)
-                        }
+                        onCheckedChanged: changeFlightMode();
                     }
                 }
             }
@@ -406,14 +425,14 @@ Rectangle {
                         text: "Alt Control";
                         checked: false
                         exclusiveGroup: assistGroup;
-                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(2)}
+                        onCheckedChanged: changeFlightMode();
                     }
                     RadioButton {
                         id: pos_control_button
                         text: "Pos Control";
-                        checked: false
+                        checked: true
                         exclusiveGroup: assistGroup;
-                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(3)}
+                        onCheckedChanged: changeFlightMode();
                     }
                 }
             }
@@ -436,14 +455,14 @@ Rectangle {
                         text: "Mission";
                         checked: false;
                         exclusiveGroup: autoGroup;
-                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(4)}
+                        onCheckedChanged: changeFlightMode();
                     }
                     RadioButton {
                         id: loiter_button
                         text: "Loiter";
-                        checked: false;
+                        checked: true;
                         exclusiveGroup: autoGroup
-                        onCheckedChanged: if (checked == true) {manual_control_handler.setFlightMode(5)}
+                        onCheckedChanged: changeFlightMode();
                     }
                 }
             }

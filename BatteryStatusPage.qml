@@ -100,7 +100,7 @@ Rectangle {
         text: "Proceed"
         onClicked: {
             battery_status_page.visible = false
-            vendor_track_page.visible = true
+            manual_control_page.visible = true
         }
     }
     Rectangle {
