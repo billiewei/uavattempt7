@@ -19,7 +19,6 @@ Rectangle {
     function writeFlightLog(s){
         consolerectangle.append(s)
     }
-
     function changeFlightMode(){
         if (return_on_button.checked) {
             manual_control_handler.setFlightMode(0)
@@ -61,7 +60,6 @@ Rectangle {
             vendor_track_page.visible = true
         }
     }
-
     Label {
         id: batterytextlabel
         text: manual_control_handler.voltage//currentbatterypercentage.text + "%"
@@ -97,34 +95,34 @@ Rectangle {
     Rectangle {
         id: toprowrectangle
         color: "#F2F2F2"
-        height: armingstatelabel.height + offboardlabel.height + page.height*0.03
+        height: armingstatelabel.height + offboardlabel.height + page.height*0.07
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: page.height*0.05
-        width: page.width*0.9
+        width: page.width*0.95
         radius: 5
         Label {
             id: armingstatelabel
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
+            anchors.leftMargin: page.width*0.04
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.01
+            anchors.topMargin: page.height*0.015
             text: if (armingstatetoggle.checked == false) {"Arming State:  OFF"}
                   else {"Arming State:  ON"}
         }
         Switch {
             id: armingstatetoggle
             anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
+            anchors.rightMargin: page.width*0.04
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.01
+            anchors.topMargin: page.height*0.015
             checked: false
             onCheckedChanged: manual_control_handler.setArmed(checked)
         }
         Label {
             id: offboardlabel
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
+            anchors.leftMargin: page.width*0.04
             anchors.top: armingstatelabel.bottom
             anchors.topMargin: page.height*0.01
             text: if (offboardtoggle.checked == false) {"Offboard:  OFF"}
@@ -133,19 +131,35 @@ Rectangle {
         Switch {
             id: offboardtoggle
             anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
+            anchors.rightMargin: page.width*0.04
             anchors.top: armingstatetoggle.bottom
-            anchors.topMargin: page.height*0.01
+            anchors.topMargin: page.height*0.015
             checked: false
             onCheckedChanged: if (checked) {manual_control_handler.setFlightMode(6)}
                               else {manual_control_handler.setFlightMode(1)}
+        }
+        Label {
+            id: lat_label
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.04
+            anchors.top: offboardlabel.bottom
+            anchors.topMargin: page.height*0.01
+            text: "Lat: " + manual_control_handler.m_latitude
+        }
+        Label {
+            id: lon_label
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.04
+            anchors.top: lat_label.bottom
+            anchors.topMargin: page.height*0.01
+            text: "Long: " + manual_control_handler.m_longitude
         }
     }
     TextArea {
         id: consolerectangle
         y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
-        width: page.width*0.9
-        height: page.height*0.15
+        width: page.width*0.95
+        height: page.height*0.10
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Here is the flight log... ..."
         backgroundVisible: true
@@ -159,7 +173,7 @@ Rectangle {
     Rectangle {
         id: controlsliders
         y: consolerectangle.y + consolerectangle.height + page.height*0.02
-        width: page.width*0.9
+        width: page.width*0.95
         height: page.height*0.3
         anchors.horizontalCenter: parent.horizontalCenter
         color: toprowrectangle.color
@@ -333,8 +347,8 @@ Rectangle {
     }
     Rectangle {
             id: flightmode
-            y: controlsliders.y + controlsliders.height + page.height*0.02
-            width: page.width*0.9
+            y: controlsliders.y + controlsliders.height + page.height*0.03
+            width: page.width*0.95
             height: page.height*0.35
             anchors.horizontalCenter: parent.horizontalCenter
             color: toprowrectangle.color
@@ -358,14 +372,14 @@ Rectangle {
                         text: "Return On";
                         checked: false;
                         exclusiveGroup: returnGroup;
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                     RadioButton {
                         id: other_modes_button
                         text: "Other Modes";
                         checked: true
                         exclusiveGroup: returnGroup;
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                 }
             }
@@ -388,21 +402,21 @@ Rectangle {
                         text: "Manual";
                         exclusiveGroup: modeGroup;
                         checked: true
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                     RadioButton {
                         id: assist_button;
                         text: "Assist";
                         checked: false
                         exclusiveGroup: modeGroup;
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                     RadioButton {
                         id: auto_button;
                         text: "Auto";
                         exclusiveGroup: modeGroup;
                         checked: false;
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                 }
             }
@@ -425,14 +439,14 @@ Rectangle {
                         text: "Alt Control";
                         checked: false
                         exclusiveGroup: assistGroup;
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                     RadioButton {
                         id: pos_control_button
                         text: "Pos Control";
                         checked: true
                         exclusiveGroup: assistGroup;
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                 }
             }
@@ -455,14 +469,21 @@ Rectangle {
                         text: "Mission";
                         checked: false;
                         exclusiveGroup: autoGroup;
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
                     }
                     RadioButton {
                         id: loiter_button
                         text: "Loiter";
                         checked: true;
                         exclusiveGroup: autoGroup
-                        onCheckedChanged: changeFlightMode();
+                        onCheckedChanged: changeFlightMode()
+                    }
+                    RadioButton {
+                        id: delivery_button
+                        text: "Delivery"
+                        checked: false
+                        exclusiveGroup: autoGroup
+                        // Insert Brian's code
                     }
                 }
             }
