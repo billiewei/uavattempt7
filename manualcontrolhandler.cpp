@@ -79,12 +79,12 @@ void ManualControlHandler::setR(int r){
 }
 
 inline double ManualControlHandler::m_time() const{
-    return 3 * std::log((m_voltage - 14.8)/1.9);
+    return (2/3)*(25 - std::exp(m_voltage - 13.48));
 }
 
 inline double ManualControlHandler::m_battery() const{
     qDebug() << "Battery levels should have been updated";
-    return ((m_voltage/1000) * m_time()) + (1.9 * std::exp(-m_time()/3));
+    return 13.48 - std::log((-1.5 * m_time() + 25));
 }
 
 void ManualControlHandler::setVoltage(int v){
