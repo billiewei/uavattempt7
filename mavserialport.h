@@ -131,6 +131,7 @@ public slots:
     void set_mode_assist_posctl();
     void set_mode_auto_mission();
     void set_mode_auto_loiter();
+    void set_mode_auto_delivery();
 
     //11
     void send_set_mode();

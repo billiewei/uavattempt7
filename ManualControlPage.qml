@@ -31,7 +31,8 @@ Rectangle {
             }
             else if (auto_button.checked) {
                 if (mission_button.checked) {manual_control_handler.setFlightMode(4)}
-                else {manual_control_handler.setFlightMode(5)}
+                else if (loiter_button.checked){manual_control_handler.setFlightMode(5)}
+                else {manual_control_handler.setFlightMode(6)}
             }
         }
     }
