@@ -97,7 +97,6 @@ Rectangle {
             onClicked: {
                 pending_order_page.visible = false
                 battery_status_page.visible = true
-                backButton5.visible = true
             }
         }
     }

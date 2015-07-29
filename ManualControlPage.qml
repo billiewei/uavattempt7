@@ -43,7 +43,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: page.height*0.01
         anchors.left: parent.left
-        anchors.leftMargin: page.width*0.06
+        anchors.leftMargin: page.width*0.04
         onClicked: {
             opening_page.visible = true
             manual_control_page.visible = false
@@ -63,26 +63,25 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.voltage//currentbatterypercentage.text + "%"
+        text: manual_control_handler.voltage //currentbatterypercentage.text + "%"
         y: manual_back_button.y
         anchors.right: parent.right
-        anchors.rightMargin: page.width*0.06
+        anchors.rightMargin: page.width*0.04
         font.letterSpacing: 2
-        font.pixelSize: page.height*0.015
     }
     Rectangle {
         id: remainingbatteryoutline
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.18
         y: manual_back_button.y
-        height: manual_back_button.height - 8
+        height: manual_back_button.height - 4
         width: remainingbatteryoutline.height*3
         border.width: 2
         border.color: "#000"
         color: "#00000000"
         radius: 3
     }
-    Rectangle {
+    /*Rectangle {
         id: remainingbatteryfill
         x: remainingbatteryoutline.x + 2
         y: remainingbatteryoutline.y + 2
@@ -92,11 +91,11 @@ Rectangle {
         color: if (batterytextlabel.text >= 85.00) {"#65E01F"}
                else if (batterytextlabel.text >= 60.00) {"#FF790A"}
                else if (batterytextlabel.text < 60.00) {"#D60000"}
-    }
+    }*/
     Rectangle {
         id: toprowrectangle
         color: "#F2F2F2"
-        height: armingstatelabel.height + offboardlabel.height + page.height*0.07
+        height: armingstatelabel.height + lat_label.height + lon_label.height + page.height*0.05
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: page.height*0.05
@@ -120,47 +119,28 @@ Rectangle {
             checked: false
             onCheckedChanged: manual_control_handler.setArmed(checked)
         }
-        Label {
-            id: offboardlabel
+        Text {
+            id: lat_label
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.04
             anchors.top: armingstatelabel.bottom
             anchors.topMargin: page.height*0.01
-            text: if (offboardtoggle.checked == false) {"Offboard:  OFF"}
-                  else {"Offboard:  ON"}
+            text: "Latitude: " + manual_control_handler.latitude.toFixed(8)
         }
-        Switch {
-            id: offboardtoggle
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.04
-            anchors.top: armingstatetoggle.bottom
-            anchors.topMargin: page.height*0.015
-            checked: false
-            onCheckedChanged: if (checked) {manual_control_handler.setFlightMode(6)}
-                              else {manual_control_handler.setFlightMode(1)}
-        }
-        Label {
-            id: lat_label
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.04
-            anchors.top: offboardlabel.bottom
-            anchors.topMargin: page.height*0.01
-            text: "Lat: " + manual_control_handler.m_latitude
-        }
-        Label {
+        Text {
             id: lon_label
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.04
             anchors.top: lat_label.bottom
             anchors.topMargin: page.height*0.01
-            text: "Long: " + manual_control_handler.m_longitude
+            text: "Longitude: " + manual_control_handler.longitude.toFixed(8)
         }
     }
     TextArea {
         id: consolerectangle
         y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
         width: page.width*0.95
-        height: page.height*0.10
+        height: page.height*0.1
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Here is the flight log... ..."
         backgroundVisible: true
@@ -187,7 +167,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
+            anchors.leftMargin: page.width*0.04
             font.pixelSize: page.height*0.015
             font.letterSpacing: 2
         }
@@ -219,7 +199,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
+            anchors.rightMargin: page.width*0.04
         }
 
         // Y: Left-Right
@@ -228,7 +208,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.1
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
+            anchors.leftMargin: page.width*0.04
             font.pixelSize: page.height*0.015
             font.letterSpacing: 2
         }
@@ -260,7 +240,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.1
             anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
+            anchors.rightMargin: page.width*0.04
         }
 
         // Z: Throttle
@@ -269,7 +249,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.17
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
+            anchors.leftMargin: page.width*0.04
             font.pixelSize: page.height*0.015
             font.letterSpacing: 2
         }
@@ -301,7 +281,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.17
             anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
+            anchors.rightMargin: page.width*0.04
         }
 
         //R: yaw
@@ -310,7 +290,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.24
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.06
+            anchors.leftMargin: page.width*0.04
             font.pixelSize: page.height*0.015
             font.letterSpacing: 2
         }
@@ -342,13 +322,13 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.24
             anchors.right: parent.right
-            anchors.rightMargin: page.width*0.06
+            anchors.rightMargin: page.width*0.04
         }
 
     }
     Rectangle {
             id: flightmode
-            y: controlsliders.y + controlsliders.height + page.height*0.03
+            y: controlsliders.y + controlsliders.height + page.height*0.02
             width: page.width*0.95
             height: page.height*0.35
             anchors.horizontalCenter: parent.horizontalCenter

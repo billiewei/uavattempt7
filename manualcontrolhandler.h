@@ -38,8 +38,8 @@ class ManualControlHandler : public QQuickItem {
         int z() const;
         int r() const;
         int voltage() const;
-        double latitude() const;
-        double longitude() const;
+        float latitude() const;
+        float longitude() const;
         double height() const;
         inline double m_time() const;
         inline double m_battery() const; //Remaining battery percentage
@@ -81,8 +81,8 @@ class ManualControlHandler : public QQuickItem {
         int m_r;
         int m_voltage; //unit: mV
 
-        double m_latitude;
-        double m_longitude;
+        float m_latitude;
+        float m_longitude;
         double m_height;
 
         void initSerialPort();

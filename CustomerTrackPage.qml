@@ -66,11 +66,29 @@ Rectangle {
                 latitude: 22.336400
                 longitude: 114.265466
             }
-            radius: if (map.zoomLevel < 13) {200} else {20}
+            radius: if (map.zoomLevel < 13) {200} else {10}
             color: "#FF4747"
             border.width: 1
             border.color: "#242424"
             opacity: 0.6
+        }
+        MapCircle {
+            id: dronepoint
+            radius:
+                if (map.zoomLevel > 13) {5}
+                else if (map.zoomLevel = 13) {20}
+                else if (map.zoomLevel > 12 & map.zoomLevel < 13) {100}
+                else if (map.zoomLevel > 10 & map.zoomLevel <= 12) {400}
+                else if (map.zoomLevel > 8 & map.zoomLevel <= 8) {1000}
+                else if (map.zoomLevel <= 8) {10000}
+            color: "#FFDF3D"
+            opacity: 0.6
+            border.width: 1
+            border.color: "#242424"
+            center {
+                latitude: manual_control_handler.latitude
+                longitude: manual_control_handler.longitude
+            }
         }
         MapPolyline {
             line.width: 3

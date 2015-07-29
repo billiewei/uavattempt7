@@ -4,7 +4,7 @@
 ManualControlHandler::ManualControlHandler(QQuickItem* parent):
     QQuickItem(parent), m_log(""),
     m_x(0), m_y(0), m_z(0), m_r(0),
-    m_voltage(0), m_latitude(0), m_longitude(0), m_height(0){
+    m_voltage(0), m_latitude(40.609272), m_longitude(-74.013747), m_height(0){
     serial = new MavSerialPort(this);
     initSerialPort();
     initSerialConnections();
@@ -31,11 +31,11 @@ int ManualControlHandler::voltage() const{
     return m_voltage;
 }
 
-double ManualControlHandler::latitude() const{
+float ManualControlHandler::latitude() const{
     return m_latitude;
 }
 
-double ManualControlHandler::longitude() const{
+float ManualControlHandler::longitude() const{
     return m_longitude;
 }
 

@@ -56,9 +56,26 @@ Rectangle {
             text: vendor_handler.longitude// "114.2629409"
             visible: false
         }
-
+        Address {
+            id: fromAddress
+            street: if (vendor_handler.delivery == 1) {vendor_handler.street1}
+                    else if (vendor_handler.delivery == 2) {vendor_handler.street2}
+                    else if (vendor_handler.delivery == 3) {vendor_handler.street3}
+            city: if (vendor_handler.delivery == 1) {vendor_handler.city1}
+                  else if (vendor_handler.delivery == 2) {vendor_handler.city2}
+                  else if (vendor_handler.delivery == 3) {vendor_handler.city3}
+            country: if (vendor_handler.delivery == 1) {vendor_handler.region1}
+                     else if (vendor_handler.delivery == 2) {vendor_handler.region2}
+                     else if (vendor_handler.delivery == 3) {vendor_handler.region3}
+            state : if (vendor_handler.delivery == 1) {vendor_handler.state1}
+                    else if (vendor_handler.delivery == 2) {vendor_handler.state2}
+                    else if (vendor_handler.delivery == 3) {vendor_handler.state3}
+            postalCode: if (vendor_handler.delivery == 1) {vendor_handler.zip1}
+                        else if (vendor_handler.delivery == 2) {vendor_handler.zip2}
+                        else if (vendor_handler.delivery == 3) {vendor_handler.zip3}
+        }
         Map {
-            id: tracking_drone_map
+            id: map2
             plugin: osmplugin1
             width: tracking_drone.width
             height: tracking_drone.height
@@ -67,21 +84,10 @@ Rectangle {
                 latitude: 22.3362535
                 longitude: 114.2629409
             }
+            gesture.flickDeceleration: 3000
+            gesture.enabled: true
 
-            MapPolyline {
-                line.width: 3
-                line.color: 'green'
-                path: [
-                    { latitude: currentlatitude.text, longitude: currentlongitude.text },
-                    { latitude: targetlatitude.text, longitude: targetlongitude.text }
-                ]
-            }
-
-            MapItemView {
-                model: geocodeModel1
-                delegate: pointDelegate1
-            }
-
+            // HOME
             MapCircle {
                 id: point
                 radius: if (mapslider1.value < 13) {200}
@@ -95,20 +101,43 @@ Rectangle {
                     longitude: currentlongitude.text
                 }
             }
-
+            MapCircle {
+                radius:
+                    if (map2.zoomLevel > 13) {5}
+                    else if (map2.zoomLevel = 13) {20}
+                    else if (map2.zoomLevel > 12 & map2.zoomLevel < 13) {100}
+                    else if (map2.zoomLevel > 10 & map2.zoomLevel <= 12) {400}
+                    else if (map2.zoomLevel > 8 & map2.zoomLevel <= 8) {1000}
+                    else if (map2.zoomLevel <= 8) {10000}
+                color: "#FFDF3D"
+                opacity: 0.6
+                border.width: 1
+                border.color: "#000000"
+                center {
+                    latitude: manual_control_handler.latitude
+                    longitude: manual_control_handler.longitude
+                }
+            }
+            MapPolyline {
+                line.width: 3
+                line.color: 'green'
+                path: [
+                    { latitude: currentlatitude.text, longitude: currentlongitude.text },
+                    { latitude: targetlatitude.text, longitude: targetlongitude.text }
+                ]
+            }
             GeocodeModel {
                 id: geocodeModel1
                 plugin: osmplugin1
                 autoUpdate: true
                 query: fromAddress
                 onLocationsChanged: {
-                        tracking_drone_map.center.latitude = get(0).coordinate.latitude
-                        tracking_drone_map.center.longitude = get(0).coordinate.longitude
+                        map2.center.latitude = get(0).coordinate.latitude
+                        map2.center.longitude = get(0).coordinate.longitude
                         targetlatitude.text = get(0).coordinate.latitude
                         targetlongitude.text = get(0).coordinate.longitude
                 }
             }
-
             Component {
                 id: pointDelegate1
                 MapCircle {
@@ -125,24 +154,9 @@ Rectangle {
                     }
                 }
             }
-
-            Address {
-                id :fromAddress
-                street: if (vendor_handler.delivery == 1) {vendor_handler.street1}
-                        else if (vendor_handler.delivery == 2) {vendor_handler.street2}
-                        else if (vendor_handler.delivery == 3) {vendor_handler.street3}
-                city: if (vendor_handler.delivery == 1) {vendor_handler.city1}
-                      else if (vendor_handler.delivery == 2) {vendor_handler.city2}
-                      else if (vendor_handler.delivery == 3) {vendor_handler.city3}
-                country: if (vendor_handler.delivery == 1) {vendor_handler.region1}
-                         else if (vendor_handler.delivery == 2) {vendor_handler.region2}
-                         else if (vendor_handler.delivery == 3) {vendor_handler.region3}
-                state : if (vendor_handler.delivery == 1) {vendor_handler.state1}
-                        else if (vendor_handler.delivery == 2) {vendor_handler.state2}
-                        else if (vendor_handler.delivery == 3) {vendor_handler.state3}
-                postalCode: if (vendor_handler.delivery == 1) {vendor_handler.zip1}
-                            else if (vendor_handler.delivery == 2) {vendor_handler.zip2}
-                            else if (vendor_handler.delivery == 3) {vendor_handler.zip3}
+            MapItemView {
+                model: geocodeModel1
+                delegate: pointDelegate1
             }
         }
 
@@ -153,7 +167,7 @@ Rectangle {
         anchors.rightMargin: 15
         anchors.top: parent.top
         anchors.topMargin: tracking_drone.y
-        height: tracking_drone_map.height
+        height: map2.height
         value: 17
         maximumValue: 19
         minimumValue: 2
@@ -169,62 +183,75 @@ Rectangle {
         y: 400
     }
     Text {
+        id: currentdronecoordinates
+        y: tracking_drone.y + tracking_drone.height + 20
+        anchors.left: parent.left
+        anchors.leftMargin: 50
+        text: "Current Drone Latitude: " + '<br>' + "Current Drone Longitude: "
+        font.family: "Avenir"
+        font.letterSpacing: 2
+    }
+    Text {
+        y: tracking_drone.y + tracking_drone.height + 20
+        anchors.right: parent.right
+        anchors.rightMargin: 50
+        text: manual_control_handler.latitude.toFixed(8) + '<br>' + manual_control_handler.longitude.toFixed(8)
+        font.family: "Avenir"
+        font.letterSpacing: 2
+        z: currentdronecoordinates.z + 3
+    }
+    Text {
         id: currentdistance
-        y: tracking_drone.y + tracking_drone.height + 25
+        y: currentdronecoordinates.y + currentdronecoordinates.height + 20
         anchors.left: parent.left
         anchors.leftMargin: 50
         text: "Current Distance:"
         font.family: "Avenir"
-        horizontalAlignment: Text.AlignHCenter
         font.letterSpacing: 2
     }
     Text {
         id: display_distance
         anchors.right: parent.right
         anchors.rightMargin: 50
-        y: tracking_drone.y + tracking_drone.height + 25
+        y: currentdronecoordinates.y + currentdronecoordinates.height + 20
         text: distance.text
         font.family: "Avenir"
-        horizontalAlignment: Text.AlignHCenter
         font.letterSpacing: 2
     }
     Text {
         id: deliverystatus
-        y: currentdistance.y + currentdistance.height + 25
+        y: currentdistance.y + currentdistance.height + 20
         anchors.left: parent.left
         anchors.leftMargin: 50
         text: qsTr("Current Status:")
         font.family: "Avenir"
-        horizontalAlignment: Text.AlignHCenter
         font.letterSpacing: 2
     }
     Text {
         id: display_deliverystatus
         anchors.right: parent.right
         anchors.rightMargin: 50
-        y: currentdistance.y + currentdistance.height + 25
+        y: currentdistance.y + currentdistance.height + 20
         text: if (delivered_validation.text != "Y" & delivered_validation.text != "N") {qsTr("Delivering")}
               else if (delivered_validation.text == "Y" & returned_validation.text != "Y") {qsTr ("Returning")}
               else if (returned_validation.text == "Y") {qsTr ("Returned")}
         font.family: "Avenir"
-        horizontalAlignment: Text.AlignHCenter
         font.letterSpacing: 2
     }
     Text {
         id: delivered
-        y: deliverystatus.y + deliverystatus.height + 35
+        y: deliverystatus.y + deliverystatus.height + 20
         anchors.left: parent.left
         anchors.leftMargin: 50
         text: qsTr("Delivered")
         font.family: "Avenir"
-        horizontalAlignment: Text.AlignHCenter
         font.letterSpacing: 2
     }
     TextField {
         id: delivered_validation
         y: delivered.y
         x: delivered.x + delivered.width + 70
-        height: page.height * 0.035
+        height: delivered.height
         width: page.width * 0.4
         placeholderText: "Test Y or N"
     }
@@ -240,19 +267,18 @@ Rectangle {
     }
     Text {
         id: returned
-        y: delivered.y + delivered.height + 30
+        y: delivered.y + delivered.height + 20
         anchors.left: parent.left
         anchors.leftMargin: 50
         text: qsTr("Returned")
         font.family: "Avenir"
-        horizontalAlignment: Text.AlignHCenter
         font.letterSpacing: 2
     }
     TextField {
         id: returned_validation
         y: returned.y
         x: returned.x + returned.width + 70
-        height: page.height * 0.035
+        height: returned.height
         width: page.width * 0.4
         placeholderText: "Test Y or N"
     }
@@ -270,7 +296,7 @@ Rectangle {
         id: currentbattery
         anchors.left: parent.left
         anchors.leftMargin: 50
-        y: returned.y + returned.height + 35
+        y: returned.y + returned.height + 20
         text: "Current Battery:"
         font.family: "Avenir"
         font.letterSpacing: 2
@@ -281,7 +307,7 @@ Rectangle {
         anchors.rightMargin: 50
         y: currentbattery.y
         width: 75
-        height: 30
+        height: currentbattery.height
         color: "#00000000"
         border.width: 2
     }
