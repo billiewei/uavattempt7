@@ -26,3 +26,5 @@ Please note that the tracking and battery features will not work unless you have
 	- Android Device [Tablet, phone, etc.]
 
 ###Installation
+
+### Usage
