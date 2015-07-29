@@ -62,10 +62,10 @@ Rectangle {
         y: remainingbatteryoutline.y + 2
         radius: 1
         height: batterytextlabel.height - 5
-        width: (remainingbatteryoutline.width - 2)* (batterytextlabel.text/100)
-        color: if (batterytextlabel.text >= 85) {"#65E01F"}
-               else if (batterytextlabel.text >= 60) {"#FF790A"}
-               else if (batterytextlabel.text < 60) {"#D60000"}
+        width: (remainingbatteryoutline.width - 2)*(batterytextlabel.text/100.0)
+        color: if (batterytextlabel.text >= 85.00) {"#65E01F"}
+               else if (batterytextlabel.text >= 60.00) {"#FF790A"}
+               else if (batterytextlabel.text < 60.00) {"#D60000"}
     }
     Rectangle {
         id: toprowrectangle

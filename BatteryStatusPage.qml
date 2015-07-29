@@ -29,6 +29,7 @@ Rectangle {
     TextField {
         id: percentage
         anchors.bottomMargin: 50
+        // text: manual_control_handler.m_battery
         text: "87"
         anchors.horizontalCenter: parent.horizontalCenter
         validator: IntValidator {bottom: 0; top: 100;}

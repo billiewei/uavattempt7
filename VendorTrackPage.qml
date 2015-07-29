@@ -289,40 +289,21 @@ Rectangle {
         border.width: 2
     }
     Rectangle {
-        id: battery_red2
+        id: batteryfill
         x: battery1.x + 5
         y: battery1.y + 5
-        color: "#D60000"
+        color: if (battery_page_handler.percentage < 60) {"#D60000"}
+               else if (battery_page_handler.percentage >=60 & battery_page_handler.percentage < 85) {"#FF790A"}
+               else if (battery_page_handler.percentage >= 85) {"#65E01F"}
         width: (battery1.width - 10) * battery_page_handler.percentage / 100
         height: battery1.height - 10
-        visible: if (battery_page_handler.percentage < 60) {true}
-                 else {false}
-    }
-    Rectangle {
-        id: battery_orange2
-        x: battery1.x + 5
-        y: battery1.y + 5
-        color: "#FF790A"
-        width: (battery1.width - 10) * battery_page_handler.percentage / 100
-        height: battery1.height - 10
-        visible: if (battery_page_handler.percentage >=60 & battery_page_handler.percentage < 85) {true}
-                 else {false}
-    }
-    Rectangle {
-        id: battery_green2
-        x: battery1.x + 5
-        y: battery1.y + 5
-        color: "#65E01F"
-        width: (battery1.width - 10) * battery_page_handler.percentage / 100
-        height: battery1.height - 10
-        visible: if (battery_page_handler.percentage >= 85) {true}
-                 else {false}
+        visible: true
     }
     Button {
         id: view_other_orders
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height * 0.12
+        anchors.bottomMargin: page.height * 0.10
         visible: true
         text: "View other orders"
         width: cancelreturn.width
@@ -365,7 +346,7 @@ Rectangle {
         id: cancelreturn
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height * 0.03
+        anchors.bottomMargin: page.height * 0.04
         visible: if (returned_validation.text == "Y") {false} else {true}
         text: "Cancel Order and Return"
         onClicked: {

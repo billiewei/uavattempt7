@@ -118,7 +118,6 @@ ApplicationWindow {
             qrc:/main.qml:124: TypeError: Cannot call method 'append' of undefined
             */       
             onLogChanged: manual_control_page.writeFlightLog(log)
-            //onLogChanged: manual_control_page
         }
     }
 
