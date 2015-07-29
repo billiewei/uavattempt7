@@ -54,41 +54,16 @@ Rectangle {
         border.color: "#000"
     }
     Rectangle {
-        id: battery_green
+        id: rectangle_fill
         x: rectangle1.x + 10
         y: rectangle1.y + 10
         width: 250 * percentage.text / 100
         height: rectangle1.height - 20
-        color: "#65E01F"
+        color: if (percentage.text >= 85) {"#65E01F"}
+               else if (percentage.text < 85 & percentage.text >= 60) {"#FF790A"}
+               else if (percentage.text < 60) {"#D60000"}
         rotation: 0
-        visible: {
-            if (percentage.text >= 85){true}
-            else {false}
-        }
-    }
-    Rectangle {
-        id: battery_orange
-        x: rectangle1.x + 10
-        y: rectangle1.y + 10
-        width: 250 * percentage.text / 100
-        height: rectangle1.height - 20
-        color: "#FF790A"
-        visible: {
-            if (percentage.text < 85 & percentage.text >= 60) {true}
-            else {false}
-        }
-    }
-    Rectangle {
-        id: battery_red
-        x: rectangle1.x + 10
-        y: rectangle1.y + 10
-        width: 250 * percentage.text / 100
-        height: rectangle1.height - 20
-        color: "#D60000"
-        visible: {
-            if (percentage.text < 60) {true}
-            else {false}
-        }
+        visible: true
     }
     Text {
         id: batteryinfo
@@ -102,10 +77,10 @@ Rectangle {
         visible: true
         font.family: "Avenir"
         text: {
-           if (battery_green.visible == true) {
+           if (rectangle_fill.color = "#65E01F") {
                "Drone has enough power. Ready for delivery."
            }
-           else if (battery_orange.visible == true) {
+           else if (rectangle_fill.color = "#FF790A") {
                "Drone may not have enough power to finish delivery. Please recharge or replace the battery."
            }
            else {
@@ -113,7 +88,7 @@ Rectangle {
            }
         }
         color:
-            if (battery_green.visible == true) {"#000"}
+            if (rectangle_fill.color = "#65E01F") {"#000"}
             else {"#E00000"}
     }
     Button {
@@ -121,7 +96,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: page.height * 0.2
-        visible: battery_green.visible & (vendor_handler.delivery != 0)
+        visible: rectangle_fill.color == "#65E01F" & (vendor_handler.delivery != 0)
         text: "Proceed"
         onClicked: {
             battery_status_page.visible = false
@@ -136,7 +111,7 @@ Rectangle {
         width: page.width * .6
         height: proceed_button.height
         color: "#D60000"
-        visible: if (battery_green.visible == true || backButton5.visible == true) {false} else {true}
+        visible: if (rectangle_fill.color != "#65E01F" || proceed_button.visible == true) {false} else {true}
         radius: 5
         Text {
             color: "white"
@@ -156,7 +131,6 @@ Rectangle {
             battery_status_page.visible = false
             pending_order_page.visible = true
             proceed_button.visible = true
-            cancel_button.visible = true
         }
     }
 }
