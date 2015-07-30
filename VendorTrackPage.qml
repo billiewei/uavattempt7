@@ -17,7 +17,6 @@ Rectangle {
         width: page.width*.10
         height: page.width*.10
         source: "qrc:/logo.png"
-        asynchronous : true
     }
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
@@ -87,7 +86,6 @@ Rectangle {
             gesture.flickDeceleration: 3000
             gesture.enabled: true
 
-            // HOME
             MapCircle {
                 id: point
                 radius: if (mapslider1.value < 13) {200}
@@ -102,16 +100,11 @@ Rectangle {
                 }
             }
             MapCircle {
-                radius:
-                    if (map2.zoomLevel > 13) {5}
-                    else if (map2.zoomLevel = 13) {20}
-                    else if (map2.zoomLevel > 12 & map2.zoomLevel < 13) {100}
-                    else if (map2.zoomLevel > 10 & map2.zoomLevel <= 12) {400}
-                    else if (map2.zoomLevel > 8 & map2.zoomLevel <= 8) {1000}
-                    else if (map2.zoomLevel <= 8) {10000}
-                color: "#FFDF3D"
+                radius: if (mapslider1.value < 13) {200}
+                        else {30}
+                color: "#E038FF"
                 opacity: 0.6
-                border.width: 1
+                border.width: 2
                 border.color: "#000000"
                 center {
                     latitude: manual_control_handler.latitude
@@ -168,7 +161,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: tracking_drone.y
         height: map2.height
-        value: 17
+        value: 13
         maximumValue: 19
         minimumValue: 2
         tickmarksEnabled: false

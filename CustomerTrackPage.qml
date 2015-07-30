@@ -79,8 +79,8 @@ Rectangle {
                 else if (map.zoomLevel = 13) {20}
                 else if (map.zoomLevel > 12 & map.zoomLevel < 13) {100}
                 else if (map.zoomLevel > 10 & map.zoomLevel <= 12) {400}
-                else if (map.zoomLevel > 8 & map.zoomLevel <= 8) {1000}
-                else if (map.zoomLevel <= 8) {10000}
+                else if (map.zoomLevel > 8 & map.zoomLevel <= 10) {1000}
+                else {10000}
             color: "#FFDF3D"
             opacity: 0.6
             border.width: 1

@@ -29,8 +29,8 @@ Rectangle {
     TextField {
         id: percentage
         anchors.bottomMargin: 50
-        // text: manual_control_handler.m_battery
-        text: "87"
+        text: manual_control_handler.m_battery
+        //text: "87"
         anchors.horizontalCenter: parent.horizontalCenter
         validator: IntValidator {bottom: 0; top: 100;}
         font.pixelSize: 20
@@ -57,7 +57,7 @@ Rectangle {
         id: rectangle_fill
         x: rectangle1.x + 10
         y: rectangle1.y + 10
-        width: 250 * percentage.text / 100
+        width: 250 * ( manual_control_handler.m_battery / 100 )
         height: rectangle1.height - 20
         color: if (percentage.text >= 85) {"#65E01F"}
                else if (percentage.text < 85 & percentage.text >= 60) {"#FF790A"}
