@@ -1,5 +1,6 @@
 #include "mavserialport.h"
 #include "mavlink/v1.0/mavlink_msg_test_uorb.h"
+#include "dearbuttons.h"
 
 int MavSerialPort::packageDrops = 0;
 uint8_t MavSerialPort::msgReceived = false;
@@ -7,7 +8,9 @@ uint8_t MavSerialPort::msgReceived = false;
 MavSerialPort::MavSerialPort(QObject* parent):
     QSerialPort(parent),system_id(0),component_id(0),
     target_system(1),target_component(0),
-    x(0), y(0), z(0), r(0){
+    x(0), y(0), z(0), r(0),
+    buttons(BUTTON_MANUAL)
+{
 
     timer = new QTimer(this);
     //connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
@@ -31,6 +34,10 @@ void MavSerialPort::setR(int t){
     r = (int16_t)t;
 }
 
+void MavSerialPort::setButtons(uint16_t b){
+    buttons = b;
+}
+
 void MavSerialPort::setLat(int32_t l){
     lat = l / 10000000.0;
 }
@@ -40,7 +47,7 @@ void MavSerialPort::setLon(int32_t l){
 }
 
 void MavSerialPort::setAlt(int32_t a){
-    relative_alt = a / 1000;
+    relative_alt = a / 1000.0;
 }
 
 double MavSerialPort::latitude() const{
@@ -55,15 +62,6 @@ double MavSerialPort::relative_altitude() const{
     return relative_alt;
 }
 
-//11
-void MavSerialPort::send_set_mode(){
-    QByteArray ba;
-  //  uint32_t custom_mode; ///< The new autopilot-specific mode. This field can be ignored by an autopilot.
-  //  uint8_t target_system; ///< The system setting the mode
-  //  uint8_t base_mode; ///< The new base mode
-
-    write(ba);
-}
 //69
 void MavSerialPort::send_manual_control(){
     mavlink_message_t msg;
@@ -74,8 +72,7 @@ void MavSerialPort::send_manual_control(){
     ///< Z-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a separate slider movement with maximum being 1000 and minimum being -1000 on a joystick and the thrust of a vehicle.
     ///< R-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a twisting of the joystick, with counter-clockwise being 1000 and clockwise being -1000, and the yaw of a vehicle.
 
-    uint16_t buttons = 0b0000000000000000; ///< A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
-
+    ///< uint16_t buttons = 0b0000000000000000; ///< A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
 
     mavlink_msg_manual_control_pack(0, 0, &msg, target_system, x, y, z, r, buttons);
     int size = mavlink_msg_to_send_buffer(buffer, &msg);
@@ -176,10 +173,6 @@ void MavSerialPort::send_test_urob(){
 }
 
 /** Set Mode */
-void MavSerialPort::set_mode_offboard(){
-     send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_OFFBOARD,0,0,0,0,0);
-}
-
 void MavSerialPort::set_mode_disarm(){
     send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_PREFLIGHT,0,0,0,0,0,0);
     //preflight mode is all zeros
@@ -192,39 +185,46 @@ void MavSerialPort::set_mode_arm(){
 }
 
 void MavSerialPort::set_mode_return(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO_RTL, 0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_SUB_MODE_AUTO_RTL";
+    //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO_RTL, 0,0,0,0,0);
+    setButtons(BUTTON_RETURN);
+    qDebug() << "BUTTON_RETURN";
 }
 
 void MavSerialPort::set_mode_manual(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_MANUAL,0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_MANUAL";
+    //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_MANUAL,0,0,0,0,0);
+    setButtons(BUTTON_MANUAL);
+    qDebug() << "BUTTON_MANUAL";
 
 }
 
 void MavSerialPort::set_mode_assist_altctl(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_ALTCTL,0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_ALTCTL";
+    //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_ALTCTL,0,0,0,0,0);
+    setButtons(BUTTON_ASSIST_ALTCTL);
+    qDebug() << "BUTTON_ASSIST_ALTCTL";
 }
 
 void MavSerialPort::set_mode_assist_posctl(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_POSCTL,0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_POSCTL";
+    //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_POSCTL,0,0,0,0,0);
+    setButtons(BUTTON_ASSIST_POSCTL);
+    qDebug() << "BUTTON_ASSIST_POSCTL";
 }
 
 void MavSerialPort::set_mode_auto_mission(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO";
+    //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
+    setButtons(BUTTON_AUTO_MISSION);
+    qDebug() << "BUTTON_AUTO_MISSION";
 }
 
 void MavSerialPort::set_mode_auto_loiter(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO_LOITER, 0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO_LOITER";
+    //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO_LOITER, 0,0,0,0,0);
+    setButtons(BUTTON_AUTO_LOITER);
+    qDebug() << "BUTTON_AUTO_LOITER";
 }
 
 void MavSerialPort::set_mode_auto_delivery(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO_DELIVERY,0,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_MAIN_MODE_DELIVERY";
+    //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO_DELIVERY,0,0,0,0,0);
+    setButtons(BUTTON_AUTO_DELIVERY);
+    qDebug() << "BUTTON_AUTO_DELIVERY";
 }
 
 //0
@@ -235,15 +235,12 @@ void MavSerialPort::heartbeat_handler(){
 
 //1
 void MavSerialPort::sys_status_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_SYS_STATUS\n";
     mavlink_msg_sys_status_decode(&message, &sys_status);
-
     emit batteryChanged(sys_status.voltage_battery);
 }
 
 //30
 void MavSerialPort::attitude_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_ATTITUDE\n";
     mavlink_msg_attitude_decode(&message, &attitude);
     emit timeChanged();
     emit attitudeChanged();
@@ -373,7 +370,7 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
         break;
 
     default:
-        // qDebug() << "new message:" << (int)message.msgid;
+        qDebug() << "new message:" << (int)message.msgid;
         break;
 
     } // end of switch

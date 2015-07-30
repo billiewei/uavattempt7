@@ -82,6 +82,7 @@ public slots:
     void setY(int t);
     void setZ(int t);
     void setR(int t);
+    void setButtons(uint16_t b);
 
     void setLat(int32_t l);
     void setLon(int32_t l);
@@ -90,17 +91,17 @@ public slots:
     /** Set Mode */
     void set_mode_disarm();
     void set_mode_arm();
-    void set_mode_offboard();
+
     void set_mode_return();
     void set_mode_manual();
+
     void set_mode_assist_altctl();
     void set_mode_assist_posctl();
+
     void set_mode_auto_mission();
     void set_mode_auto_loiter();
     void set_mode_auto_delivery();
 
-    //11
-    void send_set_mode();
     //69
     void send_manual_control();
     //81
@@ -129,6 +130,7 @@ private:
     int16_t y;
     int16_t z;
     int16_t r;
+    uint16_t buttons;
 
     //76
     void send_command_long(uint16_t CMD_ID, uint8_t confirmation, float f1, float f2, float f3, float f4, float f5, float f6, float f7);
