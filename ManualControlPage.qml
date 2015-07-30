@@ -37,9 +37,9 @@ Rectangle {
         }
     }
 
-    Button {
-        id: manual_back_button
-        text: "Back"
+    Button{
+        id: home_button
+        iconSource: "images/home.png"
         anchors.top: parent.top
         anchors.topMargin: page.height*0.01
         anchors.left: parent.left
@@ -55,7 +55,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: page.height*0.01
         anchors.left: parent.left
-        anchors.leftMargin: manual_back_button.x + manual_back_button.width + page.width*0.03
+        anchors.leftMargin: home_button.x + home_button.width + page.width*0.02
         onClicked: {
             manual_control_page.visible = true
             vendor_track_page.visible = true
@@ -63,8 +63,8 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.voltage //currentbatterypercentage.text + "%"
-        y: manual_back_button.y
+        text: manual_control_handler.m_battery //currentbatterypercentage.text + "%"
+        y: home_button.y
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.04
         font.letterSpacing: 2
@@ -73,8 +73,8 @@ Rectangle {
         id: remainingbatteryoutline
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.18
-        y: manual_back_button.y
-        height: manual_back_button.height - 4
+        y: home_button.y
+        height: home_button.height - 4
         width: remainingbatteryoutline.height*3
         border.width: 2
         border.color: "#000"
@@ -125,7 +125,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.04
             anchors.top: armingstatelabel.bottom
             anchors.topMargin: page.height*0.01
-            text: "Latitude: " + manual_control_handler.latitude.toFixed(8)
+            text: "Latitude: " + manual_control_handler.latitude.toString()
         }
         Text {
             id: lon_label
@@ -133,14 +133,14 @@ Rectangle {
             anchors.leftMargin: page.width*0.04
             anchors.top: lat_label.bottom
             anchors.topMargin: page.height*0.01
-            text: "Longitude: " + manual_control_handler.longitude.toFixed(8)
+            text: "Longitude: " + manual_control_handler.longitude.toString()
         }
     }
     TextArea {
         id: consolerectangle
         y: toprowrectangle.y + toprowrectangle.height + page.height*0.02
         width: page.width*0.95
-        height: page.height*0.1
+        height: page.height*0.15
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Here is the flight log... ..."
         backgroundVisible: true
@@ -160,12 +160,53 @@ Rectangle {
         color: toprowrectangle.color
         radius: 5
 
+        // Z: Throttle
+        Label {
+            text: "Throttle"
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.03
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.04
+            font.pixelSize: page.height*0.015
+            font.letterSpacing: 2
+        }
+        Slider {
+            id: z_slider
+            anchors.left: parent.left
+            anchors.leftMargin: back_forward_label.width + page.width*0.05
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.03
+            tickmarksEnabled: false
+            updateValueWhileDragging: true
+            value: 0
+            minimumValue : 0
+            maximumValue: 2000
+            stepSize: 10
+            style: SliderStyle {
+                groove: Rectangle {
+                    implicitWidth: controlsliders.width*0.6
+                    implicitHeight: 8
+                    color: "gray"
+                    radius: 8
+                }
+            }
+            onValueChanged: manual_control_handler.setZ(value)
+
+        }
+        Text {
+            text: z_slider.value
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.03
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.04
+        }
+
         // X: Back-Forward
         Label {
             id:back_forward_label
             text: "Back-Forward"
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.03
+            anchors.topMargin: page.height*0.1
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.04
             font.pixelSize: page.height*0.015
@@ -176,7 +217,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: back_forward_label.width + page.width*0.05
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.03
+            anchors.topMargin: page.height*0.1
             tickmarksEnabled: false
             updateValueWhileDragging: true
             value: 0
@@ -197,7 +238,7 @@ Rectangle {
         Text {
             text: x_slider.value
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.03
+            anchors.topMargin: page.height*0.1
             anchors.right: parent.right
             anchors.rightMargin: page.width*0.04
         }
@@ -206,7 +247,7 @@ Rectangle {
         Label {
             text: "Left-Right"
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.1
+            anchors.topMargin: page.height*0.17
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.04
             font.pixelSize: page.height*0.015
@@ -217,7 +258,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.leftMargin: back_forward_label.width + page.width*0.05
             anchors.top: parent.top
-            anchors.topMargin: page.height*0.1
+            anchors.topMargin: page.height*0.17
             tickmarksEnabled: false
             updateValueWhileDragging: true
             value: 0
@@ -237,47 +278,6 @@ Rectangle {
         }
         Text {
             text: y_slider.value
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.1
-            anchors.right: parent.right
-            anchors.rightMargin: page.width*0.04
-        }
-
-        // Z: Throttle
-        Label {
-            text: "Throttle"
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.17
-            anchors.left: parent.left
-            anchors.leftMargin: page.width*0.04
-            font.pixelSize: page.height*0.015
-            font.letterSpacing: 2
-        }
-        Slider {
-            id: z_slider
-            anchors.left: parent.left
-            anchors.leftMargin: back_forward_label.width + page.width*0.05
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.17
-            tickmarksEnabled: false
-            updateValueWhileDragging: true
-            value: 0
-            minimumValue : 0
-            maximumValue: 2000
-            stepSize: 10
-            style: SliderStyle {
-                groove: Rectangle {
-                    implicitWidth: controlsliders.width*0.6
-                    implicitHeight: 8
-                    color: "gray"
-                    radius: 8
-                }
-            }
-            onValueChanged: manual_control_handler.setZ(value)
-
-        }
-        Text {
-            text: z_slider.value
             anchors.top: parent.top
             anchors.topMargin: page.height*0.17
             anchors.right: parent.right
@@ -330,19 +330,18 @@ Rectangle {
             id: flightmode
             y: controlsliders.y + controlsliders.height + page.height*0.02
             width: page.width*0.95
-            height: page.height*0.35
+            height: page.height*0.3
             anchors.horizontalCenter: parent.horizontalCenter
             color: toprowrectangle.color
             radius: 5
             GroupBox {
                 id: returnbox
-                title: "Return"
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.03
                 anchors.right: parent.right
                 anchors.rightMargin: page.width*0.03
                 anchors.top: parent.top
-                anchors.topMargin: page.height*0.01
+                anchors.topMargin: page.height*0.015
                 height: flightmode.height*0.2
                 RowLayout {
                     anchors.fill: parent
@@ -366,7 +365,6 @@ Rectangle {
             }
             GroupBox {
                 id: modebox
-                title: "Mode"
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.03
                 anchors.right: parent.right
@@ -403,7 +401,6 @@ Rectangle {
             }
             GroupBox {
                 id: assistbox
-                title: "Assist"
                 anchors.right: parent.right
                 anchors.rightMargin: page.width*0.03
                 anchors.left: parent.left
@@ -433,7 +430,6 @@ Rectangle {
             }
             GroupBox {
                 id: autobox
-                title: "Auto"
                 anchors.left: parent.left
                 anchors.leftMargin: page.width*0.03
                 anchors.right: parent.right

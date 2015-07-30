@@ -107,7 +107,7 @@ Rectangle {
                 border.width: 2
                 border.color: "#000000"
                 center {
-                    latitude: manual_control_handler.latitude
+                    latitude: manual_control_handler.latitude.toString()
                     longitude: manual_control_handler.longitude
                 }
             }
@@ -125,10 +125,10 @@ Rectangle {
                 autoUpdate: true
                 query: fromAddress
                 onLocationsChanged: {
-                        map2.center.latitude = get(0).coordinate.latitude
-                        map2.center.longitude = get(0).coordinate.longitude
-                        targetlatitude.text = get(0).coordinate.latitude
-                        targetlongitude.text = get(0).coordinate.longitude
+                    map2.center.latitude = get(0).coordinate.latitude
+                    map2.center.longitude = get(0).coordinate.longitude
+                    targetlatitude.text = get(0).coordinate.latitude
+                    targetlongitude.text = get(0).coordinate.longitude
                 }
             }
             Component {
@@ -188,7 +188,7 @@ Rectangle {
         y: tracking_drone.y + tracking_drone.height + 20
         anchors.right: parent.right
         anchors.rightMargin: 50
-        text: manual_control_handler.latitude.toFixed(8) + '<br>' + manual_control_handler.longitude.toFixed(8)
+        text: manual_control_handler.latitude.toString() + '<br>' + manual_control_handler.longitude.toString()
         font.family: "Avenir"
         font.letterSpacing: 2
         z: currentdronecoordinates.z + 3
@@ -314,6 +314,19 @@ Rectangle {
         width: (battery1.width - 10) * battery_page_handler.percentage / 100
         height: battery1.height - 10
         visible: true
+    }
+    Button {
+        id: return_to_manual
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: page.height * 0.15
+        visible: true
+        text: "Return to manual control"
+        width: cancelreturn.width
+        onClicked: {
+            vendor_track_page.visible = false
+            manual_control_page.visible = true
+        }
     }
     Button {
         id: view_other_orders

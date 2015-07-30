@@ -1,4 +1,5 @@
 #include "menupagehandler.h"
+#include <cmath>
 
 MenuPageHandler::MenuPageHandler(QQuickItem *parent):QQuickItem(parent),
     // Item weights and prices for calculation
@@ -48,7 +49,7 @@ void MenuPageHandler::setNum4(int n){
 
 
 void MenuPageHandler::setTotal(double t){
-    if ( abs(total_price - t) > 0.1 ) {
+    if (std::abs(total_price - t) > 0.1 ) {
         total_price = t;
         emit totalChanged();
     }

@@ -251,7 +251,8 @@ Rectangle {
         id: backButton4
         anchors.horizontalCenter: parent.horizontalCenter
         y: order3.y + order3.height + 100
-        text: "Return to homepage"
+        width: viewbatterystatus_button.width
+        text: "Home"
         onClicked:{
             pending_order_page.visible = false
             opening_page.visible = true
@@ -261,13 +262,11 @@ Rectangle {
         id: viewbatterystatus_button
         anchors.horizontalCenter: parent.horizontalCenter
         y: backButton4.y + backButton4.height + page.height*0.05
-        width: backButton4.width
         text: "View Battery Status"
         onClicked: {
             pending_order_page.visible = false
             battery_status_page.visible = true
             proceed_button.visible = false
-            cancel_button.visible = false
             backButton5.visible = true
             batterydenialrectangle.visible = false
         }
