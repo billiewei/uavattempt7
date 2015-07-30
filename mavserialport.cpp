@@ -9,36 +9,10 @@ MavSerialPort::MavSerialPort(QObject* parent):
     target_system(1),target_component(0),
     x(0), y(0), z(0), r(0){
 
-    thrust = 0.05;
-
     timer = new QTimer(this);
-  //connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
+    //connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
     connect(timer, SIGNAL(timeout()),this, SLOT(send_manual_control()));
-    timer->start(200);
-}
-
-void MavSerialPort::stopTimer(){
-    timer->stop();
-}
-
-void MavSerialPort::setThrust(float t){
-    thrust = t;
-}
-
-void MavSerialPort::setQuaternion(float roll, float pitch, float yaw){
-
-    /**
-     * we take input roll(-225 to 225), pitch(-225 to 225) and yaw (0 to 90)
-     * need transform them into
-     * @param roll the roll angle in radians
-     * @param pitch the pitch angle in radians
-     * @param yaw the yaw angle in radians
-     * @param quaternion a [w, x, y, z] ordered quaternion (null-rotation being 1 0 0 0)
-     */
-
-     mavlink_euler_to_quaternion(roll*3.14159/1800, pitch*3.14159/1800, yaw*3.14159/180, q);
-     qDebug() << q[0] << " " << q[1] << " " << q[2] << " " << q[3];
-
+    // timer->start(200); will move this to connect button
 }
 
 void MavSerialPort::setX(int t){
@@ -153,28 +127,6 @@ void MavSerialPort::send_manual_setpoint(){
 
     qDebug() << "send out manual setpoint\n";
 }
-//82
-void MavSerialPort::send_set_attitude_target(){
-    mavlink_message_t msg;
-    uint8_t buffer[2048];
-
-
-    uint32_t time_boot_ms = 1000000; ///< Timestamp in milliseconds since system boot
-   // float q[4] = {1,0.0,0.0,0.0}; ///< Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
-    float body_roll_rate = 0; ///< Body roll rate in radians per second
-    float body_pitch_rate = 0; ///< Body roll rate in radians per second
-    float body_yaw_rate = 0; ///< Body roll rate in radians per second
-
-    uint8_t type_mask = 0;///< Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 7: reserved, bit 8: attitude
-
-    //uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-    //uint32_t time_boot_ms, uint8_t type_mask, const float *q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
-    mavlink_msg_set_attitude_target_pack(system_id, component_id, &msg, time_boot_ms, target_system, target_component, type_mask, q, body_roll_rate, body_pitch_rate, body_yaw_rate, thrust);
-
-    int size = mavlink_msg_to_send_buffer(buffer, &msg);
-    QByteArray ba((char*)buffer,size);
-    write(ba);
-}
 
 //84
 void MavSerialPort::send_position_target_local_ned(){
@@ -223,81 +175,6 @@ void MavSerialPort::send_test_urob(){
     qDebug() << "send out test_uorb\n";
 }
 
-
-/** CMD*/
-//16 MAV_CMD_NAV_WAYPOINT
-void MavSerialPort::cmd_nav_waypoint(){
-    // Navigate to MISSION.
-    float f1 = 15; //Hold time in decimal seconds. (ignored by fixed wing, time to stay at MISSION for rotary wing)
-    float f2 = 0; //Acceptance radius in meters (if the sphere with this radius is hit, the MISSION counts as reached)
-    float f3 = 0; //0 to pass through the WP, if > 0 radius in meters to pass by WP. Positive value for clockwise orbit, negative value for counter-clockwise orbit. Allows trajectory control.
-    float f4 = 0; //Desired yaw angle at MISSION (rotary wing)
-    float f5 = 22.33; // Latitude22.3371147,114.268395
-    float f6 = 114.26; // Longitude
-    float f7 = 5; // Altitude
-    //confirmation 0
-    //go back later
-    send_command_long(MAV_CMD_NAV_WAYPOINT, 0, f1, f2, f3, f4, f5, f6, f7);
-}
-
-//17 MAV_CMD_NAV_LOITER_UNLIM
-void MavSerialPort::cmd_nav_loiter_unlim(){
-
-    //confirmation 0
-    //go back later
-//    send_command_long(MAV_CMD_NAV_LOITER_UNLIM, 0, f1, f2, f3, f4, f5, f6, f7);
-}
-
-//19 MAV_CMD_NAV_LOITER_TIME
-void MavSerialPort::cmd_nav_loiter_time(){
-
-}
-
-//20 MAV_CMD_NAV_RETURN_TO_LAUNCH
-void MavSerialPort::cmd_nav_return_to_launch(){
-
-}
-
-//21 MAV_CMD_NAV_LAND
-void MavSerialPort::cmd_nav_land(){
-
-}
-
-//22 MAV_CMD_NAV_TAKEOFF
-void MavSerialPort::cmd_nav_takeoff(){
-
-}
-
-//24 MAV_CMD_NAV_TAKEOFF_LOCAL
-void MavSerialPort::cmd_nav_takeoff_local(){
-
-}
-
-//176 MAV_CMD_DO_SET_MODE
-void MavSerialPort::cmd_do_set_mode(){//MAV_MODE mode){
-    /* Set system mode.*/
-    /** MAV_MODE_PREFLIGHT=0,       // System is not ready to fly, booting, calibrating, etc. No flag is set.
-    MAV_MODE_MANUAL_DISARMED=64,    // System is allowed to be active, under manual (RC) control, no stabilization
-    MAV_MODE_TEST_DISARMED=66,      // UNDEFINED mode. This solely depends on the autopilot - use with caution, intended for developers only.
-    MAV_MODE_STABILIZE_DISARMED=80, // System is allowed to be active, under assisted RC control.
-    MAV_MODE_GUIDED_DISARMED=88,    // System is allowed to be active, under autonomous control, manual setpoint
-    MAV_MODE_AUTO_DISARMED=92,      // System is allowed to be active, under autonomous control and navigation (the trajectory is decided onboard and not pre-programmed by MISSIONs)
-    MAV_MODE_MANUAL_ARMED=192,      // System is allowed to be active, under manual (RC) control, no stabilization
-    MAV_MODE_TEST_ARMED=194,        // UNDEFINED mode. This solely depends on the autopilot - use with caution, intended for developers only.
-    MAV_MODE_STABILIZE_ARMED=208,   // System is allowed to be active, under assisted RC control.
-    MAV_MODE_GUIDED_ARMED=216,      // System is allowed to be active, under autonomous control, manual setpoint
-    MAV_MODE_AUTO_ARMED=220,        // System is allowed to be active, under autonomous control and navigation (the trajectory is decided onboard and not pre-programmed by MISSIONs)
-    MAV_MODE_ENUM_END=221
-    */
-
-    // Mode, as defined by ENUM MAV_MODE, will be ignored if custom main mode is set
-    // Custom mode - this is system specific, please refer to the individual autopilot specifications for details.
-    // Empty| Empty| Empty| Empty| Empty
-    // leave the confirmation as 0
-    send_command_long(MAV_CMD_DO_SET_MODE,0,194,0,0,0,0,0,0);
-    qDebug() << "send do set mode";
-}
-
 /** Set Mode */
 void MavSerialPort::set_mode_offboard(){
      send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_OFFBOARD,0,0,0,0,0);
@@ -315,7 +192,7 @@ void MavSerialPort::set_mode_arm(){
 }
 
 void MavSerialPort::set_mode_return(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO, PX4_CUSTOM_SUB_MODE_AUTO_RTL,0,0,0,0);
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,PX4_CUSTOM_MAIN_MODE_AUTO_RTL, 0,0,0,0,0);
     qDebug() << "PX4_CUSTOM_SUB_MODE_AUTO_RTL";
 }
 
@@ -336,39 +213,24 @@ void MavSerialPort::set_mode_assist_posctl(){
 }
 
 void MavSerialPort::set_mode_auto_mission(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO,PX4_CUSTOM_SUB_MODE_AUTO_MISSION,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_SUB_MODE_AUTO_MISSION";
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO,0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO";
 }
 
 void MavSerialPort::set_mode_auto_loiter(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO, PX4_CUSTOM_SUB_MODE_AUTO_LOITER,0,0,0,0);
-    qDebug() << "PX4_CUSTOM_SUB_MODE_AUTO_LOITER";
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO_LOITER, 0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_AUTO_LOITER";
 }
 
 void MavSerialPort::set_mode_auto_delivery(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO, PX4_CUSTOM_SUB_MODE_AUTO_DELIVERY,0,0,0,0);
-}
-
-//178 MAV_CMD_DO_CHANGE_SPEED
-void MavSerialPort::cmd_do_change_speed(){
-
-}
-
-//179 MAV_CMD_DO_SET_HOME
-void MavSerialPort::cmd_do_set_home(){
-
+    send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO_DELIVERY,0,0,0,0,0);
+    qDebug() << "PX4_CUSTOM_MAIN_MODE_DELIVERY";
 }
 
 //0
 void MavSerialPort::heartbeat_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_HEARTBEAT\n";
     mavlink_msg_heartbeat_decode(&message, &heartbeat);
     emit heartbeatReceived();
-
- //   qDebug() << "base mode: " << heartbeat.base_mode;
- //   qDebug() << "custom mode: " << heartbeat.custom_mode;
- //   qDebug() << "system status: " << heartbeat.system_status;
-
 }
 
 //1
@@ -377,12 +239,6 @@ void MavSerialPort::sys_status_handler(){
     mavlink_msg_sys_status_decode(&message, &sys_status);
 
     emit batteryChanged(sys_status.voltage_battery);
-}
-
-//24
-void MavSerialPort::gps_raw_int_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT\n";
-    mavlink_msg_gps_raw_int_decode(&message, &gps_raw_int);
 }
 
 //30
@@ -411,62 +267,11 @@ void MavSerialPort::global_position_int_handler(){
     emit globalChanged();
 }
 
-//42
-void MavSerialPort::mission_current_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_MISSION_CURRENT\n";
-    mavlink_msg_mission_current_decode(&message, &mission_current);
-
-}
-
-//74
-void MavSerialPort::vfr_hud_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_VFR_HUD\n";
-    mavlink_msg_vfr_hud_decode(&message, &vfr_hud);
-
-}
-//81
-void MavSerialPort::manual_setpoint_handler(){
-   //  qDebug() << "MAVLINK_MSG_ID_MANUAL_SETPOINT\n";
-     mavlink_msg_manual_setpoint_decode(&message,&manual_setpoint);
-  //   qDebug() << "time_boot_ms: " << manual_setpoint.time_boot_ms <<'\n';
-  //   qDebug() << "roll: "<< manual_setpoint.roll << '\n';
-  //   qDebug() << "roll: "<< manual_setpoint.roll << '\n';
-
-}
-
-//83
-void MavSerialPort::attitude_target_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_ATTITUDE_TARGET\n";
-    mavlink_msg_attitude_target_decode(&message, &attitude_target);
-
-}
-
-//85
-void MavSerialPort::position_target_local_ned_handler(){
-   // qDebug() << "MAVLINK_MSG_ID_POSITION_TARGET_LOCAL_END\n";
-    mavlink_msg_position_target_local_ned_decode(&message, &position_target_local_ned);
-
-}
-
-//87
-void MavSerialPort::position_target_global_int_handler(){
-   // qDebug() << "MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT\n";
-    mavlink_msg_position_target_global_int_decode(&message, &position_target_global_int);
-
-}
-
 //105
 void MavSerialPort::highres_imu_handler(){
   //  qDebug() << "MAVLINK_MSG_HIGHRES_IMU";
     mavlink_msg_highres_imu_decode(&message, &highres_imu);
     emit IMUChanged();
-}
-
-
-//147
-void MavSerialPort::battery_status_handler(){
-  //  qDebug() << "MAVLINK_MSG_ID_BATTERY_STATUS\n";
-    mavlink_msg_battery_status_decode(&message, &battery_status);
 }
 
 //253
@@ -524,32 +329,32 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
 
     //42
     case MAVLINK_MSG_ID_MISSION_CURRENT:
-        mission_current_handler();
+        // mission_current_handler();
         break;
 
     //74
     case MAVLINK_MSG_ID_VFR_HUD:
-        vfr_hud_handler();
+        //vfr_hud_handler();
         break;
 
     //81
     case MAVLINK_MSG_ID_MANUAL_SETPOINT:
-        manual_setpoint_handler();
+        //manual_setpoint_handler();
         break;
 
     //83
     case MAVLINK_MSG_ID_ATTITUDE_TARGET:
-        attitude_target_handler();
+        //attitude_target_handler();
         break;
 
     //85
     case MAVLINK_MSG_ID_POSITION_TARGET_LOCAL_NED:
-        position_target_local_ned_handler();
+        // position_target_local_ned_handler();
         break;
 
     //87
     case MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT:
-        position_target_global_int_handler();
+        // position_target_global_int_handler();
         break;
 
     //105

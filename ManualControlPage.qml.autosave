@@ -125,7 +125,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.04
             anchors.top: armingstatelabel.bottom
             anchors.topMargin: page.height*0.01
-            text: "Latitude: " + manual_control_handler.latitude
+            text: "Latitude: " + manual_control_handler.latitude.toFixed(8)
         }
         Text {
             id: lon_label
@@ -133,7 +133,7 @@ Rectangle {
             anchors.leftMargin: page.width*0.04
             anchors.top: lat_label.bottom
             anchors.topMargin: page.height*0.01
-            text: "Longitude: " + manual_control_handler.longitude
+            text: "Longitude: " + manual_control_handler.longitude.toFixed(8)
         }
     }
     TextArea {
