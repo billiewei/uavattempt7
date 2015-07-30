@@ -4,7 +4,7 @@
 ManualControlHandler::ManualControlHandler(QQuickItem* parent):
     QQuickItem(parent), m_log(""),
     m_x(0), m_y(0), m_z(0), m_r(0),
-    m_voltage(0), m_latitude(), m_longitude(), m_height(0){
+    m_voltage(), m_latitude(), m_longitude(), m_height(0){
     serial = new MavSerialPort(this);
     initSerialPort();
     initSerialConnections();
@@ -79,43 +79,35 @@ void ManualControlHandler::setR(int r){
 }
 
 inline double ManualControlHandler::m_time() const{
-    return (2/3)*(25 - std::exp(m_voltage - 13.48));
+    return (2/3)*(25.0 - std::exp(m_voltage - 13.48));
 }
 
 inline double ManualControlHandler::m_battery() const{
     qDebug() << "Battery levels should have been updated";
-    return 13.48 - std::log((-1.5 * m_time()) + 25);
+    return 13.48 - std::log((-1.5 * m_time()) + 25.0);
 }
 
 void ManualControlHandler::setVoltage(int v){
     if (m_voltage != v) {
         m_voltage = v;
+        qDebug() << voltage();
         emit voltageChanged(v);
     }
 }
 
 void ManualControlHandler::setLatitude(double l){
-    if(abs(m_latitude - l) > 0.00000001){
         m_latitude = l;
-        qDebug() << "latitude changed to:" << l;
         emit latitudeChanged(l);
-    }
 }
 
 void ManualControlHandler::setLongitude(double l){
-    if(abs(m_longitude - l) > 0.00000001){
         m_longitude = l;
-        qDebug() << "longitude changed to: " << l;
         emit longitudeChanged(l);
-    }
 }
 
 void ManualControlHandler::setHeight(double h){
-    if(abs(m_height - h) > 0.001){
         m_height = h;
-        qDebug() << "height" << h;
         emit heightChanged(h);
-    }
 }
 
 void ManualControlHandler::initSerialPort(){
@@ -131,7 +123,7 @@ void ManualControlHandler::initSerialPort(){
        qDebug() << "serial port is open now";
     }else {
        qDebug() << "serial port open fails";
-       serial->stopTimer();
+       serial->timer->stop();
        serial->close();
     }
 }

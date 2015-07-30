@@ -89,7 +89,7 @@ Rectangle {
             MapCircle {
                 id: point
                 radius: if (mapslider1.value < 13) {200}
-                        else {30}
+                        else {5}
                 color: "#46a2da"
                 border.color: "#000000"
                 border.width: 2

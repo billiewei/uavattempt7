@@ -12,7 +12,7 @@ MavSerialPort::MavSerialPort(QObject* parent):
     timer = new QTimer(this);
     //connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
     connect(timer, SIGNAL(timeout()),this, SLOT(send_manual_control()));
-    // timer->start(200); will move this to connect button
+    timer->start(200); //will move this to connect button
 }
 
 void MavSerialPort::setX(int t){
@@ -32,11 +32,11 @@ void MavSerialPort::setR(int t){
 }
 
 void MavSerialPort::setLat(int32_t l){
-    lat = l / 10000000;
+    lat = l / 10000000.0;
 }
 
 void MavSerialPort::setLon(int32_t l){
-    lon = l / 10000000;
+    lon = l / 10000000.0;
 }
 
 void MavSerialPort::setAlt(int32_t a){
@@ -373,7 +373,7 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
         break;
 
     default:
-        qDebug() << "new message:" << (int)message.msgid;
+        // qDebug() << "new message:" << (int)message.msgid;
         break;
 
     } // end of switch

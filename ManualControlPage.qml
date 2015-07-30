@@ -37,13 +37,28 @@ Rectangle {
         }
     }
 
+//    Keys.onPressed: {
+//        if (event.key == Qt.Key_Up){
+//            x_slider.value += 10
+//        }
+//        else if (event.key == Qt.Key_Down){
+//            x_slider.value -= 10
+//        }
+//        else if (event.key == Qt.Key_Left){
+//            y_slider.value -= 10
+//        }
+//        else if (event.key == Qt.Key_Right){
+//            y_slider.value += 10
+//        }
+//    }
+
     Button{
         id: home_button
         iconSource: "images/home.png"
         anchors.top: parent.top
         anchors.topMargin: page.height*0.01
         anchors.left: parent.left
-        anchors.leftMargin: page.width*0.04
+        anchors.leftMargin: page.width*0.025
         onClicked: {
             opening_page.visible = true
             manual_control_page.visible = false
@@ -63,7 +78,8 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: manual_control_handler.m_battery //currentbatterypercentage.text + "%"
+        text: ((manual_control_handler.voltage - 14000) / 26).toFixed(0)
+        //text: manual_control_handler.voltage
         y: home_button.y
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.04
@@ -95,7 +111,7 @@ Rectangle {
     Rectangle {
         id: toprowrectangle
         color: "#F2F2F2"
-        height: armingstatelabel.height + lat_label.height + lon_label.height + page.height*0.05
+        height: armingstatelabel.height + lat_label.height + page.height*0.05
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: page.height*0.05
@@ -125,15 +141,15 @@ Rectangle {
             anchors.leftMargin: page.width*0.04
             anchors.top: armingstatelabel.bottom
             anchors.topMargin: page.height*0.01
-            text: "Latitude: " + manual_control_handler.latitude
+            text: "Latitude: " + manual_control_handler.latitude.toFixed(8)
         }
         Text {
             id: lon_label
             anchors.left: parent.left
-            anchors.leftMargin: page.width*0.04
-            anchors.top: lat_label.bottom
+            anchors.leftMargin: page.width*0.4
+            anchors.top: armingstatelabel.bottom
             anchors.topMargin: page.height*0.01
-            text: "Longitude: " + manual_control_handler.longitude
+            text: "Longitude: " + manual_control_handler.longitude.toFixed(8)
         }
     }
     TextArea {
@@ -155,13 +171,14 @@ Rectangle {
         id: controlsliders
         y: consolerectangle.y + consolerectangle.height + page.height*0.02
         width: page.width*0.95
-        height: page.height*0.3
+        height: page.height*0.325
         anchors.horizontalCenter: parent.horizontalCenter
         color: toprowrectangle.color
         radius: 5
 
         // Z: Throttle
         Label {
+            id:throttle_lable
             text: "Throttle"
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
@@ -180,8 +197,8 @@ Rectangle {
             updateValueWhileDragging: true
             value: 0
             minimumValue : 0
-            maximumValue: 2000
-            stepSize: 10
+            maximumValue: 1000
+            stepSize: 5
             style: SliderStyle {
                 groove: Rectangle {
                     implicitWidth: controlsliders.width*0.6
@@ -194,7 +211,7 @@ Rectangle {
 
         }
         Text {
-            text: z_slider.value
+            text: z_slider.value + "/1000"
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             anchors.right: parent.right
