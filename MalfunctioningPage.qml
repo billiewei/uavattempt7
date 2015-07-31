@@ -11,7 +11,8 @@ Dialog {
         id: malfunctionrect
         implicitWidth: 550
         implicitHeight: 900
-        visible: if (manual_control_handler.voltage < 50) {true} else {false}
+        visible: if (((manual_control_handler.voltage - 13500) / 31) <= 20.0) {true} else {false}
+
         Text {
             id: malfunctioningpagetitle
             anchors.horizontalCenter: parent.horizontalCenter
@@ -34,7 +35,10 @@ Dialog {
             font.pixelSize: 20
             font.letterSpacing: 2
             wrapMode: Text.WordWrap
-            text: "The propeller is malfunctioning or the drone does not have enough power to deliver/return. \n\n Issue is dire. Please land the drone and retrieve it immediately."
+            text: if (((manual_control_handler.voltage - 13500) / 31) <= 5.0) {
+                    "The drone does not have enough power to complete delivery. \n\n Please land the drone and retrieve it immediately."}
+                  else {
+                    "The drone is malfunctioning. \n\n Issue is dire. Please land the drone and retrieve it immediately."}
         }
         Plugin {
             id: osmplugin4

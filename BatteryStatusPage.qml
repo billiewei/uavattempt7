@@ -29,7 +29,9 @@ Rectangle {
     TextField {
         id: percentage
         anchors.bottomMargin: 50
-        text: ((manual_control_handler.voltage - 13500) / 31).toFixed(1)
+        text: if (((manual_control_handler.voltage - 13500) / 31) > 0.0) {
+            ((manual_control_handler.voltage - 13500) / 31).toFixed(1)}
+            else {0}
         //text: "87"
         anchors.horizontalCenter: parent.horizontalCenter
         validator: IntValidator {bottom: 0; top: 100;}

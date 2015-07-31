@@ -86,34 +86,42 @@ Rectangle {
             gesture.flickDeceleration: 3000
             gesture.enabled: true
 
+            // ORIGIN POINT
             MapCircle {
                 id: point
                 radius: if (mapslider1.value < 13) {200}
-                        else {5}
-                color: "#46a2da"
+                        else {30}
+                color: "#3938FF" // Origin Point will be in blue
                 border.color: "#000000"
                 border.width: 2
-                opacity: 0.7
+                opacity: 0.6
                 center {
                     latitude: currentlatitude.text
                     longitude: currentlongitude.text
                 }
             }
+            // DRONE POINT
             MapCircle {
-                radius: if (mapslider1.value < 13) {200}
-                        else {30}
-                color: "#E038FF"
+                radius:
+                    if (map2.zoomLevel > 13) {5}
+                    else if (map2.zoomLevel = 13) {20}
+                    else if (map2.zoomLevel > 12 & map2.zoomLevel < 13) {200}
+                    else if (map2.zoomLevel > 10 & map2.zoomLevel <= 12) {500}
+                    else if (map2.zoomLevel > 8 & map2.zoomLevel <= 10) {1000}
+                    else {10000}
+                color: "#FF0F47" // Shows drone point in red
                 opacity: 0.6
                 border.width: 2
                 border.color: "#000000"
                 center {
-                    latitude: manual_control_handler.latitude.toString()
+                    latitude: manual_control_handler.latitude
                     longitude: manual_control_handler.longitude
                 }
             }
             MapPolyline {
+                id: polyline2
                 line.width: 3
-                line.color: 'green'
+                line.color: "#000000"
                 path: [
                     { latitude: currentlatitude.text, longitude: currentlongitude.text },
                     { latitude: targetlatitude.text, longitude: targetlongitude.text }
@@ -133,14 +141,15 @@ Rectangle {
             }
             Component {
                 id: pointDelegate1
+                // DESTINATION POINT
                 MapCircle {
                     id: point2
                     radius: if (mapslider1.value < 13) {200}
                             else {30}
-                    color: "#65E01F"
+                    color: "#C638FF"
                     border.color: "#000000"
                     border.width: 2
-                    opacity: 0.70
+                    opacity: 0.6
                     center {
                         latitude: targetlatitude.text
                         longitude: targetlongitude.text
@@ -290,7 +299,9 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 50
         y: returned.y + returned.height + 20
-        text: "Current Battery:"
+        text: if (((manual_control_handler.voltage - 13500) / 31).toFixed(1) > 0) {
+                  "Current Battery: "+ ((manual_control_handler.voltage - 13500) / 31).toFixed(1) + "%"}
+              else {"Current Battery: 0%"}
         font.family: "Avenir"
         font.letterSpacing: 2
     }
@@ -321,7 +332,7 @@ Rectangle {
         id: return_to_manual
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height * 0.15
+        anchors.bottomMargin: page.height * 0.14
         visible: true
         text: "Return to manual control"
         width: cancelreturn.width
@@ -334,7 +345,7 @@ Rectangle {
         id: view_other_orders
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height * 0.10
+        anchors.bottomMargin: page.height * 0.09
         visible: true
         text: "View other orders"
         width: cancelreturn.width

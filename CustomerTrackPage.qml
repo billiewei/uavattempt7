@@ -59,19 +59,20 @@ Rectangle {
         gesture.flickDeceleration: 3000
         gesture.enabled: true
 
-        // HOME
+        // ORIGIN POINT
         MapCircle {
             id: homecoordinates
             center {
                 latitude: 22.336400
                 longitude: 114.265466
             }
-            radius: if (map.zoomLevel < 13) {200} else {10}
-            color: "#FF4747"
-            border.width: 1
-            border.color: "#242424"
+            radius: if (map.zoomLevel < 13) {200} else {30}
+            color: "#3938FF" // Origin Point will be in blue
+            border.width: 2
+            border.color: "#000000"
             opacity: 0.6
         }
+        // DRONE POINT
         MapCircle {
             id: dronepoint
             radius:
@@ -81,10 +82,10 @@ Rectangle {
                 else if (map.zoomLevel > 10 & map.zoomLevel <= 12) {500}
                 else if (map.zoomLevel > 8 & map.zoomLevel <= 10) {1000}
                 else {10000}
-            color: "#FFDF3D"
+            color: "#FF0F47" // Shows drone point in red
             opacity: 0.6
-            border.width: 1
-            border.color: "#242424"
+            border.width: 2
+            border.color: "#000000"
             center {
                 latitude: manual_control_handler.latitude
                 longitude: manual_control_handler.longitude
@@ -92,7 +93,7 @@ Rectangle {
         }
         MapPolyline {
             line.width: 3
-            line.color: 'green'
+            line.color: "#000000"
             opacity: 0.6
             path: [
                 { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
@@ -124,9 +125,12 @@ Rectangle {
         }
         Component {
             id: pointDelegate
+            // DESTINATION POINT
             MapCircle {
-                radius: 5000/map.zoomLevel
-                color: "#F666FF"
+                radius: if (mapslider1.value < 13) {200}
+                        else {30}
+                color: "#C638FF"
+                border.color: "#000000"
                 opacity: 0.6
                 center {
                     latitude: customerlat.text
@@ -146,16 +150,13 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: map.y
         height: map.height
-        orientation: Qt.Vertical
-        maximumValue: 20
+        value: 13
+        maximumValue: 19
         minimumValue: 2
         tickmarksEnabled: false
         updateValueWhileDragging: true
         visible: true
-        value: map.zoomLevel
-        Binding {
-            target: zoomSlider; property: "value"; value: 12
-        }
+        orientation: Qt.Vertical
         onValueChanged: {
             map.zoomLevel = value
             map.state=""
