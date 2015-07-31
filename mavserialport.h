@@ -66,12 +66,12 @@ signals:
     void heartbeatReceived();//message #0 HEARTBEAT
     void batteryChanged(int v); //message #1 SYS_STATUS
 
-    void timeChanged();
-    void localChanged();
+ //   void timeChanged();
+ //   void localChanged();
     void globalChanged();
 
-    void IMUChanged();
-    void attitudeChanged();
+ //  void IMUChanged();
+ //   void attitudeChanged();
 
     void flightLogReady();
 

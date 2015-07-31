@@ -78,6 +78,14 @@ void ManualControlHandler::setR(int r){
     }
 }
 
+void ManualControlHandler::startTimer(){
+    serial->timer->start(200);
+}
+
+void ManualControlHandler::stopTimer(){
+    serial->timer->stop();
+}
+
 inline double ManualControlHandler::m_time() const{
     return (2/3)*(25.0 - std::exp(m_voltage - 13.48));
 }

@@ -15,7 +15,7 @@ MavSerialPort::MavSerialPort(QObject* parent):
     timer = new QTimer(this);
     //connect(timer, SIGNAL(timeout()),this, SLOT(send_set_attitude_target()));
     connect(timer, SIGNAL(timeout()),this, SLOT(send_manual_control()));
-    timer->start(200); //will move this to connect button
+    //timer->start(200); // this has been moved to manual_control_handler
 }
 
 void MavSerialPort::setX(int t){
@@ -224,7 +224,7 @@ void MavSerialPort::set_mode_auto_loiter(){
 void MavSerialPort::set_mode_auto_delivery(){
     //send_command_long(MAV_CMD_DO_SET_MODE,0, MAV_MODE_FLAG_SAFETY_ARMED + MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, PX4_CUSTOM_MAIN_MODE_AUTO_DELIVERY,0,0,0,0,0);
     setButtons(BUTTON_AUTO_DELIVERY);
-    qDebug() << "BUTTON_AUTO_DELIVERY";
+    qDebug() << "BUTTON_DELIVERY";
 }
 
 //0
@@ -242,15 +242,15 @@ void MavSerialPort::sys_status_handler(){
 //30
 void MavSerialPort::attitude_handler(){
     mavlink_msg_attitude_decode(&message, &attitude);
-    emit timeChanged();
-    emit attitudeChanged();
+  //  emit timeChanged();
+  //  emit attitudeChanged();
 }
 
 //32
 void MavSerialPort::local_position_ned_handler(){
    // qDebug() << "MAVLINK_MSG_ID_LOCAL_POSITION_NED\n";
     mavlink_msg_local_position_ned_decode(&message, &local_position_ned);
-    emit localChanged();
+   // emit localChanged();
 
 }
 
@@ -268,7 +268,7 @@ void MavSerialPort::global_position_int_handler(){
 void MavSerialPort::highres_imu_handler(){
   //  qDebug() << "MAVLINK_MSG_HIGHRES_IMU";
     mavlink_msg_highres_imu_decode(&message, &highres_imu);
-    emit IMUChanged();
+    //emit IMUChanged();
 }
 
 //253

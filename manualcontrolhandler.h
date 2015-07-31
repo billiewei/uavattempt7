@@ -61,6 +61,9 @@ class ManualControlHandler : public QQuickItem {
         void setLongitude(double l);
         void setHeight(double h);
 
+        void startTimer();
+        void stopTimer();
+
     signals:
         void logChanged();
         void xChanged(int x);

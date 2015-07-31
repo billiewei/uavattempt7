@@ -132,6 +132,8 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: page.height*0.01
             checked: false
+            onCheckedChanged: if (computertoggle.checked == false) {manual_control_handler.stopTimer()}
+                              else {manual_control_handler.startTimer()}
         }
         Label {
             id: armingstatelabel
