@@ -33,5 +33,6 @@
         <file>logo.png</file>
         <file>ManualControlPage.qml</file>
         <file>images/home.png</file>
+        <file>images/person.png</file>
     </qresource>
 </RCC>

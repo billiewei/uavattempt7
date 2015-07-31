@@ -45,6 +45,7 @@ Rectangle {
             id: targetlongitude
             visible: false
         }
+        // Customer Address
         Address {
             id: fromAddress
             street: if (vendor_handler.delivery == 1) {vendor_handler.street1}
@@ -70,8 +71,8 @@ Rectangle {
             height: tracking_drone.height
             zoomLevel: mapslider1.value
             center {
-                latitude: 22.3362535
-                longitude: 114.2629409
+                latitude: vendor_handler.latitude
+                longitude: vendor_handler.longitude
             }
             gesture.flickDeceleration: 3000
             gesture.enabled: true
@@ -115,6 +116,7 @@ Rectangle {
                     { latitude: targetlatitude.text, longitude: targetlongitude.text }
                 ]
             }
+            // Gets coordinates from the customer address
             GeocodeModel {
                 id: geocodeModel1
                 plugin: osmplugin1
@@ -167,12 +169,6 @@ Rectangle {
         orientation: Qt.Vertical
     }
     Text {
-        id: distance
-        text: Math.floor(6371000*Math.acos(Math.sin(currentlatitude.text*0.0174532925) * Math.sin(targetlatitude.text*0.0174532925) + Math.cos(currentlatitude.text*0.0174532925) * Math.cos(targetlatitude.text*0.0174532925) * Math.cos (targetlongitude.text*0.0174532925 - currentlongitude.text*0.0174532925))) + " m"
-        visible: false
-        y: 400
-    }
-    Text {
         id: currentdronecoordinates
         y: tracking_drone.y + tracking_drone.height + 20
         anchors.left: parent.left
@@ -185,13 +181,13 @@ Rectangle {
         y: tracking_drone.y + tracking_drone.height + 20
         anchors.right: parent.right
         anchors.rightMargin: 50
-        text: manual_control_handler.latitude.toString() + '<br>' + manual_control_handler.longitude.toString()
+        text: manual_control_handler.latitude.toFixed(8) + '<br>' + manual_control_handler.longitude.toFixed(8)
         font.family: "Avenir"
         font.letterSpacing: 2
         z: currentdronecoordinates.z + 3
     }
     Text {
-        id: currentdistance
+        id: currentdistance_label
         y: currentdronecoordinates.y + currentdronecoordinates.height + 20
         anchors.left: parent.left
         anchors.leftMargin: 50
@@ -200,11 +196,11 @@ Rectangle {
         font.letterSpacing: 2
     }
     Text {
-        id: display_distance
+        id: currentdistance
         anchors.right: parent.right
         anchors.rightMargin: 50
         y: currentdronecoordinates.y + currentdronecoordinates.height + 20
-        text: distance.text
+        text: Math.floor(6371000*Math.acos(Math.sin(vendor_handler.latitude*0.0174532925) * Math.sin(targetlatitude.text*0.0174532925) + Math.cos(vendor_handler.latitude*0.0174532925) * Math.cos(targetlatitude.text*0.0174532925) * Math.cos (targetlongitude.text*0.0174532925 - vendor_handler.longitude*0.0174532925))) + " m"
         font.family: "Avenir"
         font.letterSpacing: 2
     }
@@ -213,7 +209,7 @@ Rectangle {
         y: currentdistance.y + currentdistance.height + 20
         anchors.left: parent.left
         anchors.leftMargin: 50
-        text: qsTr("Current Status:")
+        text: "Current Status:"
         font.family: "Avenir"
         font.letterSpacing: 2
     }
@@ -222,9 +218,10 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 50
         y: currentdistance.y + currentdistance.height + 20
-        text: if (delivered_validation.text != "Y" & delivered_validation.text != "N") {qsTr("Delivering")}
-              else if (delivered_validation.text == "Y" & returned_validation.text != "Y") {qsTr ("Returning")}
-              else if (returned_validation.text == "Y") {qsTr ("Returned")}
+        text:
+            if (delivered_validationsign.source == "checkgrey.png" & returned_validationsign.source == "checkgrey.png") {"Delivering"}
+            else if (delivered_validationsign.source == "checkgreen.png" & returned_validationsign.source == "checkgrey.png") {"Returning"}
+            else if (returned_validationsign.source == "checkgreen.png") {"Returned"}
         font.family: "Avenir"
         font.letterSpacing: 2
     }
@@ -233,17 +230,9 @@ Rectangle {
         y: deliverystatus.y + deliverystatus.height + 20
         anchors.left: parent.left
         anchors.leftMargin: 50
-        text: qsTr("Delivered")
+        text: "Delivered"
         font.family: "Avenir"
         font.letterSpacing: 2
-    }
-    TextField {
-        id: delivered_validation
-        y: delivered.y
-        x: delivered.x + delivered.width + 70
-        height: delivered.height
-        width: page.width * 0.4
-        placeholderText: "Test Y or N"
     }
     Image {
         id: delivered_validationsign
@@ -252,8 +241,10 @@ Rectangle {
         width: delivered.height + 10
         anchors.right: parent.right
         anchors.rightMargin: 50
-        source: if (delivered_validation.text == "Y") {"checkgreen.png"}
-                else if (delivered_validation.text == "N" || delivered_validation.text == ""){"checkgrey.png"}
+        source:
+            if (Math.abs(targetlatitude.text - manual_control_handler.latitude) < 0.0002 & Math.abs(targetlongitude.text - manual_control_handler.longitude) < 0.0002) {"checkgreen.png"}
+        else {"checkgrey.png"}
+
     }
     Text {
         id: returned
@@ -264,14 +255,6 @@ Rectangle {
         font.family: "Avenir"
         font.letterSpacing: 2
     }
-    TextField {
-        id: returned_validation
-        y: returned.y
-        x: returned.x + returned.width + 70
-        height: returned.height
-        width: page.width * 0.4
-        placeholderText: "Test Y or N"
-    }
     Image {
         id: returned_validationsign
         y: returned.y - 5
@@ -279,8 +262,10 @@ Rectangle {
         width: returned.height + 10
         anchors.right: parent.right
         anchors.rightMargin: 50
-        source: if (returned_validation.text == "Y") {"checkgreen.png"}
-                else if (returned_validation.text == "N" || returned_validation.text == ""){"checkgrey.png"}
+        source:
+            if (Math.abs(vendor_handler.latitude - manual_control_handler.latitude) < 0.0002 & Math.abs(vendor_handler.longitude - manual_control_handler.longitude) < 0.0002) {"checkgreen.png"}
+        else {"checkgrey.png"}
+
     }
     Text {
         id: currentbattery
@@ -340,8 +325,7 @@ Rectangle {
         onClicked: {
             vendor_track_page.visible = false
             pending_order_page.visible = true
-            if (display_deliverystatus.text == "Returned" | delivered_validation.text == "Y" | delivered_validation.text == "y"
-                    | returned_validation.text == "Y" | returned_validation.text == "y") {
+            if (delivered_validationsign.source == "checkgreen.png" | returned_validationsign.source == "checkgreen.png") {
                 if (vendor_handler.delivery == 1) {
                     vendor_handler.reset1()
                     vendor_handler.delivery = 0
@@ -366,10 +350,7 @@ Rectangle {
                     vendor_handler.reset3()
                     vendor_handler.delivery = 0
                 }
-
             }
-            delivered_validation.text = ""
-            returned_validation.text = ""
         }
     }
     Button {
@@ -381,7 +362,7 @@ Rectangle {
         text: "Cancel Order and Return"
         onClicked: {
             display_deliverystatus.text = "Returning"
-            if (delivered_validation.text != "Y") {delivered_validation.text = "N"}
+            delivered_validationsign.source == "checkgrey.png"
         }
     }
 }

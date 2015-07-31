@@ -4,7 +4,7 @@
 ManualControlHandler::ManualControlHandler(QQuickItem* parent):
     QQuickItem(parent), m_log(""),
     m_x(0), m_y(0), m_z(0), m_r(0),
-    m_voltage(), m_latitude(), m_longitude(), m_height(0){
+    m_voltage(), m_latitude(22.333356), m_longitude(114.264949), m_height(){
     serial = new MavSerialPort(this);
     initSerialPort();
     initSerialConnections();

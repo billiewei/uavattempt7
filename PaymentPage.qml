@@ -21,12 +21,14 @@ Rectangle {
     }
     Text {
         id: paymentWindowtitle
+        text: "ENTER PAYMENT INFORMATION"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.width*0.05
-        text: "ENTER PAYMENT INFORMATION"
+        anchors.topMargin: page.height*.05
+        width: page.width
+        wrapMode: Text.WordWrap
+        horizontalAlignment: Text.AlignHCenter
         font.family: "Avenir"
-        font.pixelSize: 30
         font.letterSpacing: 2
     }
     RowLayout {

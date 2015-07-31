@@ -29,7 +29,7 @@ VendorHandler::VendorHandler(QQuickItem *parent): QQuickItem(parent),
     order_zip[0] = 999077;
     order_zip[1] = 0;
     order_zip[2] = 0;
-    order_price[0] = 10;
+    order_price[0] = 18;
     order_price[1] = 0;
     order_price[2] = 0;
 }
@@ -127,7 +127,6 @@ QString VendorHandler::order3(){
 }
 
 double VendorHandler::latitude() {
-
     return vendor_latitude;
 }
 

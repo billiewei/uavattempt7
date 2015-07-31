@@ -20,12 +20,14 @@ Rectangle {
     }
     Text {
         id: orderconfirmationWindowtitle
+        text: "PLEASE CONFIRM\nORDER INFORMATION"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.width*0.1
-        text: "   PLEASE CONFIRM\nORDER INFORMATION"
+        anchors.topMargin: page.height*.05
+        width: page.width
+        wrapMode: Text.WordWrap
+        horizontalAlignment: Text.AlignHCenter
         font.family: "Avenir"
-        font.pixelSize: page.height*0.03
         font.letterSpacing: 2
     }
     Text {
@@ -151,7 +153,7 @@ Rectangle {
         anchors.leftMargin: page.width*0.7
         anchors.bottom: parent.bottom
         anchors.bottomMargin: page.height*0.22
-        text: "$" + menu_page_handler.total
+        text: "$" + menu_page_handler.total.toFixed(2)
         wrapMode: Text.WordWrap
         font.family: "Avenir"
         font.pixelSize: page.height * 0.024
@@ -175,7 +177,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: page.height*0.19
         width: 200
-        text: "$" + (menu_page_handler.total * 0.18).toFixed(2)
+        text: "$" + (menu_page_handler.total*0.18).toFixed(2)
         wrapMode: Text.WordWrap
         font.family: "Avenir"
         font.pixelSize: page.height * 0.024
@@ -190,7 +192,7 @@ Rectangle {
         text: "SHIPPING:"
         wrapMode: Text.WordWrap
         font.family: "Avenir"
-        font.pixelSize: page.height * 0.024
+        font.pixelSize: page.height*0.024
         font.letterSpacing: 2
     }
     Text {
@@ -201,29 +203,29 @@ Rectangle {
         anchors.bottomMargin: page.height*0.16
         text: if (menu_page_handler.weight > 0) {"$" + "4.00"} else {"$" + "0.00"}
         font.family: "Avenir"
-        font.pixelSize: page.height * 0.024
+        font.pixelSize: page.height*0.024
         font.letterSpacing: 2
     }
     Text {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.1
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.12
+        anchors.bottomMargin: page.height*0.13
         width: 200
         text: "GRAND TOTAL:"
         font.family: "Avenir"
-        font.pixelSize: page.height * 0.024
+        font.pixelSize: page.height*0.024
         font.letterSpacing: 2
     }
     Text {
         anchors.left: parent.left
         anchors.leftMargin: page.width*0.7
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: page.height*0.12
+        anchors.bottomMargin: page.height*0.13
         width: 200
         text: if (menu_page_handler.weight > 0) {"$" + (menu_page_handler.total*1.08 + 4.0).toFixed(2)} else {"$0.00"}
         font.family: "Avenir"
-        font.pixelSize: page.height * 0.024
+        font.pixelSize: page.height*0.024
         font.letterSpacing: 2
     }
     Button {

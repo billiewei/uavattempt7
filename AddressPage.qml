@@ -20,13 +20,13 @@ Rectangle {
     }
     Text {
         id: checkoutaddressWindowtitle
+        text: "PLEASE ENTER YOUR SHIPPING INFORMATION"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: page.height*.05
         width: page.width
         wrapMode: Text.WordWrap
         horizontalAlignment: Text.AlignHCenter
-        text: "PLEASE ENTER YOUR SHIPPING INFORMATION"
         font.family: "Avenir"
         font.letterSpacing: 2
     }

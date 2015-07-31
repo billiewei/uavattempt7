@@ -8,15 +8,6 @@ import QtQuick.Dialogs 1.2
 
 Dialog {
     id: droneapproachingmessagedialog
-    //visible: if () {true} else {false}
-
-    // Calculates the distance between the drone and delivery location
-    // Returns true if <= 5m
-//    function calculatedistanceleft() {
-//        if (std::abs(manual_control_handler.latitute - vendor_handler.latitude) < 0.0000001) {true}
-//        else {false}
-//    }
-
     contentItem: Rectangle {
         id: droneapproachrect
         implicitWidth: 550
@@ -45,7 +36,7 @@ Dialog {
         }
         MapPolyline {
             line.width: 3
-            line.color: 'green'
+            line.color: 'black'
             path: [
                 { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
                 { latitude: customerlat3.text, longitude: customerlong3.text }
@@ -73,48 +64,50 @@ Dialog {
 
             // HOME
             MapCircle {
-                id: homecoordinates3
                 center {
-                    latitude: 22.336400
-                    longitude: 114.265466
+                    latitude: vendor_handler.latitude
+                    longitude: vendor_handler.longitude
                 }
-
-                radius: if (map3.zoomLevel < 13) {200}
-                        else {20}
-
-                color: "#FF4747"
-                border.width: 1
-                border.color: "#242424"
+                radius: if (map3.zoomLevel < 13) {200} else {30}
+                color: "#3938FF" // Origin Point will be in blue
+                border.width: 2
+                border.color: "#000"
                 opacity: 0.6
             }
-
+            // DRONE POINT
+            MapCircle {
+                radius:
+                    if (zoomSlider.value > 13) {5}
+                    else if (zoomSlider.value = 13) {20}
+                    else if (zoomSlider.value > 12 & zoomSlider.value < 13) {200}
+                    else {1000}
+                color: "#FF0F47" // Shows drone point in red
+                opacity: 0.6
+                border.width: 2
+                border.color: "#000000"
+                center {
+                    latitude: manual_control_handler.latitude
+                    longitude: manual_control_handler.longitude
+                }
+            }
             Slider {
                 id: zoomSlider3;
                 opacity: 1
-                maximumValue: 20;
-                minimumValue: 10;
-                visible: parent.visible
-                z: map3.z + 3
+                maximumValue: 19;
+                minimumValue: 2;
                 anchors {
                     bottom: parent.bottom;
                     bottomMargin: 15; rightMargin: 30; leftMargin: 30
                     left: parent.left
                 }
                 width: parent.width - anchors.rightMargin - anchors.leftMargin
-
-                value: map3.zoomLevel
-
-                Binding {
-                    target: zoomSlider3; property: "value"; value: 12
-                }
-
+                value: 13
                 onValueChanged: {
                     map3.zoomLevel = value
                     map3.state=""
                     map3.resetState()
                 }
             }
-
             GeocodeModel {
                 id: geocodeModel3
                 plugin: osmplugin3
@@ -128,12 +121,12 @@ Dialog {
                     customerlong3.text = get(0).coordinate.longitude
                 }
             }
-
             Component {
                 id: pointDelegate3
+                // CUSTOMER ADDRESS
                 MapCircle {
-                    radius: 5000/map3.zoomLevel
-                    color: "#F666FF"
+                    radius: if (map.zoomLevel < 13) {200} else {30}
+                    color: "#C638FF"
                     opacity: 0.5
                     center {
                         latitude: customerlat3.text
@@ -141,7 +134,6 @@ Dialog {
                     }
                 }
             }
-
             MapItemView {
                 model: geocodeModel3
                 delegate: pointDelegate3

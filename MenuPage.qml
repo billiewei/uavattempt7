@@ -34,8 +34,6 @@ Rectangle {
         y: availableitemswindowtitle.y + availableitemswindowtitle.height + page.height*0.03
         anchors.left: parent.left
         anchors.leftMargin: 0
- //       anchors.right: parent.right
- //       anchors.rightMargin: 0
         height: parent.height*0.1
         border.color: "#ADADAD"
         border.width: 0.5
@@ -103,8 +101,6 @@ Rectangle {
         y: item1.y + item1.height
         anchors.left: parent.left
         anchors.leftMargin: 0
- //       anchors.right: parent.right
- //       anchors.rightMargin: 0
         height: page.height*0.1
         TextField {
             id: quantity2
@@ -306,8 +302,6 @@ Rectangle {
         y: item4.y + item4.height
         anchors.left: parent.left
         anchors.leftMargin: 0
- //       anchors.right: parent.right
- //       anchors.rightMargin: 0
         height: page.height*0.1
         border.color: "#ADADAD"
         border.width: 0.5
@@ -340,6 +334,12 @@ Rectangle {
             text: "/ 400 g"
             font.family: "Avenir"
             font.pixelSize: page.height*.029
+            color:
+                if (totalweight.text > 400) {"#FF0A3A"}
+                else {"black"}
+            font.bold:
+                if (totalweight.text > 400) {true}
+                else {false}
         }
         Text {
             id: dollarsign5
@@ -354,10 +354,13 @@ Rectangle {
         Text {
             id: totalweight
             color:
-                if (totalweight.text > 400) {"#D60000"}
+                if (totalweight.text > 400) {"#FF0A3A"}
                 else {"black"}
             font.family: "Avenir"
             font.pixelSize: page.height*.029
+            font.bold:
+                if (totalweight.text > 400) {true}
+                else {false}
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.4
             anchors.top: parent.top
@@ -371,7 +374,7 @@ Rectangle {
             x: dollarsign5.x + dollarsign5.width + page.width*0.02
             anchors.bottom: parent.bottom
             anchors.bottomMargin: parent.height*0.14
-            text: (quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)
+            text: ((quantity1.text*itemprice1.text) + (quantity2.text*itemprice2.text) + (quantity3.text*itemprice3.text) + (quantity4.text*itemprice4.text)).toFixed(2)
         }
     }
     Button {

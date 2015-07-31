@@ -124,6 +124,7 @@ Rectangle {
             id: pointDelegate
             // DESTINATION POINT
             MapCircle {
+                id: destination_point
                 radius: if (map.zoomLevel < 13) {200} else {30}
                 color: "#C638FF"
                 border.color: "#000000"
@@ -251,7 +252,9 @@ Rectangle {
         width: delivered2.height + 10
         anchors.right: parent.right
         anchors.rightMargin: 70
-        source: "checkgrey.png"
+        source:
+            if (Math.abs(customerlat.text - manual_control_handler.latitude) < 0.0002 & Math.abs(customerlong.text - manual_control_handler.longitude) < 0.0002) {"checkgreen.png"}
+            else {"checkgrey.png"}
     }
     Button {
         anchors.horizontalCenter: parent.horizontalCenter
