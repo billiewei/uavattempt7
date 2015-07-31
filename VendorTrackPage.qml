@@ -107,6 +107,7 @@ Rectangle {
                     longitude: manual_control_handler.longitude
                 }
             }
+            // IDEAL FLIGHT PATH
             MapPolyline {
                 id: polyline2
                 line.width: 3
@@ -116,6 +117,18 @@ Rectangle {
                     { latitude: targetlatitude.text, longitude: targetlongitude.text }
                 ]
             }
+            // ACUTAL FLIGHT PATH
+            MapPolyline {
+               id: actual_flight_path
+               line.width: 3
+               line.color: 'red'
+               path: [
+                   { latitude: -27, longitude: 153.0 },
+                   { latitude: -27, longitude: 154.1 },
+                   { latitude: -28, longitude: 153.5 },
+                   { latitude: -29, longitude: 153.5 }
+               ]
+               }
             // Gets coordinates from the customer address
             GeocodeModel {
                 id: geocodeModel1
@@ -160,13 +173,14 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: tracking_drone.y
         height: map2.height
-        value: 13
+        value: 15
         maximumValue: 19
         minimumValue: 2
         tickmarksEnabled: false
         updateValueWhileDragging: true
         visible: true
         orientation: Qt.Vertical
+
     }
     Text {
         id: currentdronecoordinates

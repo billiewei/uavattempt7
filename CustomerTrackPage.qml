@@ -147,7 +147,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: map.y
         height: map.height
-        value: 13
+        value: 15
         maximumValue: 19
         minimumValue: 2
         tickmarksEnabled: false

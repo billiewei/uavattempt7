@@ -55,8 +55,8 @@ Dialog {
             signal resetState()
 
             center {
-                latitude: 22.336400
-                longitude: 114.265466
+                latitude: vendor_handler.latitude
+                longitude: vendor_handler.longitude
             }
 
             gesture.flickDeceleration: 3000
@@ -77,9 +77,9 @@ Dialog {
             // DRONE POINT
             MapCircle {
                 radius:
-                    if (zoomSlider.value > 13) {5}
-                    else if (zoomSlider.value = 13) {20}
-                    else if (zoomSlider.value > 12 & zoomSlider.value < 13) {200}
+                    if (zoomSlider3.value > 13) {5}
+                    else if (zoomSlider3.value = 13) {20}
+                    else if (zoomSlider3.value > 12 & zoomSlider3.value < 13) {200}
                     else {1000}
                 color: "#FF0F47" // Shows drone point in red
                 opacity: 0.6
@@ -93,15 +93,15 @@ Dialog {
             Slider {
                 id: zoomSlider3;
                 opacity: 1
+                value: 15
                 maximumValue: 19;
-                minimumValue: 2;
+                minimumValue: map3.minimumZoomLevel;
                 anchors {
                     bottom: parent.bottom;
                     bottomMargin: 15; rightMargin: 30; leftMargin: 30
                     left: parent.left
                 }
                 width: parent.width - anchors.rightMargin - anchors.leftMargin
-                value: 13
                 onValueChanged: {
                     map3.zoomLevel = value
                     map3.state=""
