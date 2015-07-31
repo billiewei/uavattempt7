@@ -23,6 +23,9 @@ Rectangle {
         if (return_on_button.checked) {
             manual_control_handler.setFlightMode(0)
         }
+        else if (delivery_button.checked) {
+            manual_control_handler.setFlightMode(6)
+        }
         else if (other_modes_button.checked) {
             if (manual_button.checked) {manual_control_handler.setFlightMode(1)}
             else if (assist_button.checked) {
@@ -32,25 +35,9 @@ Rectangle {
             else if (auto_button.checked) {
                 if (mission_button.checked) {manual_control_handler.setFlightMode(4)}
                 else if (loiter_button.checked){manual_control_handler.setFlightMode(5)}
-                else {manual_control_handler.setFlightMode(6)}
             }
         }
     }
-
-//    Keys.onPressed: {
-//        if (event.key == Qt.Key_Up){
-//            x_slider.value += 10
-//        }
-//        else if (event.key == Qt.Key_Down){
-//            x_slider.value -= 10
-//        }
-//        else if (event.key == Qt.Key_Left){
-//            y_slider.value -= 10
-//        }
-//        else if (event.key == Qt.Key_Right){
-//            y_slider.value += 10
-//        }
-//    }
 
     Button{
         id: home_button
@@ -78,9 +65,19 @@ Rectangle {
     }
     Label {
         id: batterytextlabel
-        text: ((manual_control_handler.voltage - 14000) / 26).toFixed(0)
-        //text: manual_control_handler.voltage
+        text: if (((manual_control_handler.voltage - 13500) / 31).toFixed(1) > 0) {
+                  ((manual_control_handler.voltage - 13500) / 31).toFixed(1) + "%"}
+              else {"0%"}
         y: home_button.y
+        anchors.right: parent.right
+        anchors.rightMargin: page.width*0.04
+        font.letterSpacing: 2
+    }
+    Text {
+        id: raw_voltage
+        text: manual_control_handler.voltage + "mV"
+        //text: manual_control_handler.voltage
+        y: home_button.y + batterytextlabel.height
         anchors.right: parent.right
         anchors.rightMargin: page.width*0.04
         font.letterSpacing: 2
@@ -88,7 +85,7 @@ Rectangle {
     Rectangle {
         id: remainingbatteryoutline
         anchors.right: parent.right
-        anchors.rightMargin: page.width*0.18
+        anchors.rightMargin: page.width*0.2
         y: home_button.y
         height: home_button.height - 4
         width: remainingbatteryoutline.height*3
@@ -97,32 +94,51 @@ Rectangle {
         color: "#00000000"
         radius: 3
     }
-    /*Rectangle {
+    Rectangle {
         id: remainingbatteryfill
         x: remainingbatteryoutline.x + 2
         y: remainingbatteryoutline.y + 2
         radius: 1
         height: remainingbatteryoutline.height - 4
-        width: (remainingbatteryoutline.width - 4)*(batterytextlabel.text/100.0)
-        color: if (batterytextlabel.text >= 85.00) {"#65E01F"}
-               else if (batterytextlabel.text >= 60.00) {"#FF790A"}
-               else if (batterytextlabel.text < 60.00) {"#D60000"}
-    }*/
+        width: if (((manual_control_handler.voltage - 13500) / 31) > 0.0) {
+            (remainingbatteryoutline.width - 4.0)*(((manual_control_handler.voltage - 13500) / 3100))}
+               else {0}
+        color: if (((manual_control_handler.voltage - 13500) / 31) >= 85.00) {"#65E01F"}
+               else if (((manual_control_handler.voltage - 13500) / 31) >= 60.00) {"#FF790A"}
+               else if (((manual_control_handler.voltage - 13500) / 31) < 60.00) {"#D60000"}
+    }
     Rectangle {
         id: toprowrectangle
         color: "#F2F2F2"
-        height: armingstatelabel.height + lat_label.height + page.height*0.05
+        height: computercontrollabel.height + armingstatelabel.height + lat_label.height + page.height*0.04
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: page.height*0.05
+        anchors.topMargin: page.height*0.06
         width: page.width*0.95
         radius: 5
+        Label {
+            id: computercontrollabel
+            anchors.left: parent.left
+            anchors.leftMargin: page.width*0.04
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.01
+            text: if (computertoggle.checked == false) {"Computer Control:  OFF"}
+                  else {"Computer Control:  ON"}
+        }
+        Switch {
+            id: computertoggle
+            anchors.right: parent.right
+            anchors.rightMargin: page.width*0.04
+            anchors.top: parent.top
+            anchors.topMargin: page.height*0.01
+            checked: false
+        }
         Label {
             id: armingstatelabel
             anchors.left: parent.left
             anchors.leftMargin: page.width*0.04
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.015
+            anchors.top: computercontrollabel.bottom
+            anchors.topMargin: page.height*0.01
             text: if (armingstatetoggle.checked == false) {"Arming State:  OFF"}
                   else {"Arming State:  ON"}
         }
@@ -130,8 +146,8 @@ Rectangle {
             id: armingstatetoggle
             anchors.right: parent.right
             anchors.rightMargin: page.width*0.04
-            anchors.top: parent.top
-            anchors.topMargin: page.height*0.015
+            anchors.top: computercontrollabel.bottom
+            anchors.topMargin: page.height*0.01
             checked: false
             onCheckedChanged: manual_control_handler.setArmed(checked)
         }
@@ -171,7 +187,7 @@ Rectangle {
         id: controlsliders
         y: consolerectangle.y + consolerectangle.height + page.height*0.02
         width: page.width*0.95
-        height: page.height*0.325
+        height: page.height*0.32
         anchors.horizontalCenter: parent.horizontalCenter
         color: toprowrectangle.color
         radius: 5
@@ -211,7 +227,7 @@ Rectangle {
 
         }
         Text {
-            text: z_slider.value + "/1000"
+            text: z_slider.value
             anchors.top: parent.top
             anchors.topMargin: page.height*0.03
             anchors.right: parent.right
@@ -365,19 +381,27 @@ Rectangle {
                     spacing: 10
                     ExclusiveGroup { id: returnGroup }
                     RadioButton {
-                        id: return_on_button;
-                        text: "Return On";
-                        checked: false;
-                        exclusiveGroup: returnGroup;
+                        id: return_on_button
+                        text: "Return On"
+                        checked: false
+                        exclusiveGroup: returnGroup
+                        onCheckedChanged: changeFlightMode()
+                    }
+                    RadioButton {
+                        id: delivery_button
+                        text: "Delivery"
+                        checked: false
+                        exclusiveGroup: returnGroup
                         onCheckedChanged: changeFlightMode()
                     }
                     RadioButton {
                         id: other_modes_button
-                        text: "Other Modes";
+                        text: "Other Modes"
                         checked: true
-                        exclusiveGroup: returnGroup;
+                        exclusiveGroup: returnGroup
                         onCheckedChanged: changeFlightMode()
                     }
+
                 }
             }
             GroupBox {
@@ -471,13 +495,6 @@ Rectangle {
                         checked: true;
                         exclusiveGroup: autoGroup
                         onCheckedChanged: changeFlightMode()
-                    }
-                    RadioButton {
-                        id: delivery_button
-                        text: "Delivery"
-                        checked: false
-                        exclusiveGroup: autoGroup
-                        // Insert Brian's code
                     }
                 }
             }

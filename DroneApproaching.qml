@@ -8,6 +8,15 @@ import QtQuick.Dialogs 1.2
 
 Dialog {
     id: droneapproachingmessagedialog
+    //visible: if () {true} else {false}
+
+    // Calculates the distance between the drone and delivery location
+    // Returns true if <= 5m
+//    function calculatedistanceleft() {
+//        if (std::abs(manual_control_handler.latitute - vendor_handler.latitude) < 0.0000001) {true}
+//        else {false}
+//    }
+
     contentItem: Rectangle {
         id: droneapproachrect
         implicitWidth: 550

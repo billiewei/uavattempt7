@@ -308,10 +308,12 @@ Rectangle {
         id: batteryfill
         x: battery1.x + 5
         y: battery1.y + 5
-        color: if (battery_page_handler.percentage < 60) {"#D60000"}
-               else if (battery_page_handler.percentage >=60 & battery_page_handler.percentage < 85) {"#FF790A"}
-               else if (battery_page_handler.percentage >= 85) {"#65E01F"}
-        width: (battery1.width - 10) * battery_page_handler.percentage / 100
+        width: if (((manual_control_handler.voltage - 13500) / 31) > 0.0) {
+                    (battery1.width - 10.0)*(((manual_control_handler.voltage - 13500) / 3100))}
+               else {0}
+        color: if (((manual_control_handler.voltage - 13500) / 31) >= 85.00) {"#65E01F"}
+               else if (((manual_control_handler.voltage - 13500) / 31) >= 60.00) {"#FF790A"}
+               else if (((manual_control_handler.voltage - 13500) / 31) < 60.00) {"#D60000"}
         height: battery1.height - 10
         visible: true
     }

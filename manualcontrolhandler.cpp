@@ -191,8 +191,6 @@ void ManualControlHandler::setFlightMode(int m){
         qDebug() << "*********MODE SET TO AUTO LOITER*********";
         break;
     case 6:
-        //no longer need offboard mode
-        //will change this to delivery mode later
         serial->set_mode_auto_delivery();
         qDebug() << "*********MODE SET TO DELIVERY*********";
         break;

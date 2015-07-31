@@ -11,7 +11,7 @@ Dialog {
         id: malfunctionrect
         implicitWidth: 550
         implicitHeight: 900
-        visible: true
+        visible: if (manual_control_handler.voltage < 50) {true} else {false}
         Text {
             id: malfunctioningpagetitle
             anchors.horizontalCenter: parent.horizontalCenter
