@@ -192,4 +192,5 @@ HEADERS += \
     mavlink/v1.0/protocol.h \
     mavserialport.h \
     console.h \
-    px4_custom_mode.h
+    px4_custom_mode.h \
+    dearbuttons.h

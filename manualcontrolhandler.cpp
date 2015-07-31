@@ -98,7 +98,6 @@ inline double ManualControlHandler::m_battery() const{
 void ManualControlHandler::setVoltage(int v){
     if (m_voltage != v) {
         m_voltage = v;
-        qDebug() << voltage();
         emit voltageChanged(v);
     }
 }

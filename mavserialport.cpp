@@ -174,14 +174,17 @@ void MavSerialPort::send_test_urob(){
 
 /** Set Mode */
 void MavSerialPort::set_mode_disarm(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_PREFLIGHT,0,0,0,0,0,0);
+    setButtons(BUTTON_ALLZERO);
+    //send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_PREFLIGHT,0,0,0,0,0,0);
+    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_MANUAL_DISARMED,0,0,0,0,0,0);
     //preflight mode is all zeros
-    qDebug() << "MODE_PREFLIGHT";
+    qDebug() << "MODE_MODE_MANUAL_DISARMED";
 }
 
 void MavSerialPort::set_mode_arm(){
-    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_FLAG_SAFETY_ARMED,0,0,0,0,0,0);
-    qDebug() << "MODE_FLAG_SAFETY_ARMED";
+    setButtons(BUTTON_ALLZERO);
+    send_command_long(MAV_CMD_DO_SET_MODE,0,MAV_MODE_MANUAL_ARMED,0,0,0,0,0,0);
+    qDebug() << "MODE_MODE_MANUAL_ARMED";
 }
 
 void MavSerialPort::set_mode_return(){
@@ -280,7 +283,6 @@ void MavSerialPort::statustext_handler(){
 void MavSerialPort::mavRead(QByteArray* ba){
     unsigned char *buf;
     buf = (unsigned char*)ba->data();
-
     //kernel part of the code
     for(int i = 0 ; i < ba->size(); i++){
         //does it matter if i change it to COMM_0 ?
@@ -370,7 +372,7 @@ void MavSerialPort::mavDecode(mavlink_message_t &message){
         break;
 
     default:
-        qDebug() << "new message:" << (int)message.msgid;
+        //qDebug() << "new message:" << (int)message.msgid;
         break;
 
     } // end of switch
