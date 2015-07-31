@@ -143,8 +143,8 @@ Rectangle {
             text: "Address incomplete."
         }
         visible:
-            if (namedenialrectangle.visible == true || emailrectangle.visible == true) {false}
-            else if (currentcustomerstreet.text == "" || currentcustomercity.text == "" || currentcustomerstate.text == "" || currentcustomerzipcode.text == "" || currentcustomercountry.text == "") {true}
+            if (namedenialrectangle.visible == true | emailrectangle.visible == true) {false}
+            else if (currentcustomerstreet.text == "" | currentcustomercity.text == "" | currentcustomerstate.text == "" || currentcustomerzipcode.text == "" | currentcustomercountry.text == "") {true}
             else {false}
     }
     Rectangle {

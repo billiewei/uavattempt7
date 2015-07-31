@@ -45,16 +45,6 @@ Rectangle {
             id: targetlongitude
             visible: false
         }
-        Text {
-            id: currentlatitude
-            text: vendor_handler.latitude//"22.3362536"
-            visible: false
-        }
-        Text {
-            id: currentlongitude
-            text: vendor_handler.longitude// "114.2629409"
-            visible: false
-        }
         Address {
             id: fromAddress
             street: if (vendor_handler.delivery == 1) {vendor_handler.street1}
@@ -96,19 +86,17 @@ Rectangle {
                 border.width: 2
                 opacity: 0.6
                 center {
-                    latitude: currentlatitude.text
-                    longitude: currentlongitude.text
+                    latitude: vendor_handler.latitude
+                    longitude: vendor_handler.longitude
                 }
             }
             // DRONE POINT
             MapCircle {
                 radius:
-                    if (map2.zoomLevel > 13) {5}
-                    else if (map2.zoomLevel = 13) {20}
-                    else if (map2.zoomLevel > 12 & map2.zoomLevel < 13) {200}
-                    else if (map2.zoomLevel > 10 & map2.zoomLevel <= 12) {500}
-                    else if (map2.zoomLevel > 8 & map2.zoomLevel <= 10) {1000}
-                    else {10000}
+                    if (mapslider1.value > 13) {5}
+                    else if (mapslider1.value = 13) {20}
+                    else if (mapslider1.value > 12 & mapslider1.value < 13) {200}
+                    else {1000}
                 color: "#FF0F47" // Shows drone point in red
                 opacity: 0.6
                 border.width: 2
@@ -123,7 +111,7 @@ Rectangle {
                 line.width: 3
                 line.color: "#000000"
                 path: [
-                    { latitude: currentlatitude.text, longitude: currentlongitude.text },
+                    { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
                     { latitude: targetlatitude.text, longitude: targetlongitude.text }
                 ]
             }

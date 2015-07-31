@@ -58,6 +58,7 @@ Rectangle {
         onClicked: {
             opening_page.visible = false
             manual_control_page.visible = true
+            vendor_track_page.visible = false
         }
     }
 }

@@ -60,7 +60,8 @@ Rectangle {
         anchors.leftMargin: home_button.x + home_button.width + page.width*0.02
         onClicked: {
             manual_control_page.visible = false
-            drone_location_page.visible = true
+            if (vendor_handler.delivery != 0) {vendor_track_page.visible = true}
+                else {drone_location_page.visible = true}
         }
     }
     Label {

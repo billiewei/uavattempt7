@@ -6,6 +6,7 @@
 
 class VendorHandler : public QQuickItem {
     Q_OBJECT
+    Q_PROPERTY(int enroute READ enroute WRITE setEnroute NOTIFY enrouteChanged)
     Q_PROPERTY(int delivery READ delivery WRITE setDelivery NOTIFY deliveryChanged)
     Q_PROPERTY(bool valid1 READ valid1 WRITE setValid1 NOTIFY valid1Changed)
     Q_PROPERTY(bool valid2 READ valid2 WRITE setValid2 NOTIFY valid2Changed)
@@ -43,6 +44,7 @@ class VendorHandler : public QQuickItem {
 
 
 signals:
+    void enrouteChanged();
     void deliveryChanged();
     void valid1Changed();
     void valid2Changed();
@@ -104,7 +106,9 @@ private:
     //2 - order2
     //3 - order3
     int vendor_delivery;
+    int en_route;
 
+    int enroute();
     int delivery();
     bool valid1();
     bool valid2();
@@ -139,6 +143,7 @@ private:
     double price2();
     double price3();
 
+    void setEnroute(int v);
     void setDelivery(int d);
     void setValid1(bool v);
     void setValid2(bool v);

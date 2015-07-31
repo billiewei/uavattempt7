@@ -103,6 +103,7 @@ Rectangle {
         onClicked: {
             battery_status_page.visible = false
             manual_control_page.visible = true
+            vendor_handler.setEnroute(1)
         }
     }
     Rectangle {

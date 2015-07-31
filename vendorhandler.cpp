@@ -94,6 +94,10 @@ void VendorHandler::reset3() {
     setPrice3(0);
 }
 
+int VendorHandler::enroute(){
+    return en_route;
+}
+
 int VendorHandler::delivery() {
     return vendor_delivery;
 }
@@ -110,7 +114,6 @@ bool VendorHandler::valid3() {
     return order_valid[2];
 }
 
-
 QString VendorHandler::order1(){
     return order[0];
 }
@@ -122,7 +125,6 @@ QString VendorHandler::order2(){
 QString VendorHandler::order3(){
     return order[2];
 }
-
 
 double VendorHandler::latitude() {
 
@@ -227,6 +229,14 @@ double VendorHandler::price2(){
 
 double VendorHandler::price3(){
     return order_price[2];
+}
+
+void VendorHandler::setEnroute(int v){
+    if (v != 1) {
+        en_route = 1;
+        qDebug() << "Order now en route to destination.";
+        emit enrouteChanged();
+    }
 }
 
 void VendorHandler::setDelivery(int d){

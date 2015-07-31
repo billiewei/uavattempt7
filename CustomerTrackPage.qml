@@ -63,8 +63,8 @@ Rectangle {
         MapCircle {
             id: homecoordinates
             center {
-                latitude: 22.336400
-                longitude: 114.265466
+                latitude: vendor_handler.latitude
+                longitude: vendor_handler.longitude
             }
             radius: if (map.zoomLevel < 13) {200} else {30}
             color: "#3938FF" // Origin Point will be in blue
@@ -76,12 +76,10 @@ Rectangle {
         MapCircle {
             id: dronepoint
             radius:
-                if (map.zoomLevel > 13) {5}
-                else if (map.zoomLevel = 13) {20}
-                else if (map.zoomLevel > 12 & map.zoomLevel < 13) {200}
-                else if (map.zoomLevel > 10 & map.zoomLevel <= 12) {500}
-                else if (map.zoomLevel > 8 & map.zoomLevel <= 10) {1000}
-                else {10000}
+                if (zoomSlider.value > 13) {5}
+                else if (zoomSlider.value = 13) {20}
+                else if (zoomSlider.value > 12 & zoomSlider.value < 13) {200}
+                else {1000}
             color: "#FF0F47" // Shows drone point in red
             opacity: 0.6
             border.width: 2
@@ -94,8 +92,7 @@ Rectangle {
         MapPolyline {
             line.width: 3
             line.color: "#000000"
-            opacity: 0.6
-            path: [
+                path: [
                 { latitude: vendor_handler.latitude, longitude: vendor_handler.longitude },
                 { latitude: customerlat.text, longitude: customerlong.text }
             ]
@@ -127,8 +124,7 @@ Rectangle {
             id: pointDelegate
             // DESTINATION POINT
             MapCircle {
-                radius: if (mapslider1.value < 13) {200}
-                        else {30}
+                radius: if (map.zoomLevel < 13) {200} else {30}
                 color: "#C638FF"
                 border.color: "#000000"
                 opacity: 0.6
@@ -210,23 +206,14 @@ Rectangle {
         font.letterSpacing: 2
         z: 10
     }
-    TextField {
-        id: orderrecievedvalidation
-        y: display_distancecustside.y + display_distancecustside.height + 20
-        height: page.height * 0.035
-        width: page.width * 0.4
-        anchors.left: enroute.right
-        anchors.right: enroutevalidation.left
-        placeholderText: "Test Y or N"
-    }
     Image {
+        id: orderrecieved_circle
         y: orderrecieved.y - 5
         height: orderrecieved.height + 10
         width: orderrecieved.height + 10
         anchors.right: parent.right
         anchors.rightMargin: 70
-        source: if (orderrecievedvalidation.text == "Y") {"checkgreen.png"}
-                else if (orderrecievedvalidation.text == "N" || orderrecievedvalidation.text == ""){"checkgrey.png"}
+        source: "checkgreen.png"
     }
     Text {
         id: enroute
@@ -238,22 +225,15 @@ Rectangle {
         font.letterSpacing: 2
         z: 10
     }
-    TextField {
-        id: enroutevalidation
-        y: orderrecieved.y + orderrecieved.height + 20
-        height: page.height * 0.035
-        width: page.width * 0.4
-        anchors.left: enroute.right
-        placeholderText: "Test Y or N"
-    }
     Image {
+        id: enroutevalidation_circle
         y: enroute.y - 5
         height: enroute.height + 10
         width: enroute.height + 10
         anchors.right: parent.right
         anchors.rightMargin: 70
-        source: if (enroutevalidation.text == "Y") {"checkgreen.png"}
-                else if (enroutevalidation.text == "N" || enroutevalidation.text == ""){"checkgrey.png"}
+        source: if (vendor_handler.enroute == 1) {"checkgreen.png"}
+                else {"checkgrey.png"}
     }
     Text {
         id: delivered2
@@ -264,23 +244,14 @@ Rectangle {
         font.family: "Avenir"
         font.letterSpacing: 2
     }
-    TextField {
-        id: deliveredvalidation2
-        y: enroute.y + enroute.height + 20
-        height: page.height * 0.035
-        width: page.width * 0.4
-        anchors.left: enroute.right
-        anchors.right: enroutevalidation.left
-        placeholderText: "Test Y or N"
-    }
     Image {
+        id: deliveredvalidation_circle
         y: delivered2.y - 5
         height: delivered2.height + 10
         width: delivered2.height + 10
         anchors.right: parent.right
         anchors.rightMargin: 70
-        source: if (deliveredvalidation2.text == "Y") {"checkgreen.png"}
-                else if (deliveredvalidation2.text == "N" || deliveredvalidation2.text == ""){"checkgrey.png"}
+        source: "checkgrey.png"
     }
     Button {
         anchors.horizontalCenter: parent.horizontalCenter

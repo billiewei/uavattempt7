@@ -51,26 +51,24 @@ Rectangle {
         // HOME POINT
         MapCircle {
             id: originpoint3
-            radius: if (mapslider1.value < 13) {200}
+            radius: if (mapslider3.value < 13) {200}
                     else {30}
             color: "#3938FF" // Origin Point will be in blue
             border.color: "#000000"
             border.width: 2
             opacity: 0.6
             center {
-                latitude: currentlatitude.text
-                longitude: currentlongitude.text
+                latitude: vendor_handler.latitude
+                longitude: vendor_handler.longitude
             }
         }
         // DRONE POINT
         MapCircle {
             radius:
-                if (map3.zoomLevel > 13) {5}
-                else if (map3.zoomLevel = 13) {20}
-                else if (map3.zoomLevel > 12 & map3.zoomLevel < 13) {200}
-                else if (map3.zoomLevel > 10 & map3.zoomLevel <= 12) {500}
-                else if (map3.zoomLevel > 8 & map3.zoomLevel <= 10) {1000}
-                else {10000}
+                if (mapslider3.value > 13) {5}
+                else if (mapslider3.value = 13) {20}
+                else if (mapslider3.value > 12 & mapslider3.value < 13) {200}
+                else {1000}
             color: "#FF0F47" // Shows drone point in red
             opacity: 0.6
             border.width: 2
