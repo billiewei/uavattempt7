@@ -99,7 +99,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: page.height * 0.2
         visible: percentage.text >= 85 & (vendor_handler.delivery != 0)
-        text: "Proceed"
+        text: "Deliver Now"
         onClicked: {
             battery_status_page.visible = false
             manual_control_page.visible = true

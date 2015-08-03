@@ -135,9 +135,14 @@ ApplicationWindow {
         }
     }
 
+    NetworkPage {
+        id: network_page
+        visible: true
+    }
+
     OpeningPage {
         id: opening_page
-        visible: true
+        visible: false
     }
 
     PaymentPage {

@@ -34,5 +34,6 @@
         <file>ManualControlPage.qml</file>
         <file>images/home.png</file>
         <file>images/person.png</file>
+        <file>NetworkPage.qml</file>
     </qresource>
 </RCC>

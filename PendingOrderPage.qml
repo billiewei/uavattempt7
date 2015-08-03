@@ -92,7 +92,7 @@ Rectangle {
                else if (vendor_handler.delivery == 2) {order2.y + order2.height - 100}
                else if (vendor_handler.delivery == 3) {order3.y + order3.height - 100}
             visible: if (vendor_handler.delivery != 0) {true} else {false}
-            text: "Deliver Order"
+            text: "Review and Deliver Order"
             anchors.leftMargin: 35
             onClicked: {
                 pending_order_page.visible = false
