@@ -16,11 +16,11 @@ Rectangle {
         anchors.topMargin: page.height*.2
         width: page.width*.3
         height: page.width*.3
-        source: "qrc:/images/logo.png"
+        source: "logo.png"
         asynchronous : true
     }
     Text {
-        text: "KEE WAHWAH BAKERY"
+        text: "HARVARD-HKUST\nDRONE DELIVERY"
         anchors.horizontalCenter: parent.horizontalCenter
         y:logo.y + logo.height + 50
         font.family: "Avenir"

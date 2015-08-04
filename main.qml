@@ -12,7 +12,7 @@ import HKUST 1.0
 
 ApplicationWindow {
     id: page
-    title: qsTr("Kee WahWah Bakery")
+    title: qsTr("Drone Delivery Application")
     width: 500
     height: 800
     visible: true
@@ -137,12 +137,12 @@ ApplicationWindow {
 
     NetworkPage {
         id: network_page
-        visible: true
+        visible: false
     }
 
     OpeningPage {
         id: opening_page
-        visible: false
+        visible: true
     }
 
     PaymentPage {

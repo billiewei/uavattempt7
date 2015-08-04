@@ -321,7 +321,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: page.height * 0.14
         visible: true
-        text: "Return to manual control"
+        text: "Manual control"
         width: cancelreturn.width
         onClicked: {
             vendor_track_page.visible = false
@@ -375,6 +375,8 @@ Rectangle {
         visible: if (returned_validation.text == "Y") {false} else {true}
         text: "Cancel Order and Return"
         onClicked: {
+            // ********* Puts drone into return mode ******** //
+            manual_control_handler.setFlightMode(0)
             display_deliverystatus.text = "Returning"
             delivered_validationsign.source == "checkgrey.png"
         }

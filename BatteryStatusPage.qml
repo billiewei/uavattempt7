@@ -102,8 +102,10 @@ Rectangle {
         text: "Deliver Now"
         onClicked: {
             battery_status_page.visible = false
-            manual_control_page.visible = true
+            vendor_track_page.visible = true
             vendor_handler.setEnroute(1)
+            // ********* Puts the drone into delivery mode ******** //
+            manual_control_handler.setFlightMode(6)
         }
     }
     Rectangle {
