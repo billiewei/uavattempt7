@@ -10,8 +10,6 @@ Please follow the steps below if you wish to run, modify, and/or improve upon th
 
 ### Requirements for Running Application Only
 Please note that the tracking and battery features will not work unless you have the UAV set up.
-- Android SDK: https://developer.android.com/sdk/index.html
-- Android NDK: https://developer.android.com/ndk/index.html
 - Qt Creator: http://www.qt.io/download/
 - [MAVLink header files](https://drive.google.com/file/d/0B8rkAqI6SATGRUM4b3RRdE5KbEk/view?usp=sharing)
 
@@ -22,8 +20,6 @@ Please note that the tracking and battery features will not work unless you have
 	- UAV Frame, sensors, batteries, etc.
 	- Firmware Code: https://github.com/13rianK/Firmware
 	- Pixhawk PX4: https://pixhawk.org/choice
-- Optional:
-	- Android Device [Tablet, phone, etc.]
 
 ### Installation
 - Place the MavLink header files into the repository folder.
