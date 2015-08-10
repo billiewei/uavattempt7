@@ -4,7 +4,7 @@ Harvard-HKUST UAV Application
 - Website: http://projects.iq.harvard.edu/h2sp
 - Facebook: https://www.facebook.com/hkustharvard
 
-This repository contains the code for the UAV (unmanned aerial vehicle) control Android application created by the Harvard-HKUST 2015 team. The application was developed using the Qt Creator environment. It tracks the flight path and battery life of a UAV in the process of delivering objects. The application is built on QML, C++, and the [MAVLink Micro Air Vehicle Communication Protocol](http://qgroundcontrol.org/mavlink/start). It can be run on both Windows and Mac systems, and can be deployed to any number of devices ranging from Android to iOS, though we have only done testing on Android.
+This repository contains the code for the UAV (unmanned aerial vehicle) control Android application created by the Harvard-HKUST 2015 team. The application was developed using the Qt Creator environment. It tracks the flight path and battery life of a UAV in the process of delivering objects. The application is built on QML, C++, and the [MAVLink Micro Air Vehicle Communication Protocol](http://qgroundcontrol.org/mavlink/start). It can be run on both Windows and Mac systems. It cannot yet be deployed to Android or iOS devices, since QtSerialPort is not supported.
 
 Please follow the steps below if you wish to run, modify, and/or improve upon the project.
 
@@ -25,6 +25,11 @@ Please note that the tracking and battery features will not work unless you have
 - Optional:
 	- Android Device [Tablet, phone, etc.]
 
-###Installation
+### Installation
+- Place the MavLink header files into the repository folder.
+- Open up the repository in Qt Creator by navigating to the folder and clicking the .pro file.
+- Right click the "Headers" folder and click "Add existing files" to add the MAVLink headers.
+- Hit the green arrow on the bottom-left panel to build the project. It should run on your computer screen.
 
 ### Usage
+- If you have the CP210x USB to UART Bridge VCP Driver connected to your computer, the console should read "Serial port is open now". Otherwise, please make sure that you have the USB Driver Software installed.
